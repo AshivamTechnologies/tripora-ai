@@ -10,6 +10,13 @@ jobs:
   backend-test:
     name: Backend Tests & Build
     runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test
+      CI: true
+      DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/tripora_test?schema=public"
+      JWT_SECRET: "tripora-ci-super-secret-jwt-key-2026-min-32-chars"
+      JWT_REFRESH_SECRET: "tripora-ci-super-secret-refresh-key-2026-min-32"
+      AI_PROVIDER: "MOCK"
 
     steps:
       - name: Checkout repository
@@ -30,7 +37,7 @@ jobs:
 
       - name: Run backend tests
         working-directory: ./backend
-        run: npm test
+        run: npx vitest run --reporter=verbose
 
       - name: Compile backend TypeScript
         working-directory: ./backend
@@ -39,6 +46,9 @@ jobs:
   frontend-build:
     name: Frontend Compilation & Validation
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_API_URL: "https://api.tripora.ai"
+      NEXT_PUBLIC_APP_URL: "https://tripora.ai"
 
     steps:
       - name: Checkout repository
