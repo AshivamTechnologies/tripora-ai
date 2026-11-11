@@ -87,9 +87,9 @@ const DRAWER_ITEMS = [
 ];
 
 const ANNOUNCEMENTS = [
-  '✦ WINTER 2026 DISPATCH: BESPOKE AMAN & BELMOND CURATIONS ACTIVE · 24/7 CONCIERGE',
-  '✦ LIVE FLIGHT RADAR & WEATHER-SYNCED PACKING · KYOTO & ZURICH DESKS ONLINE',
-  '✦ 45,000+ BESPOKE JOURNEYS SYNTHESIZED BY GEMINI 1.5 PRO NEURAL SPATIAL MATRIX',
+  '✦ WINTER 2026 DISPATCH: AMAN & BELMOND CURATIONS ACTIVE · 24/7 CONCIERGE',
+  '✦ LIVE GDS RADAR & WEATHER-SYNCED PACKING · COMPLIMENTARY VOYAGER ACCESS',
+  '✦ 45,000+ BESPOKE JOURNEYS SYNTHESIZED BY GEMINI 1.5 PRO NEURAL MATRIX',
 ];
 
 export function SiteHeader() {
@@ -100,8 +100,6 @@ export function SiteHeader() {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [activeAnnouncement, setActiveAnnouncement] = useState(0);
   const userMenuRef = useRef<HTMLDivElement>(null);
-
-  const isHome = pathname === '/';
 
   // Rotate announcement ribbon
   useEffect(() => {
@@ -143,12 +141,10 @@ export function SiteHeader() {
 
   return (
     <>
-      <header
-        className="fixed top-0 inset-x-0 z-50 select-none bg-[#080E0A]/95 backdrop-blur-2xl border-b border-[#C5A46A]/25 shadow-[0_12px_40px_rgba(0,0,0,0.7)] transition-all duration-300"
-      >
+      <header className="fixed top-0 inset-x-0 z-50 select-none bg-[#080E0A]/95 backdrop-blur-2xl border-b border-[#C5A46A]/25 shadow-[0_12px_40px_rgba(0,0,0,0.7)] transition-all duration-300">
         {/* 1. Ultra-Refined Announcement & Telemetry Ribbon */}
-        <div className="bg-[#050906] text-white py-1.5 px-3 sm:px-6 text-center text-[10px] sm:text-[11px] font-semibold tracking-[0.16em] uppercase border-b border-[#C5A46A]/20">
-          <div className="mx-auto max-w-7xl flex items-center justify-between gap-3 sm:gap-4">
+        <div className="bg-[#050906] text-white py-1.5 px-4 sm:px-6 text-center text-[11px] font-semibold tracking-[0.16em] uppercase border-b border-[#C5A46A]/20">
+          <div className="mx-auto max-w-7xl flex items-center justify-between gap-4">
             {/* Live Telemetry Pill */}
             <div className="hidden md:flex items-center gap-2 text-[#F5D794] shrink-0">
               <span className="relative flex h-2 w-2">
@@ -163,7 +159,7 @@ export function SiteHeader() {
             {/* Rotating Dispatch */}
             <div className="flex-1 flex items-center justify-center gap-2 min-w-0">
               <Sparkles className="h-3 w-3 text-[#F5D794] shrink-0 animate-pulse" />
-              <span className="font-light tracking-[0.12em] text-white/90 whitespace-nowrap overflow-hidden text-ellipsis transition-opacity duration-500">
+              <span className="font-light tracking-[0.14em] text-white/90 whitespace-nowrap overflow-hidden text-ellipsis transition-opacity duration-500">
                 {ANNOUNCEMENTS[activeAnnouncement]}
               </span>
               <Link
@@ -183,7 +179,7 @@ export function SiteHeader() {
         </div>
 
         {/* 2. Haute Horlogerie / Editorial Navigation Bar */}
-        <div className="mx-auto flex h-16 sm:h-18 max-w-7xl items-center justify-between px-3.5 sm:px-6 lg:px-8">
+        <div className="mx-auto flex h-16 sm:h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Brand Mark (Obsidian Crest + Serif Logo + Reserve Badge) */}
           <Link
             href="/"
@@ -203,7 +199,7 @@ export function SiteHeader() {
             </div>
           </Link>
 
-          {/* Center: Primary Navigation Links (Desktop Only, High-Fashion Spacing, 100% Legible) */}
+          {/* Center: Primary Editorial Navigation Links */}
           <nav className="hidden lg:flex items-center gap-6 xl:gap-8" aria-label="Main Navigation">
             {PRIMARY_LINKS.map((link) => {
               const active =
@@ -227,8 +223,8 @@ export function SiteHeader() {
             })}
           </nav>
 
-          {/* Right Actions: Authenticated Menu or Guest CTAs */}
-          <div className="flex items-center gap-2 sm:gap-3.5 shrink-0">
+          {/* Right Actions: Distinct Action Group */}
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             {/* Authenticated State */}
             {!loading && user ? (
               <div className="flex items-center gap-2">
@@ -314,21 +310,19 @@ export function SiteHeader() {
                 </div>
               </div>
             ) : (
-              /* Guest State */
-              <div className="flex items-center gap-2">
-                <Link
-                  href="/auth"
-                  className="whitespace-nowrap text-[10px] sm:text-[11px] font-semibold tracking-[0.16em] uppercase text-white/80 hover:text-[#F5D794] transition-colors px-2.5 sm:px-3 py-1.5 hidden sm:inline"
-                >
-                  Sign In
-                </Link>
-              </div>
+              /* Guest State - Distinct Pill Button */
+              <Link
+                href="/auth"
+                className="hidden sm:inline-flex whitespace-nowrap text-[11px] font-semibold tracking-[0.14em] uppercase text-white/90 hover:text-white bg-white/5 hover:bg-white/15 border border-white/20 hover:border-[#F5D794]/60 px-3.5 py-2 rounded-full transition-all"
+              >
+                Sign In
+              </Link>
             )}
 
-            {/* Primary Action Button (Gold Luxury Pill - Full on Desktop, Compact on Mobile) */}
+            {/* Primary Action Button (Gold Luxury Capsule) */}
             <Link
               href="/planner"
-              className="whitespace-nowrap inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-gradient-to-r from-[#F5D794] via-[#edd9a8] to-[#C5A46A] px-3.5 sm:px-5 py-2 sm:py-2.5 text-[11px] sm:text-xs font-bold text-brand-ink shadow-lg shadow-[#C5A46A]/25 transition-all duration-300 hover:scale-105 hover:shadow-[#C5A46A]/40 shrink-0"
+              className="whitespace-nowrap inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-gradient-to-r from-[#F5D794] via-[#edd9a8] to-[#C5A46A] px-4 sm:px-5 py-2 sm:py-2.5 text-[11px] sm:text-xs font-bold text-brand-ink shadow-md shadow-[#C5A46A]/20 transition-all duration-300 hover:scale-105 hover:shadow-[#C5A46A]/40 shrink-0"
             >
               <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-brand-ink shrink-0 animate-pulse" />
               <span className="hidden sm:inline">Plan Journey</span>
@@ -339,7 +333,7 @@ export function SiteHeader() {
             <button
               type="button"
               onClick={() => setDrawerOpen((prev) => !prev)}
-              className="flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/20 bg-white/10 px-2.5 sm:px-3.5 py-1.5 sm:py-2 text-xs font-semibold uppercase tracking-wider text-white transition-all hover:bg-white/20 hover:border-[#C5A46A]/40"
+              className="flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/20 bg-white/10 px-3 sm:px-3.5 py-1.5 sm:py-2 text-xs font-semibold uppercase tracking-wider text-white transition-all hover:bg-white/20 hover:border-[#C5A46A]/40"
               aria-label={drawerOpen ? 'Close Menu' : 'Open Editorial Directory'}
             >
               <span className="hidden md:inline text-[11px] font-bold tracking-[0.16em] text-white">
