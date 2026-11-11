@@ -3,24 +3,94 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
-import { Menu, Plane, X, Sparkles, User, ShieldCheck, ArrowRight, Compass, Crown, ChevronDown, LogOut, LayoutDashboard, Bookmark, PhoneCall, Globe } from 'lucide-react';
+import {
+  Menu,
+  Plane,
+  X,
+  Sparkles,
+  User,
+  ShieldCheck,
+  ArrowRight,
+  Compass,
+  Crown,
+  ChevronDown,
+  LogOut,
+  LayoutDashboard,
+  Bookmark,
+  PhoneCall,
+  Globe,
+  Headphones,
+  Award,
+} from 'lucide-react';
 import { useAuth } from '@/components/auth/auth-provider';
 import { cn } from '@/lib/utils';
 
-// Primary desktop links: strictly 1-2 words, whitespace-nowrap, no clutter
+// Primary high-fashion desktop links: single-line, uppercase tracking, zero wrap
 const PRIMARY_LINKS = [
-  { href: '/destinations', label: 'Destinations' },
+  { href: '/destinations', label: 'Sanctuaries' },
   { href: '/hotels', label: 'Stays' },
-  { href: '/flights', label: 'Flights' },
+  { href: '/flights', label: 'Aviation' },
   { href: '/planner', label: 'AI Studio' },
   { href: '/guides', label: 'Field Notes' },
   { href: '/pricing', label: 'Privileges' },
 ];
 
+const DRAWER_ITEMS = [
+  {
+    num: '01',
+    href: '/destinations',
+    title: 'Curated Sanctuaries',
+    desc: '120+ handpicked cultural & alpine havens across 6 continents',
+    tag: 'Catalog',
+  },
+  {
+    num: '02',
+    href: '/hotels',
+    title: 'Private Villas & Estates',
+    desc: 'Aman, Belmond & Four Seasons partner properties with Virtuoso perks',
+    tag: '5-Star Stays',
+  },
+  {
+    num: '03',
+    href: '/flights',
+    title: 'Aviation & Lie-Flat Suites',
+    desc: 'Emirates, Singapore Suites & Qatar Qsuite with live GDS fare locks',
+    tag: 'Aviation',
+  },
+  {
+    num: '04',
+    href: '/planner',
+    title: 'The AI Itinerary Studio',
+    desc: 'Neural spatial optimization & paced day-by-day schedules by Gemini 1.5',
+    tag: 'AI Studio',
+  },
+  {
+    num: '05',
+    href: '/guides',
+    title: 'Editorial Field Notes',
+    desc: 'Cultural etiquette, alpine rail loops, and multi-course kaiseki guides',
+    tag: 'Dispatch',
+  },
+  {
+    num: '06',
+    href: '/pricing',
+    title: 'Voyager & Reserve Privileges',
+    desc: 'Bespoke annual memberships, off-market access & private concierge',
+    tag: 'VIP Club',
+  },
+  {
+    num: '07',
+    href: '/trips',
+    title: 'My Curated Expeditions',
+    desc: 'Interactive day timelines, cent-level expense splits & packing matrices',
+    tag: 'Traveler',
+  },
+];
+
 const ANNOUNCEMENTS = [
-  '✦ Winter 2026 AI Release: Live Flight Tracking & Real-Time Weather Sync',
-  '✦ Aman & Belmond Partner Curations Now Live in Tokyo, Kyoto & Amalfi',
-  '✦ 45,000+ Journeys Powered by Gemini 1.5 Pro Neural Routing',
+  '✦ WINTER 2026 RELEASE: LIVE FLIGHT RADAR & WEATHER-SYNCED PACKING · COMPLIMENTARY VOYAGER ACCESS',
+  '✦ AMAN & BELMOND PARTNER CURATIONS NOW ACTIVE IN TOKYO, KYOTO, AMALFI & ZERMATT',
+  '✦ 45,000+ BESPOKE JOURNEYS SYNTHESIZED BY GEMINI 1.5 PRO NEURAL SPATIAL MATRIX',
 ];
 
 export function SiteHeader() {
@@ -36,7 +106,7 @@ export function SiteHeader() {
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveAnnouncement((prev) => (prev + 1) % ANNOUNCEMENTS.length);
-    }, 4500);
+    }, 5000);
     return () => clearInterval(timer);
   }, []);
 
@@ -51,6 +121,18 @@ export function SiteHeader() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
+  // Lock body scroll when drawer is open
+  useEffect(() => {
+    if (drawerOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [drawerOpen]);
+
   async function handleSignOut() {
     setUserMenuOpen(false);
     setDrawerOpen(false);
@@ -60,16 +142,16 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full select-none">
-      {/* 1. Ultra-Luxury Announcement Strip */}
-      <div className="bg-brand-forest text-white py-1.5 px-4 text-center text-[11px] sm:text-xs font-medium border-b border-brand-forest/40 relative overflow-hidden">
+      {/* 1. Ultra-Luxury Announcement Strip (High-Fashion Monocle Style) */}
+      <div className="bg-[#121c15] text-white py-1.5 px-4 text-center text-[10px] sm:text-[11px] font-semibold tracking-[0.14em] uppercase border-b border-brand-gold/25 relative overflow-hidden">
         <div className="mx-auto max-w-7xl flex items-center justify-center gap-2">
           <Sparkles className="h-3 w-3 text-brand-gold shrink-0 animate-pulse" />
-          <span className="font-light tracking-wide whitespace-nowrap overflow-hidden text-ellipsis transition-opacity duration-500">
+          <span className="font-light tracking-[0.12em] whitespace-nowrap overflow-hidden text-ellipsis transition-opacity duration-500">
             {ANNOUNCEMENTS[activeAnnouncement]}
           </span>
           <Link
             href="/planner"
-            className="underline underline-offset-2 font-semibold text-brand-gold hover:text-white transition-colors ml-1 whitespace-nowrap hidden sm:inline"
+            className="underline underline-offset-4 font-bold text-brand-gold hover:text-white transition-colors ml-1 whitespace-nowrap hidden sm:inline tracking-[0.1em]"
           >
             Launch Studio &rarr;
           </Link>
@@ -77,8 +159,8 @@ export function SiteHeader() {
       </div>
 
       {/* 2. Glassmorphic Luxury Navigation Bar */}
-      <div className="border-b border-brand-line/80 bg-white/95 backdrop-blur-xl transition-all shadow-[0_2px_15px_-3px_rgba(0,0,0,0.03)]">
-        <div className="mx-auto flex h-16 xl:h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="border-b border-brand-line/70 bg-white/95 backdrop-blur-xl transition-all shadow-[0_4px_20px_-4px_rgba(0,0,0,0.04)]">
+        <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           
           {/* Brand Logo */}
           <Link
@@ -97,8 +179,8 @@ export function SiteHeader() {
             </span>
           </Link>
 
-          {/* Center: Primary Navigation Links (Spacious, Single Line, No Wrapping) */}
-          <nav className="hidden lg:flex items-center gap-1 xl:gap-2" aria-label="Main Navigation">
+          {/* Center: Primary Navigation Links (High-Fashion Letter Spacing, Single Line) */}
+          <nav className="hidden lg:flex items-center gap-6 xl:gap-8" aria-label="Main Navigation">
             {PRIMARY_LINKS.map((link) => {
               const active = pathname === link.href || (link.href !== '/' && pathname.startsWith(`${link.href}/`));
               return (
@@ -107,10 +189,10 @@ export function SiteHeader() {
                   href={link.href}
                   aria-current={active ? 'page' : undefined}
                   className={cn(
-                    'whitespace-nowrap rounded-full px-3.5 py-1.5 text-[13px] xl:text-sm font-medium transition-all duration-200',
+                    'whitespace-nowrap text-[11px] xl:text-xs font-semibold tracking-[0.14em] uppercase transition-all duration-200 relative py-1.5',
                     active
-                      ? 'bg-brand-forest/10 text-brand-forest font-semibold shadow-xs'
-                      : 'text-brand-muted hover:bg-brand-mist hover:text-brand-ink',
+                      ? 'text-brand-forest font-bold after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-4 after:bg-brand-gold after:rounded-full'
+                      : 'text-brand-muted hover:text-brand-ink',
                   )}
                 >
                   {link.label}
@@ -120,14 +202,14 @@ export function SiteHeader() {
           </nav>
 
           {/* Right Actions: Authenticated Menu or Guest CTAs */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          <div className="flex items-center gap-2.5 sm:gap-4 shrink-0">
             {/* Authenticated State */}
             {!loading && user ? (
               <div className="flex items-center gap-2">
                 <Link
                   href="/trips"
                   className={cn(
-                    'hidden sm:inline-flex whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-semibold transition-colors',
+                    'hidden sm:inline-flex whitespace-nowrap text-[11px] font-semibold tracking-[0.12em] uppercase transition-colors px-3 py-1.5 rounded-full',
                     pathname.startsWith('/trips')
                       ? 'bg-brand-forest/10 text-brand-forest'
                       : 'text-brand-muted hover:text-brand-ink hover:bg-brand-mist'
@@ -141,7 +223,7 @@ export function SiteHeader() {
                   <button
                     type="button"
                     onClick={() => setUserMenuOpen((prev) => !prev)}
-                    className="flex items-center gap-1.5 rounded-full border border-brand-line bg-brand-mist/60 px-3 py-1.5 text-xs font-semibold text-brand-ink transition-all hover:border-brand-sage hover:bg-brand-mist"
+                    className="flex items-center gap-2 rounded-full border border-brand-line bg-brand-mist/60 px-3 py-1.5 text-xs font-semibold text-brand-ink transition-all hover:border-brand-sage hover:bg-brand-mist shadow-2xs"
                   >
                     <div className="h-5 w-5 rounded-full bg-brand-forest text-white flex items-center justify-center text-[10px] font-bold">
                       {(user.profile?.fullName || user.email || 'U')[0].toUpperCase()}
@@ -185,7 +267,7 @@ export function SiteHeader() {
                           className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium text-amber-800 hover:bg-amber-50 transition-colors"
                         >
                           <ShieldCheck className="h-3.5 w-3.5" />
-                          <span>Admin Operations</span>
+                          <span>Admin Portal</span>
                         </Link>
                       </div>
 
@@ -208,122 +290,151 @@ export function SiteHeader() {
               <div className="flex items-center gap-2">
                 <Link
                   href="/auth"
-                  className="whitespace-nowrap rounded-full px-3.5 py-1.5 text-xs font-semibold text-brand-muted hover:text-brand-ink transition-colors hidden sm:inline"
+                  className="whitespace-nowrap text-[11px] font-semibold tracking-[0.14em] uppercase text-brand-muted hover:text-brand-ink transition-colors px-3 py-1.5 hidden sm:inline"
                 >
-                  Sign in
+                  Sign In
                 </Link>
               </div>
             )}
 
-            {/* Primary Action Button */}
+            {/* Primary Action Button (Bespoke Gold Trim) */}
             <Link
               href="/planner"
-              className="whitespace-nowrap inline-flex items-center gap-1.5 rounded-full bg-brand-forest px-4 xl:px-5 py-2 text-xs font-semibold text-white shadow-sm shadow-brand-forest/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#254635] hover:shadow-md shrink-0"
+              className="whitespace-nowrap inline-flex items-center gap-2 rounded-full bg-brand-forest px-4 sm:px-5 py-2.5 text-xs font-semibold text-white shadow-md shadow-brand-forest/20 transition-all duration-300 hover:bg-[#224030] hover:shadow-lg hover:-translate-y-0.5 border border-brand-gold/30 shrink-0"
             >
-              <Sparkles className="h-3.5 w-3.5 text-brand-gold shrink-0" />
+              <Sparkles className="h-3.5 w-3.5 text-brand-gold shrink-0 animate-pulse" />
               <span>Plan Journey</span>
             </Link>
 
-            {/* Editorial Drawer Toggle (Mobile & Desktop) */}
+            {/* Luxury Editorial Drawer Toggle */}
             <button
               type="button"
               onClick={() => setDrawerOpen((prev) => !prev)}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-brand-line text-brand-ink transition-colors hover:bg-brand-mist"
-              aria-label={drawerOpen ? 'Close Menu' : 'Open Directory Menu'}
+              className="flex items-center gap-2 rounded-full border border-brand-line/90 bg-white px-3 sm:px-3.5 py-2 text-xs font-semibold uppercase tracking-wider text-brand-ink transition-all hover:bg-brand-mist hover:border-brand-sage"
+              aria-label={drawerOpen ? 'Close Menu' : 'Open Editorial Directory'}
             >
-              {drawerOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+              <span className="hidden sm:inline text-[11px] font-bold tracking-[0.14em]">Menu</span>
+              {drawerOpen ? (
+                <X className="h-4 w-4 text-brand-ink" />
+              ) : (
+                <div className="flex flex-col gap-1 w-4">
+                  <span className="h-0.5 w-full bg-brand-ink rounded-full" />
+                  <span className="h-0.5 w-3 bg-brand-forest rounded-full" />
+                </div>
+              )}
             </button>
           </div>
         </div>
       </div>
 
-      {/* 3. Luxury Slide-Over Directory Drawer */}
+      {/* 3. Obsidian Dark Ultra-Luxury Editorial Drawer (Aman & Pelorus Standard) */}
       {drawerOpen && (
-        <div className="fixed inset-0 top-[calc(2.25rem+4rem)] sm:top-[calc(2.25rem+4.5rem)] z-40 bg-black/40 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="ml-auto w-full max-w-md h-full bg-white shadow-2xl p-6 sm:p-8 overflow-y-auto flex flex-col justify-between border-l border-brand-line animate-in slide-in-from-right duration-300">
+        <div className="fixed inset-0 top-0 z-50 flex justify-end bg-black/60 backdrop-blur-md animate-in fade-in duration-300">
+          <div className="w-full max-w-xl h-full bg-[#101813] text-white shadow-[-30px_0_60px_rgba(0,0,0,0.6)] p-6 sm:p-10 lg:p-12 overflow-y-auto flex flex-col justify-between border-l border-brand-gold/25 relative animate-in slide-in-from-right duration-400">
+            {/* Ambient Gold Ambient Glow */}
+            <div className="absolute top-0 right-0 -z-10 h-96 w-96 rounded-full bg-brand-gold/10 blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 -z-10 h-72 w-72 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
+
             <div>
-              {/* Drawer Brand Header */}
-              <div className="flex items-center justify-between pb-6 border-b border-brand-line">
+              {/* Drawer Top Bar */}
+              <div className="flex items-center justify-between pb-8 border-b border-white/15">
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-widest text-brand-forest">
-                    The Tripora Directory
+                  <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-brand-gold">
+                    <Crown className="h-3 w-3" />
+                    The Private Directory
                   </span>
-                  <h3 className="font-serif text-2xl text-brand-ink mt-0.5">Explore the Studio</h3>
+                  <h3 className="font-serif text-3xl sm:text-4xl text-white mt-1 tracking-tight">
+                    Editorial Index
+                  </h3>
                 </div>
+
                 <button
                   onClick={() => setDrawerOpen(false)}
-                  className="h-8 w-8 rounded-full flex items-center justify-center bg-brand-mist text-brand-ink hover:bg-brand-line/60"
+                  className="h-10 w-10 rounded-full flex items-center justify-center bg-white/10 text-white hover:bg-white/20 border border-white/20 transition-all hover:scale-105"
+                  aria-label="Close Drawer"
                 >
-                  <X className="h-4 w-4" />
+                  <X className="h-5 w-5" />
                 </button>
               </div>
 
-              {/* Navigation Links Group */}
-              <div className="mt-6 space-y-1">
-                {[
-                  { href: '/destinations', label: 'Curated Sanctuaries', sub: '120+ handpicked world destinations' },
-                  { href: '/hotels', label: 'Luxury Stays & Villas', sub: 'Aman, Belmond & private pool retreats' },
-                  { href: '/flights', label: 'Aviation & Lie-Flat Fares', sub: 'First & Business class multi-carrier GDS' },
-                  { href: '/planner', label: 'AI Itinerary Studio', sub: 'Neural spatial optimization by Gemini 1.5 Pro' },
-                  { href: '/guides', label: 'Field Notes & Dispatches', sub: 'In-depth cultural & rail loop articles' },
-                  { href: '/pricing', label: 'Voyager & Reserve Privileges', sub: 'Bespoke annual memberships & perks' },
-                  { href: '/trips', label: 'My Curated Expeditions', sub: 'Schedules, expense splits & packing matrices' },
-                  { href: '/dashboard', label: 'Traveler Cockpit', sub: 'Upcoming departures & budget management' },
-                  { href: '/about', label: 'Brand Manifesto', sub: 'Our spatial design philosophy' },
-                  { href: '/contact', label: 'Concierge Desk & Hotline', sub: '24/7 aviation & itinerary producers' },
-                ].map((item) => (
+              {/* Navigation Items with Gold Numerals */}
+              <div className="mt-8 space-y-2">
+                {DRAWER_ITEMS.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
                     onClick={() => setDrawerOpen(false)}
-                    className="group block rounded-2xl p-3 transition-colors hover:bg-brand-mist"
+                    className="group flex items-start gap-5 p-3.5 rounded-2xl transition-all duration-200 hover:bg-white/10 hover:translate-x-1"
                   >
-                    <div className="flex items-center justify-between">
-                      <span className="font-serif text-lg text-brand-ink group-hover:text-brand-forest transition-colors">
-                        {item.label}
-                      </span>
-                      <ArrowRight className="h-4 w-4 text-brand-muted transition-transform group-hover:translate-x-1" />
+                    <span className="font-mono text-xs font-semibold text-brand-gold/80 mt-1">
+                      {item.num}
+                    </span>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between">
+                        <span className="font-serif text-xl sm:text-2xl text-white group-hover:text-brand-gold transition-colors">
+                          {item.title}
+                        </span>
+                        <ArrowRight className="h-4 w-4 text-white/40 transition-transform group-hover:translate-x-1 group-hover:text-brand-gold" />
+                      </div>
+                      <p className="text-xs text-white/70 font-light mt-0.5 leading-relaxed">
+                        {item.desc}
+                      </p>
                     </div>
-                    <p className="text-xs text-brand-muted font-light mt-0.5">{item.sub}</p>
                   </Link>
                 ))}
               </div>
             </div>
 
-            {/* Bottom Drawer Actions & Hotline */}
-            <div className="pt-6 border-t border-brand-line mt-6">
-              <div className="rounded-2xl bg-brand-forest p-4 text-white flex items-center justify-between shadow-sm">
+            {/* Bottom Section: 24/7 Concierge Hotline & VIP Status */}
+            <div className="pt-8 border-t border-white/15 mt-8">
+              <div className="rounded-2xl bg-white/10 p-5 backdrop-blur-md border border-white/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-brand-gold">VIP Concierge Desk</p>
-                  <p className="text-xs font-mono font-medium">+1 (800) 874-7672</p>
+                  <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-emerald-400">
+                    <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span>Kyoto & Zurich Desks Online</span>
+                  </div>
+                  <p className="font-serif text-lg text-white mt-0.5">24/7 Aviation & Concierge Desk</p>
+                  <p className="font-mono text-xs text-brand-gold mt-0.5">+1 (800) 874-7672</p>
                 </div>
+
                 <Link
                   href="/contact"
                   onClick={() => setDrawerOpen(false)}
-                  className="rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-brand-forest shadow-xs hover:bg-brand-mist"
+                  className="shrink-0 inline-flex items-center justify-center gap-2 rounded-full bg-brand-gold px-5 py-2.5 text-xs font-bold text-brand-ink shadow-md hover:bg-[#d4b57e] transition-all"
                 >
-                  Hotline &rarr;
+                  <span>Connect Now</span>
+                  <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </div>
 
-              {!loading &&
-                (user ? (
+              {/* User Authentication Status */}
+              <div className="mt-4 flex items-center justify-between text-xs text-white/70">
+                <p>
+                  {user ? (
+                    <span>Signed in as <strong className="text-white font-medium">{user.email}</strong></span>
+                  ) : (
+                    <span>Guest Traveler</span>
+                  )}
+                </p>
+
+                {user ? (
                   <button
                     type="button"
                     onClick={handleSignOut}
-                    className="mt-3 w-full rounded-full border border-brand-line py-2 text-xs font-semibold text-red-600 hover:bg-red-50 transition-colors"
+                    className="text-red-400 hover:text-red-300 transition-colors font-medium"
                   >
-                    Sign Out ({user.email})
+                    Sign Out &rarr;
                   </button>
                 ) : (
                   <Link
                     href="/auth"
                     onClick={() => setDrawerOpen(false)}
-                    className="mt-3 block text-center rounded-full border border-brand-line py-2 text-xs font-semibold text-brand-ink hover:bg-brand-mist transition-colors"
+                    className="text-brand-gold hover:text-white transition-colors font-semibold"
                   >
-                    Sign In / Create Account
+                    Sign In / Register &rarr;
                   </Link>
-                ))}
+                )}
+              </div>
             </div>
           </div>
         </div>
