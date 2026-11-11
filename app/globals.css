@@ -1,9 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
+    --font-sans: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-serif: 'DM Serif Display', Georgia, Cambria, 'Times New Roman', serif;
     --background: 80 20% 97%;
     --foreground: 120 16% 13%;
     --card: 0 0% 100%;
