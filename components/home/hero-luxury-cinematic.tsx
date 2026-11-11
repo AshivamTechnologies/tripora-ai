@@ -88,7 +88,7 @@ export function HeroLuxuryCinematic() {
   }, []);
 
   return (
-    <section className="relative isolate overflow-hidden min-h-[720px] lg:min-h-[820px] flex items-center bg-brand-ink">
+    <section className="relative isolate overflow-hidden min-h-[820px] lg:min-h-screen flex items-center bg-brand-ink">
       {/* Background Images with Crossfade Animation */}
       <AnimatePresence mode="sync">
         <motion.div
@@ -108,13 +108,13 @@ export function HeroLuxuryCinematic() {
       </AnimatePresence>
 
       {/* Cinematic Luxury Vignette & Gradients */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-brand-ink via-brand-ink/40 to-brand-ink/70" />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-brand-ink via-brand-ink/35 to-brand-ink/65" />
       <div className="absolute inset-0 -z-10 bg-radial-[at_center_bottom] from-transparent via-black/20 to-black/60" />
 
       {/* Subtle Gold Shimmer Accent Line on Top */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-brand-gold/60 to-transparent" />
 
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 lg:pt-40 pb-16 sm:pb-20 lg:pb-24">
         <div className="grid lg:grid-cols-[1.25fr_0.75fr] gap-10 lg:gap-12 lg:items-center">
           {/* Left Column: Editorial Headline & Search */}
           <div className="max-w-2xl">

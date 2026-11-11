@@ -87,8 +87,8 @@ const DRAWER_ITEMS = [
 ];
 
 const ANNOUNCEMENTS = [
-  '✦ WINTER 2026 RELEASE: LIVE FLIGHT RADAR & WEATHER-SYNCED PACKING · COMPLIMENTARY VOYAGER ACCESS',
-  '✦ AMAN & BELMOND PARTNER CURATIONS NOW ACTIVE IN TOKYO, KYOTO, AMALFI & ZERMATT',
+  '✦ WINTER 2026 DISPATCH: AMAN & BELMOND CURATIONS ACTIVE · COMPLIMENTARY VOYAGER ACCESS',
+  '✦ LIVE FLIGHT RADAR & WEATHER-SYNCED PACKING · KYOTO & ZURICH DESKS ONLINE',
   '✦ 45,000+ BESPOKE JOURNEYS SYNTHESIZED BY GEMINI 1.5 PRO NEURAL SPATIAL MATRIX',
 ];
 
@@ -99,13 +99,26 @@ export function SiteHeader() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [activeAnnouncement, setActiveAnnouncement] = useState(0);
+  const [scrolled, setScrolled] = useState(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
+
+  const isHome = pathname === '/';
+
+  // Listen to window scroll for dynamic glassmorphic transition
+  useEffect(() => {
+    function handleScroll() {
+      setScrolled(window.scrollY > 20);
+    }
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   // Rotate announcement ribbon
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveAnnouncement((prev) => (prev + 1) % ANNOUNCEMENTS.length);
-    }, 5000);
+    }, 6000);
     return () => clearInterval(timer);
   }, []);
 
@@ -140,58 +153,92 @@ export function SiteHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full select-none">
-      {/* 1. Ultra-Luxury Announcement Strip (Obsidian Dark with Gold Hairline) */}
-      <div className="bg-[#070D09] text-white py-1 px-4 text-center text-[10px] sm:text-[11px] font-semibold tracking-[0.16em] uppercase border-b border-brand-gold/20 relative overflow-hidden">
-        <div className="mx-auto max-w-7xl flex items-center justify-center gap-2">
-          <Sparkles className="h-3 w-3 text-brand-gold shrink-0 animate-pulse" />
-          <span className="font-light tracking-[0.14em] text-white/85 whitespace-nowrap overflow-hidden text-ellipsis transition-opacity duration-500">
-            {ANNOUNCEMENTS[activeAnnouncement]}
-          </span>
-          <Link
-            href="/planner"
-            className="underline underline-offset-4 font-bold text-brand-gold hover:text-white transition-colors ml-1 whitespace-nowrap hidden sm:inline tracking-[0.1em]"
-          >
-            Launch Studio &rarr;
-          </Link>
-        </div>
-      </div>
+    <>
+      <header
+        className={cn(
+          'fixed top-0 inset-x-0 z-50 select-none transition-all duration-300',
+          isHome && !scrolled
+            ? 'bg-gradient-to-b from-black/85 via-black/45 to-transparent border-b border-white/10'
+            : 'bg-[#070D09]/92 backdrop-blur-2xl border-b border-brand-gold/25 shadow-[0_15px_40px_rgba(0,0,0,0.6)]'
+        )}
+      >
+        {/* 1. Ultra-Refined Announcement & Telemetry Ribbon */}
+        <div
+          className={cn(
+            'text-white py-1 px-4 text-center text-[10px] sm:text-[11px] font-semibold tracking-[0.18em] uppercase transition-all duration-300 border-b',
+            isHome && !scrolled
+              ? 'bg-black/30 border-white/10'
+              : 'bg-[#050906] border-brand-gold/20'
+          )}
+        >
+          <div className="mx-auto max-w-7xl flex items-center justify-between gap-4">
+            {/* Live Telemetry Pill */}
+            <div className="hidden md:flex items-center gap-2 text-brand-gold shrink-0">
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-[10px] font-mono tracking-widest text-emerald-300">
+                Kyoto &amp; Zurich Desks Online
+              </span>
+            </div>
 
-      {/* 2. Obsidian Frosted Glass Navigation Bar (Aman & Pelorus Luxury Standard) */}
-      <div className="border-b border-white/10 bg-[#0B130E]/90 backdrop-blur-2xl transition-all shadow-[0_4px_30px_rgba(0,0,0,0.4)]">
+            {/* Rotating Dispatch */}
+            <div className="flex-1 flex items-center justify-center gap-2 min-w-0">
+              <Sparkles className="h-3 w-3 text-brand-gold shrink-0 animate-pulse" />
+              <span className="font-light tracking-[0.14em] text-white/90 whitespace-nowrap overflow-hidden text-ellipsis transition-opacity duration-500">
+                {ANNOUNCEMENTS[activeAnnouncement]}
+              </span>
+              <Link
+                href="/planner"
+                className="underline underline-offset-4 font-bold text-brand-gold hover:text-white transition-colors ml-1 whitespace-nowrap hidden sm:inline tracking-[0.1em]"
+              >
+                Launch Studio &rarr;
+              </Link>
+            </div>
+
+            {/* Global Currency / Region */}
+            <div className="hidden lg:flex items-center gap-2 text-white/60 text-[10px] tracking-wider shrink-0">
+              <Globe className="h-3 w-3 text-brand-gold/80" />
+              <span>GLOBAL EDITION · USD ($)</span>
+            </div>
+          </div>
+        </div>
+
+        {/* 2. Haute Horlogerie / Editorial Navigation Bar */}
         <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          
-          {/* Brand Logo (White Serif + Gold Badge) */}
+          {/* Brand Mark (Obsidian Crest + Serif Logo + Reserve Badge) */}
           <Link
             href="/"
-            className="group flex items-center gap-2.5 shrink-0"
+            className="group flex items-center gap-3 shrink-0"
             onClick={() => setDrawerOpen(false)}
           >
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-forest text-brand-gold border border-brand-gold/40 transition-transform duration-300 group-hover:-rotate-12 shadow-sm shadow-brand-forest/40">
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#1C2C22] to-[#0A120D] text-brand-gold border border-brand-gold/50 shadow-md transition-transform duration-300 group-hover:-rotate-12">
               <Plane className="h-4 w-4" aria-hidden="true" />
             </span>
-            <span className="font-serif text-xl sm:text-2xl tracking-tight text-white">
-              TRIPORA{' '}
-              <span className="font-sans text-[10px] font-bold uppercase tracking-wider text-brand-gold bg-brand-gold/15 px-1.5 py-0.5 rounded-full border border-brand-gold/40">
-                AI
+            <div className="flex items-center gap-2">
+              <span className="font-serif text-xl sm:text-2xl tracking-[0.05em] text-white">
+                TRIPORA
               </span>
-            </span>
+              <span className="font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-brand-gold bg-brand-gold/15 px-2 py-0.5 rounded-full border border-brand-gold/40">
+                RESERVE
+              </span>
+            </div>
           </Link>
 
-          {/* Center: Primary Navigation Links (High-Fashion Letter Spacing, Single Line, Crisp White) */}
+          {/* Center: Primary Navigation Links (Single Line, High-Fashion Spacing, Flawless Contrast) */}
           <nav className="hidden lg:flex items-center gap-6 xl:gap-8" aria-label="Main Navigation">
             {PRIMARY_LINKS.map((link) => {
-              const active = pathname === link.href || (link.href !== '/' && pathname.startsWith(`${link.href}/`));
+              const active =
+                pathname === link.href ||
+                (link.href !== '/' && pathname.startsWith(`${link.href}/`));
               return (
                 <Link
                   key={link.href}
                   href={link.href}
                   aria-current={active ? 'page' : undefined}
                   className={cn(
-                    'whitespace-nowrap text-[11px] xl:text-xs font-semibold tracking-[0.16em] uppercase transition-all duration-200 relative py-1.5',
+                    'whitespace-nowrap text-[11px] xl:text-[12px] font-semibold tracking-[0.18em] uppercase transition-all duration-200 relative py-1.5',
                     active
                       ? 'text-brand-gold font-bold after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-4 after:bg-brand-gold after:rounded-full'
-                      : 'text-white/75 hover:text-white hover:text-brand-gold',
+                      : 'text-white/80 hover:text-white hover:text-brand-gold'
                   )}
                 >
                   {link.label}
@@ -240,7 +287,9 @@ export function SiteHeader() {
                         <p className="text-xs font-bold text-white truncate">
                           {user.profile?.fullName || 'Traveler'}
                         </p>
-                        <p className="text-[11px] text-white/60 truncate font-light">{user.email}</p>
+                        <p className="text-[11px] text-white/60 truncate font-light">
+                          {user.email}
+                        </p>
                       </div>
 
                       <div className="py-1">
@@ -299,7 +348,7 @@ export function SiteHeader() {
             {/* Primary Action Button (Gold Luxury Pill) */}
             <Link
               href="/planner"
-              className="whitespace-nowrap inline-flex items-center gap-2 rounded-full bg-brand-gold px-4 sm:px-5 py-2.5 text-xs font-bold text-brand-ink shadow-lg shadow-brand-gold/20 transition-all duration-300 hover:bg-white hover:text-brand-forest hover:shadow-xl hover:-translate-y-0.5 shrink-0"
+              className="whitespace-nowrap inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-gold via-[#e8d2a0] to-brand-gold px-4 sm:px-5 py-2.5 text-xs font-bold text-brand-ink shadow-lg shadow-brand-gold/25 transition-all duration-300 hover:scale-105 hover:shadow-brand-gold/40 shrink-0"
             >
               <Sparkles className="h-3.5 w-3.5 text-brand-ink shrink-0 animate-pulse" />
               <span>Plan Journey</span>
@@ -312,7 +361,9 @@ export function SiteHeader() {
               className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 sm:px-3.5 py-2 text-xs font-semibold uppercase tracking-wider text-white transition-all hover:bg-white/20 hover:border-brand-gold/40"
               aria-label={drawerOpen ? 'Close Menu' : 'Open Editorial Directory'}
             >
-              <span className="hidden sm:inline text-[11px] font-bold tracking-[0.16em] text-white">Menu</span>
+              <span className="hidden sm:inline text-[11px] font-bold tracking-[0.16em] text-white">
+                Index
+              </span>
               {drawerOpen ? (
                 <X className="h-4 w-4 text-brand-gold" />
               ) : (
@@ -324,12 +375,15 @@ export function SiteHeader() {
             </button>
           </div>
         </div>
-      </div>
+      </header>
+
+      {/* Spacer for non-home pages so content starts smoothly below the fixed header */}
+      {!isHome && <div className="h-24 sm:h-26 w-full" aria-hidden="true" />}
 
       {/* 3. Obsidian Dark Ultra-Luxury Editorial Drawer (Aman & Pelorus Standard) */}
       {drawerOpen && (
-        <div className="fixed inset-0 top-0 z-50 flex justify-end bg-black/70 backdrop-blur-md animate-in fade-in duration-300">
-          <div className="w-full max-w-xl h-full bg-[#0E1511] text-white shadow-[-30px_0_60px_rgba(0,0,0,0.8)] p-6 sm:p-10 lg:p-12 overflow-y-auto flex flex-col justify-between border-l border-brand-gold/30 relative animate-in slide-in-from-right duration-400">
+        <div className="fixed inset-0 top-0 z-50 flex justify-end bg-black/75 backdrop-blur-md animate-in fade-in duration-300">
+          <div className="w-full max-w-xl h-full bg-[#0A120D] text-white shadow-[-30px_0_80px_rgba(0,0,0,0.9)] p-6 sm:p-10 lg:p-12 overflow-y-auto flex flex-col justify-between border-l border-brand-gold/30 relative animate-in slide-in-from-right duration-400">
             {/* Ambient Lighting */}
             <div className="absolute top-0 right-0 -z-10 h-96 w-96 rounded-full bg-brand-gold/10 blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 left-0 -z-10 h-72 w-72 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
@@ -390,9 +444,9 @@ export function SiteHeader() {
                 <div>
                   <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-emerald-400">
                     <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                    <span>Kyoto & Zurich Desks Online</span>
+                    <span>Kyoto &amp; Zurich Desks Online</span>
                   </div>
-                  <p className="font-serif text-lg text-white mt-0.5">24/7 Aviation & Concierge Desk</p>
+                  <p className="font-serif text-lg text-white mt-0.5">24/7 Aviation &amp; Concierge Desk</p>
                   <p className="font-mono text-xs text-brand-gold mt-0.5">+1 (800) 874-7672</p>
                 </div>
 
@@ -410,7 +464,9 @@ export function SiteHeader() {
               <div className="mt-4 flex items-center justify-between text-xs text-white/70">
                 <p>
                   {user ? (
-                    <span>Signed in as <strong className="text-white font-medium">{user.email}</strong></span>
+                    <span>
+                      Signed in as <strong className="text-white font-medium">{user.email}</strong>
+                    </span>
                   ) : (
                     <span>Guest Traveler</span>
                   )}
@@ -438,6 +494,6 @@ export function SiteHeader() {
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }
