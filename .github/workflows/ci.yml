@@ -37,7 +37,7 @@ jobs:
 
       - name: Run backend tests
         working-directory: ./backend
-        run: npx vitest run --reporter=verbose
+        run: npm test -- --reporter=verbose
 
       - name: Compile backend TypeScript
         working-directory: ./backend

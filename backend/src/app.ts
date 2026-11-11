@@ -31,8 +31,10 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
 }));
 
-// Request logger
-app.use(morgan(config.isProduction ? 'combined' : 'dev'));
+// Request logger (disabled during automated tests to avoid noisy output)
+if (config.nodeEnv !== 'test') {
+  app.use(morgan(config.isProduction ? 'combined' : 'dev'));
+}
 
 // Body parsers
 app.use(express.json({ limit: '10mb' }));

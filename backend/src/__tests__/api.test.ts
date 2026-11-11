@@ -13,6 +13,9 @@ describe('TRIPORA AI Backend Integration Tests', () => {
       .post('/api/v1/auth/login')
       .send({ email: 'traveler@tripora.ai', password: 'Password123!' });
 
+    if (res.status !== 200) {
+      console.error('[TEST FATAL] Demo user login failed:', res.status, res.body);
+    }
     expect(res.status).toBe(200);
     expect(res.body.success).toBe(true);
     authToken = res.body.data.tokens.accessToken;
@@ -22,6 +25,9 @@ describe('TRIPORA AI Backend Integration Tests', () => {
       .post('/api/v1/auth/login')
       .send({ email: 'admin@tripora.ai', password: 'Password123!' });
 
+    if (adminRes.status !== 200) {
+      console.error('[TEST FATAL] Admin user login failed:', adminRes.status, adminRes.body);
+    }
     expect(adminRes.status).toBe(200);
     adminToken = adminRes.body.data.tokens.accessToken;
   });
