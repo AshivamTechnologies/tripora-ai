@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
 import {
-  Menu,
   Plane,
   X,
   Sparkles,
@@ -142,11 +141,11 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full select-none">
-      {/* 1. Ultra-Luxury Announcement Strip (High-Fashion Monocle Style) */}
-      <div className="bg-[#121c15] text-white py-1.5 px-4 text-center text-[10px] sm:text-[11px] font-semibold tracking-[0.14em] uppercase border-b border-brand-gold/25 relative overflow-hidden">
+      {/* 1. Ultra-Luxury Announcement Strip (Obsidian Dark with Gold Hairline) */}
+      <div className="bg-[#070D09] text-white py-1 px-4 text-center text-[10px] sm:text-[11px] font-semibold tracking-[0.16em] uppercase border-b border-brand-gold/20 relative overflow-hidden">
         <div className="mx-auto max-w-7xl flex items-center justify-center gap-2">
           <Sparkles className="h-3 w-3 text-brand-gold shrink-0 animate-pulse" />
-          <span className="font-light tracking-[0.12em] whitespace-nowrap overflow-hidden text-ellipsis transition-opacity duration-500">
+          <span className="font-light tracking-[0.14em] text-white/85 whitespace-nowrap overflow-hidden text-ellipsis transition-opacity duration-500">
             {ANNOUNCEMENTS[activeAnnouncement]}
           </span>
           <Link
@@ -158,28 +157,28 @@ export function SiteHeader() {
         </div>
       </div>
 
-      {/* 2. Glassmorphic Luxury Navigation Bar */}
-      <div className="border-b border-brand-line/70 bg-white/95 backdrop-blur-xl transition-all shadow-[0_4px_20px_-4px_rgba(0,0,0,0.04)]">
+      {/* 2. Obsidian Frosted Glass Navigation Bar (Aman & Pelorus Luxury Standard) */}
+      <div className="border-b border-white/10 bg-[#0B130E]/90 backdrop-blur-2xl transition-all shadow-[0_4px_30px_rgba(0,0,0,0.4)]">
         <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           
-          {/* Brand Logo */}
+          {/* Brand Logo (White Serif + Gold Badge) */}
           <Link
             href="/"
             className="group flex items-center gap-2.5 shrink-0"
             onClick={() => setDrawerOpen(false)}
           >
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-forest text-white transition-transform duration-300 group-hover:-rotate-12 shadow-sm shadow-brand-forest/20">
+            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-forest text-brand-gold border border-brand-gold/40 transition-transform duration-300 group-hover:-rotate-12 shadow-sm shadow-brand-forest/40">
               <Plane className="h-4 w-4" aria-hidden="true" />
             </span>
-            <span className="font-serif text-xl sm:text-2xl tracking-tight text-brand-ink">
+            <span className="font-serif text-xl sm:text-2xl tracking-tight text-white">
               TRIPORA{' '}
-              <span className="font-sans text-[10px] font-bold uppercase tracking-wider text-brand-forest bg-brand-forest/10 px-1.5 py-0.5 rounded-full border border-brand-forest/20">
+              <span className="font-sans text-[10px] font-bold uppercase tracking-wider text-brand-gold bg-brand-gold/15 px-1.5 py-0.5 rounded-full border border-brand-gold/40">
                 AI
               </span>
             </span>
           </Link>
 
-          {/* Center: Primary Navigation Links (High-Fashion Letter Spacing, Single Line) */}
+          {/* Center: Primary Navigation Links (High-Fashion Letter Spacing, Single Line, Crisp White) */}
           <nav className="hidden lg:flex items-center gap-6 xl:gap-8" aria-label="Main Navigation">
             {PRIMARY_LINKS.map((link) => {
               const active = pathname === link.href || (link.href !== '/' && pathname.startsWith(`${link.href}/`));
@@ -189,10 +188,10 @@ export function SiteHeader() {
                   href={link.href}
                   aria-current={active ? 'page' : undefined}
                   className={cn(
-                    'whitespace-nowrap text-[11px] xl:text-xs font-semibold tracking-[0.14em] uppercase transition-all duration-200 relative py-1.5',
+                    'whitespace-nowrap text-[11px] xl:text-xs font-semibold tracking-[0.16em] uppercase transition-all duration-200 relative py-1.5',
                     active
-                      ? 'text-brand-forest font-bold after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-4 after:bg-brand-gold after:rounded-full'
-                      : 'text-brand-muted hover:text-brand-ink',
+                      ? 'text-brand-gold font-bold after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-4 after:bg-brand-gold after:rounded-full'
+                      : 'text-white/75 hover:text-white hover:text-brand-gold',
                   )}
                 >
                   {link.label}
@@ -209,10 +208,10 @@ export function SiteHeader() {
                 <Link
                   href="/trips"
                   className={cn(
-                    'hidden sm:inline-flex whitespace-nowrap text-[11px] font-semibold tracking-[0.12em] uppercase transition-colors px-3 py-1.5 rounded-full',
+                    'hidden sm:inline-flex whitespace-nowrap text-[11px] font-semibold tracking-[0.14em] uppercase transition-colors px-3 py-1.5 rounded-full',
                     pathname.startsWith('/trips')
-                      ? 'bg-brand-forest/10 text-brand-forest'
-                      : 'text-brand-muted hover:text-brand-ink hover:bg-brand-mist'
+                      ? 'bg-white/15 text-brand-gold'
+                      : 'text-white/75 hover:text-white hover:bg-white/10'
                   )}
                 >
                   My Trips
@@ -223,59 +222,59 @@ export function SiteHeader() {
                   <button
                     type="button"
                     onClick={() => setUserMenuOpen((prev) => !prev)}
-                    className="flex items-center gap-2 rounded-full border border-brand-line bg-brand-mist/60 px-3 py-1.5 text-xs font-semibold text-brand-ink transition-all hover:border-brand-sage hover:bg-brand-mist shadow-2xs"
+                    className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white transition-all hover:border-brand-gold/60 hover:bg-white/15 shadow-2xs"
                   >
-                    <div className="h-5 w-5 rounded-full bg-brand-forest text-white flex items-center justify-center text-[10px] font-bold">
+                    <div className="h-5 w-5 rounded-full bg-brand-gold text-brand-ink flex items-center justify-center text-[10px] font-bold">
                       {(user.profile?.fullName || user.email || 'U')[0].toUpperCase()}
                     </div>
                     <span className="max-w-[80px] sm:max-w-[110px] truncate hidden md:inline">
                       {user.profile?.fullName || user.email.split('@')[0]}
                     </span>
-                    <ChevronDown className="h-3 w-3 text-brand-muted" />
+                    <ChevronDown className="h-3 w-3 text-white/60" />
                   </button>
 
                   {/* Dropdown Menu */}
                   {userMenuOpen && (
-                    <div className="absolute right-0 mt-2 w-56 rounded-2xl border border-brand-line bg-white p-2 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-150 z-50">
-                      <div className="px-3 py-2 border-b border-brand-line/60">
-                        <p className="text-xs font-bold text-brand-ink truncate">
+                    <div className="absolute right-0 mt-2 w-56 rounded-2xl border border-white/15 bg-[#121c16] text-white p-2 shadow-2xl animate-in fade-in slide-in-from-top-2 duration-150 z-50">
+                      <div className="px-3 py-2 border-b border-white/10">
+                        <p className="text-xs font-bold text-white truncate">
                           {user.profile?.fullName || 'Traveler'}
                         </p>
-                        <p className="text-[11px] text-brand-muted truncate font-light">{user.email}</p>
+                        <p className="text-[11px] text-white/60 truncate font-light">{user.email}</p>
                       </div>
 
                       <div className="py-1">
                         <Link
                           href="/dashboard"
                           onClick={() => setUserMenuOpen(false)}
-                          className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium text-brand-ink hover:bg-brand-mist transition-colors"
+                          className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors"
                         >
-                          <LayoutDashboard className="h-3.5 w-3.5 text-brand-forest" />
+                          <LayoutDashboard className="h-3.5 w-3.5 text-brand-gold" />
                           <span>Traveler Cockpit</span>
                         </Link>
                         <Link
                           href="/trips"
                           onClick={() => setUserMenuOpen(false)}
-                          className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium text-brand-ink hover:bg-brand-mist transition-colors"
+                          className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors"
                         >
-                          <Bookmark className="h-3.5 w-3.5 text-brand-forest" />
+                          <Bookmark className="h-3.5 w-3.5 text-brand-gold" />
                           <span>My Expeditions</span>
                         </Link>
                         <Link
                           href="/admin"
                           onClick={() => setUserMenuOpen(false)}
-                          className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium text-amber-800 hover:bg-amber-50 transition-colors"
+                          className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium text-amber-300 hover:bg-white/10 transition-colors"
                         >
                           <ShieldCheck className="h-3.5 w-3.5" />
                           <span>Admin Portal</span>
                         </Link>
                       </div>
 
-                      <div className="border-t border-brand-line/60 pt-1">
+                      <div className="border-t border-white/10 pt-1">
                         <button
                           type="button"
                           onClick={handleSignOut}
-                          className="w-full flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium text-red-600 hover:bg-red-50 transition-colors text-left"
+                          className="w-full flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium text-red-400 hover:bg-red-950/30 transition-colors text-left"
                         >
                           <LogOut className="h-3.5 w-3.5" />
                           <span>Sign Out</span>
@@ -290,19 +289,19 @@ export function SiteHeader() {
               <div className="flex items-center gap-2">
                 <Link
                   href="/auth"
-                  className="whitespace-nowrap text-[11px] font-semibold tracking-[0.14em] uppercase text-brand-muted hover:text-brand-ink transition-colors px-3 py-1.5 hidden sm:inline"
+                  className="whitespace-nowrap text-[11px] font-semibold tracking-[0.16em] uppercase text-white/80 hover:text-brand-gold transition-colors px-3 py-1.5 hidden sm:inline"
                 >
                   Sign In
                 </Link>
               </div>
             )}
 
-            {/* Primary Action Button (Bespoke Gold Trim) */}
+            {/* Primary Action Button (Gold Luxury Pill) */}
             <Link
               href="/planner"
-              className="whitespace-nowrap inline-flex items-center gap-2 rounded-full bg-brand-forest px-4 sm:px-5 py-2.5 text-xs font-semibold text-white shadow-md shadow-brand-forest/20 transition-all duration-300 hover:bg-[#224030] hover:shadow-lg hover:-translate-y-0.5 border border-brand-gold/30 shrink-0"
+              className="whitespace-nowrap inline-flex items-center gap-2 rounded-full bg-brand-gold px-4 sm:px-5 py-2.5 text-xs font-bold text-brand-ink shadow-lg shadow-brand-gold/20 transition-all duration-300 hover:bg-white hover:text-brand-forest hover:shadow-xl hover:-translate-y-0.5 shrink-0"
             >
-              <Sparkles className="h-3.5 w-3.5 text-brand-gold shrink-0 animate-pulse" />
+              <Sparkles className="h-3.5 w-3.5 text-brand-ink shrink-0 animate-pulse" />
               <span>Plan Journey</span>
             </Link>
 
@@ -310,16 +309,16 @@ export function SiteHeader() {
             <button
               type="button"
               onClick={() => setDrawerOpen((prev) => !prev)}
-              className="flex items-center gap-2 rounded-full border border-brand-line/90 bg-white px-3 sm:px-3.5 py-2 text-xs font-semibold uppercase tracking-wider text-brand-ink transition-all hover:bg-brand-mist hover:border-brand-sage"
+              className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 sm:px-3.5 py-2 text-xs font-semibold uppercase tracking-wider text-white transition-all hover:bg-white/20 hover:border-brand-gold/40"
               aria-label={drawerOpen ? 'Close Menu' : 'Open Editorial Directory'}
             >
-              <span className="hidden sm:inline text-[11px] font-bold tracking-[0.14em]">Menu</span>
+              <span className="hidden sm:inline text-[11px] font-bold tracking-[0.16em] text-white">Menu</span>
               {drawerOpen ? (
-                <X className="h-4 w-4 text-brand-ink" />
+                <X className="h-4 w-4 text-brand-gold" />
               ) : (
                 <div className="flex flex-col gap-1 w-4">
-                  <span className="h-0.5 w-full bg-brand-ink rounded-full" />
-                  <span className="h-0.5 w-3 bg-brand-forest rounded-full" />
+                  <span className="h-0.5 w-full bg-white rounded-full" />
+                  <span className="h-0.5 w-3 bg-brand-gold rounded-full" />
                 </div>
               )}
             </button>
@@ -329,9 +328,9 @@ export function SiteHeader() {
 
       {/* 3. Obsidian Dark Ultra-Luxury Editorial Drawer (Aman & Pelorus Standard) */}
       {drawerOpen && (
-        <div className="fixed inset-0 top-0 z-50 flex justify-end bg-black/60 backdrop-blur-md animate-in fade-in duration-300">
-          <div className="w-full max-w-xl h-full bg-[#101813] text-white shadow-[-30px_0_60px_rgba(0,0,0,0.6)] p-6 sm:p-10 lg:p-12 overflow-y-auto flex flex-col justify-between border-l border-brand-gold/25 relative animate-in slide-in-from-right duration-400">
-            {/* Ambient Gold Ambient Glow */}
+        <div className="fixed inset-0 top-0 z-50 flex justify-end bg-black/70 backdrop-blur-md animate-in fade-in duration-300">
+          <div className="w-full max-w-xl h-full bg-[#0E1511] text-white shadow-[-30px_0_60px_rgba(0,0,0,0.8)] p-6 sm:p-10 lg:p-12 overflow-y-auto flex flex-col justify-between border-l border-brand-gold/30 relative animate-in slide-in-from-right duration-400">
+            {/* Ambient Lighting */}
             <div className="absolute top-0 right-0 -z-10 h-96 w-96 rounded-full bg-brand-gold/10 blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 left-0 -z-10 h-72 w-72 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
 
@@ -400,7 +399,7 @@ export function SiteHeader() {
                 <Link
                   href="/contact"
                   onClick={() => setDrawerOpen(false)}
-                  className="shrink-0 inline-flex items-center justify-center gap-2 rounded-full bg-brand-gold px-5 py-2.5 text-xs font-bold text-brand-ink shadow-md hover:bg-[#d4b57e] transition-all"
+                  className="shrink-0 inline-flex items-center justify-center gap-2 rounded-full bg-brand-gold px-5 py-2.5 text-xs font-bold text-brand-ink shadow-md hover:bg-white transition-all"
                 >
                   <span>Connect Now</span>
                   <ArrowRight className="h-3.5 w-3.5" />
