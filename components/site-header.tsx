@@ -2,18 +2,26 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { Menu, Plane, X, Sparkles, User, ShieldCheck, ArrowRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Menu, Plane, X, Sparkles, User, ShieldCheck, ArrowRight, Compass, Crown } from 'lucide-react';
 import { useAuth } from '@/components/auth/auth-provider';
 import { cn } from '@/lib/utils';
 
 const NAV_LINKS = [
   { href: '/destinations', label: 'Destinations' },
   { href: '/flights', label: 'Flights' },
-  { href: '/hotels', label: 'Hotels' },
+  { href: '/hotels', label: 'Hotels & Villas' },
   { href: '/planner', label: 'AI Planner' },
+  { href: '/guides', label: 'Field Notes' },
+  { href: '/pricing', label: 'Privileges' },
   { href: '/trips', label: 'My Trips' },
   { href: '/dashboard', label: 'Dashboard' },
+];
+
+const ANNOUNCEMENTS = [
+  '✦ Winter 2026 AI Release: Live Flight Tracking & Real-Time Weather Sync',
+  '✦ Aman & Belmond Partner Curations Now Live in Tokyo, Kyoto & Amalfi',
+  '✦ 45,000+ Journeys Powered by Gemini 1.5 Pro Neural Routing',
 ];
 
 export function SiteHeader() {
@@ -21,6 +29,14 @@ export function SiteHeader() {
   const router = useRouter();
   const { user, loading, signOut } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [activeAnnouncement, setActiveAnnouncement] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveAnnouncement((prev) => (prev + 1) % ANNOUNCEMENTS.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, []);
 
   async function handleSignOut() {
     setMenuOpen(false);
@@ -31,19 +47,23 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50">
       {/* 1. Luxury Top Announcement Ribbon */}
-      <div className="bg-brand-forest text-white py-1.5 px-4 text-center text-xs font-medium border-b border-brand-forest/30 flex items-center justify-center gap-2">
-        <Sparkles className="h-3.5 w-3.5 text-brand-gold shrink-0 animate-pulse" />
-        <span>Winter 2026 AI Release: Live Flight Tracking & Forecast-Synced Packing</span>
-        <Link
-          href="/planner"
-          className="underline underline-offset-2 font-semibold text-brand-gold hover:text-white transition-colors ml-1 hidden sm:inline"
-        >
-          Try Demo Studio →
-        </Link>
+      <div className="bg-brand-forest text-white py-1.5 px-4 text-center text-xs font-medium border-b border-brand-forest/40 relative overflow-hidden transition-all">
+        <div className="mx-auto max-w-7xl flex items-center justify-center gap-2">
+          <Sparkles className="h-3.5 w-3.5 text-brand-gold shrink-0 animate-pulse" />
+          <span className="font-light tracking-wide transition-opacity duration-500">
+            {ANNOUNCEMENTS[activeAnnouncement]}
+          </span>
+          <Link
+            href="/planner"
+            className="underline underline-offset-2 font-semibold text-brand-gold hover:text-white transition-colors ml-1 hidden sm:inline"
+          >
+            Launch Studio &rarr;
+          </Link>
+        </div>
       </div>
 
       {/* 2. Glassmorphic Main Navigation */}
-      <div className="border-b border-brand-line/80 bg-white/90 backdrop-blur-xl">
+      <div className="border-b border-brand-line/80 bg-white/90 backdrop-blur-xl transition-all shadow-[0_2px_15px_-3px_rgba(0,0,0,0.03)]">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 sm:px-8">
           {/* Brand Logo */}
           <Link href="/" className="group flex items-center gap-2.5" onClick={() => setMenuOpen(false)}>
@@ -51,12 +71,12 @@ export function SiteHeader() {
               <Plane className="h-4 w-4" aria-hidden="true" />
             </span>
             <span className="font-serif text-xl tracking-tight text-brand-ink">
-              TRIPORA <span className="font-sans text-xs font-bold uppercase tracking-wider text-brand-forest bg-brand-forest/10 px-1.5 py-0.5 rounded-full">AI</span>
+              TRIPORA <span className="font-sans text-[10px] font-bold uppercase tracking-wider text-brand-forest bg-brand-forest/10 px-1.5 py-0.5 rounded-full border border-brand-forest/20">AI</span>
             </span>
           </Link>
 
           {/* Desktop Nav Items */}
-          <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
+          <nav className="hidden items-center gap-0.5 xl:gap-1 lg:flex" aria-label="Main">
             {NAV_LINKS.map((link) => {
               const active = pathname === link.href || (link.href !== '/' && pathname.startsWith(`${link.href}/`));
               return (
@@ -65,9 +85,9 @@ export function SiteHeader() {
                   href={link.href}
                   aria-current={active ? 'page' : undefined}
                   className={cn(
-                    'rounded-full px-3.5 py-1.5 text-sm font-medium transition-all duration-200',
+                    'rounded-full px-3 py-1.5 text-xs xl:text-sm font-medium transition-all duration-200',
                     active
-                      ? 'bg-brand-mist text-brand-forest font-semibold shadow-xs'
+                      ? 'bg-brand-forest/10 text-brand-forest font-semibold shadow-xs'
                       : 'text-brand-muted hover:bg-brand-mist hover:text-brand-ink',
                   )}
                 >
@@ -79,13 +99,13 @@ export function SiteHeader() {
             <Link
               href="/admin"
               className={cn(
-                'flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-wider transition-colors ml-1',
+                'flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-semibold uppercase tracking-wider transition-colors ml-1',
                 pathname.startsWith('/admin')
                   ? 'bg-amber-100 text-amber-900'
                   : 'text-amber-800/80 hover:bg-amber-50 hover:text-amber-900'
               )}
             >
-              <ShieldCheck className="h-3.5 w-3.5" />
+              <ShieldCheck className="h-3 w-3" />
               Admin
             </Link>
 
@@ -94,7 +114,7 @@ export function SiteHeader() {
               className="ml-2 flex items-center gap-1.5 rounded-full bg-brand-forest px-4 py-2 text-xs font-semibold text-white shadow-sm shadow-brand-forest/20 transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#254635] hover:shadow-md"
             >
               <Sparkles className="h-3.5 w-3.5 text-brand-gold" />
-              Plan Trip
+              Plan Journey
             </Link>
 
             {!loading &&
@@ -102,15 +122,15 @@ export function SiteHeader() {
                 <div className="ml-2 flex items-center gap-2">
                   <Link
                     href="/dashboard"
-                    className="flex items-center gap-2 rounded-full border border-brand-line bg-brand-mist px-3 py-1 text-xs font-medium text-brand-ink transition-colors hover:border-brand-sage"
+                    className="flex items-center gap-1.5 rounded-full border border-brand-line bg-brand-mist px-3 py-1 text-xs font-medium text-brand-ink transition-colors hover:border-brand-sage"
                   >
                     <User className="h-3.5 w-3.5 text-brand-forest" />
-                    <span className="max-w-[100px] truncate">{user.profile?.fullName || user.email.split('@')[0]}</span>
+                    <span className="max-w-[90px] truncate">{user.profile?.fullName || user.email.split('@')[0]}</span>
                   </Link>
                   <button
                     type="button"
                     onClick={handleSignOut}
-                    className="rounded-full px-3 py-1 text-xs font-medium text-brand-muted transition-colors hover:bg-brand-mist hover:text-brand-ink"
+                    className="rounded-full px-2.5 py-1 text-xs font-medium text-brand-muted transition-colors hover:bg-brand-mist hover:text-brand-ink"
                   >
                     Sign out
                   </button>
@@ -118,7 +138,7 @@ export function SiteHeader() {
               ) : (
                 <Link
                   href="/auth"
-                  className="ml-2 rounded-full border border-brand-line px-4 py-1.5 text-xs font-semibold text-brand-ink transition-colors hover:bg-brand-mist hover:border-brand-sage"
+                  className="ml-2 rounded-full border border-brand-line px-3.5 py-1.5 text-xs font-semibold text-brand-ink transition-colors hover:bg-brand-mist hover:border-brand-sage"
                 >
                   Sign in
                 </Link>
@@ -167,8 +187,9 @@ export function SiteHeader() {
             <Link
               href="/planner"
               onClick={() => setMenuOpen(false)}
-              className="mt-2 rounded-full bg-brand-forest px-5 py-3 text-center text-base font-semibold text-white shadow-md"
+              className="mt-2 rounded-full bg-brand-forest px-5 py-3 text-center text-base font-semibold text-white shadow-md flex items-center justify-center gap-2"
             >
+              <Sparkles className="h-4 w-4 text-brand-gold" />
               Start AI Planning
             </Link>
             {!loading &&

@@ -1,9 +1,16 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Plane, Search, ArrowRight, CheckCircle2, ShieldCheck, Clock, ExternalLink, Bookmark } from 'lucide-react';
+import { Plane, Search, ArrowRight, CheckCircle2, ShieldCheck, Clock, ExternalLink, Bookmark, Sparkles, Luggage, Utensils, Wifi, Award } from 'lucide-react';
 import { api } from '@/lib/api';
 import { listTrips, TripRecord } from '@/lib/trips';
+
+const CABIN_CLASSES = [
+  { id: 'ECONOMY', label: 'Economy Cabin' },
+  { id: 'PREMIUM_ECONOMY', label: 'Premium Economy' },
+  { id: 'BUSINESS', label: 'Business Lie-Flat' },
+  { id: 'FIRST', label: 'First Class Suites' },
+];
 
 export default function FlightsPage() {
   const [tripType, setTripType] = useState<'round' | 'oneway'>('round');
@@ -11,7 +18,7 @@ export default function FlightsPage() {
   const [destination, setDestination] = useState('DPS');
   const [departureDate, setDepartureDate] = useState('2026-11-20');
   const [returnDate, setReturnDate] = useState('2026-11-27');
-  const [cabinClass, setCabinClass] = useState('ECONOMY');
+  const [cabinClass, setCabinClass] = useState('BUSINESS');
   const [adults, setAdults] = useState(2);
   const [stopsFilter, setStopsFilter] = useState<'ALL' | 'DIRECT' | '1STOP'>('ALL');
 
@@ -82,18 +89,46 @@ export default function FlightsPage() {
   });
 
   return (
-    <div className="min-h-screen bg-brand-mist pb-24 pt-10">
+    <div className="min-h-screen bg-brand-mist/30 pb-28 pt-10">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <div className="max-w-2xl">
-          <p className="text-xs font-semibold uppercase tracking-widest text-brand-forest">Fare Intelligence</p>
-          <h1 className="mt-2 font-serif text-4xl text-brand-ink sm:text-5xl">Flight Search & Comparison</h1>
-          <p className="mt-2 text-sm text-brand-muted">
-            Search multi-carrier routes with live transparent pricing and verified itinerary protection.
-          </p>
+        {/* Luxury Hero Banner */}
+        <div className="relative overflow-hidden rounded-3xl bg-brand-forest px-8 py-14 text-white sm:px-14 sm:py-18 shadow-2xl">
+          <div className="absolute top-0 right-0 -z-10 h-80 w-80 rounded-full bg-brand-gold/15 blur-3xl pointer-events-none" />
+
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-brand-gold mb-3">
+              <Plane className="h-3.5 w-3.5" />
+              Global Aviation & Fare Intelligence
+            </div>
+            <h1 className="text-4xl sm:text-5xl font-serif text-white tracking-tight">
+              Aviation Discovery & Price Lock
+            </h1>
+            <p className="mt-3 text-base text-white/80 font-light leading-relaxed">
+              Real-time GDS multi-carrier fares with transparent pricing, lie-flat seat maps, and instant itinerary syncing.
+            </p>
+          </div>
+
+          {/* Cabin Selector Pills */}
+          <div className="mt-8 flex flex-wrap gap-2">
+            {CABIN_CLASSES.map((c) => (
+              <button
+                key={c.id}
+                onClick={() => setCabinClass(c.id)}
+                className={`rounded-full px-4 py-2 text-xs font-medium transition-all ${
+                  cabinClass === c.id
+                    ? 'bg-white text-brand-forest font-semibold shadow-md'
+                    : 'bg-white/10 text-white/85 hover:bg-white/20 border border-white/15'
+                }`}
+              >
+                {c.label}
+              </button>
+            ))}
+          </div>
         </div>
 
-        {/* Search Box */}
-        <div className="mt-8 rounded-3xl border border-brand-line bg-white p-6 shadow-sm">
+        {/* Search Parameter Card */}
+        <div className="mt-8 rounded-3xl border border-brand-line bg-white p-6 sm:p-8 shadow-sm">
+          {/* Trip Type Radios */}
           <div className="flex gap-4 border-b border-brand-line pb-4 text-xs font-semibold">
             <button
               type="button"
@@ -115,47 +150,60 @@ export default function FlightsPage() {
             </button>
           </div>
 
+          {/* Input Grid */}
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             <div>
-              <label className="text-xs font-semibold text-brand-muted">Origin</label>
+              <label className="text-[11px] font-bold uppercase tracking-wider text-brand-muted">Departure City (IATA)</label>
               <input
                 type="text"
                 value={origin}
                 onChange={(e) => setOrigin(e.target.value.toUpperCase())}
-                placeholder="Airport (e.g. SFO)"
-                className="mt-1 w-full rounded-2xl border border-brand-line bg-brand-mist/50 p-3 text-sm font-semibold text-brand-ink uppercase focus:outline-none focus:border-brand-forest"
+                placeholder="e.g. SFO or JFK"
+                className="mt-1 w-full rounded-2xl border border-brand-line bg-brand-mist/40 p-3.5 text-sm font-semibold text-brand-ink focus:outline-none focus:border-brand-forest focus:ring-1 focus:ring-brand-forest"
               />
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-brand-muted">Destination</label>
+              <label className="text-[11px] font-bold uppercase tracking-wider text-brand-muted">Destination City (IATA)</label>
               <input
                 type="text"
                 value={destination}
                 onChange={(e) => setDestination(e.target.value.toUpperCase())}
-                placeholder="Airport (e.g. DPS)"
-                className="mt-1 w-full rounded-2xl border border-brand-line bg-brand-mist/50 p-3 text-sm font-semibold text-brand-ink uppercase focus:outline-none focus:border-brand-forest"
+                placeholder="e.g. DPS or NRT"
+                className="mt-1 w-full rounded-2xl border border-brand-line bg-brand-mist/40 p-3.5 text-sm font-semibold text-brand-ink focus:outline-none focus:border-brand-forest focus:ring-1 focus:ring-brand-forest"
               />
             </div>
 
             <div>
-              <label className="text-xs font-semibold text-brand-muted">Departure Date</label>
+              <label className="text-[11px] font-bold uppercase tracking-wider text-brand-muted">Outbound Date</label>
               <input
                 type="date"
                 value={departureDate}
                 onChange={(e) => setDepartureDate(e.target.value)}
-                className="mt-1 w-full rounded-2xl border border-brand-line bg-brand-mist/50 p-3 text-sm font-medium text-brand-ink focus:outline-none focus:border-brand-forest"
+                className="mt-1 w-full rounded-2xl border border-brand-line bg-brand-mist/40 p-3.5 text-sm font-medium text-brand-ink focus:outline-none focus:border-brand-forest"
               />
             </div>
 
-            {tripType === 'round' && (
+            {tripType === 'round' ? (
               <div>
-                <label className="text-xs font-semibold text-brand-muted">Return Date</label>
+                <label className="text-[11px] font-bold uppercase tracking-wider text-brand-muted">Return Date</label>
                 <input
                   type="date"
                   value={returnDate}
                   onChange={(e) => setReturnDate(e.target.value)}
-                  className="mt-1 w-full rounded-2xl border border-brand-line bg-brand-mist/50 p-3 text-sm font-medium text-brand-ink focus:outline-none focus:border-brand-forest"
+                  className="mt-1 w-full rounded-2xl border border-brand-line bg-brand-mist/40 p-3.5 text-sm font-medium text-brand-ink focus:outline-none focus:border-brand-forest"
+                />
+              </div>
+            ) : (
+              <div>
+                <label className="text-[11px] font-bold uppercase tracking-wider text-brand-muted">Travelers</label>
+                <input
+                  type="number"
+                  min="1"
+                  max="9"
+                  value={adults}
+                  onChange={(e) => setAdults(parseInt(e.target.value) || 1)}
+                  className="mt-1 w-full rounded-2xl border border-brand-line bg-brand-mist/40 p-3.5 text-sm font-medium text-brand-ink focus:outline-none focus:border-brand-forest"
                 />
               </div>
             )}
@@ -165,22 +213,22 @@ export default function FlightsPage() {
                 type="button"
                 onClick={handleSearch}
                 disabled={loading}
-                className="flex items-center justify-center gap-2 rounded-2xl bg-brand-forest p-3.5 text-sm font-semibold text-white shadow-sm transition-all hover:-translate-y-0.5 hover:bg-[#274a39] hover:shadow-md"
+                className="flex items-center justify-center gap-2 rounded-2xl bg-brand-forest p-3.5 text-sm font-semibold text-white shadow-sm transition-all hover:-translate-y-0.5 hover:bg-[#254635] hover:shadow-md disabled:opacity-50"
               >
                 <Search className="h-4 w-4" />
-                Search Fares
+                <span>{loading ? 'Scanning GDS...' : 'Search Live Fares'}</span>
               </button>
             </div>
           </div>
         </div>
 
-        {/* Results Controls */}
+        {/* Results Controls Bar */}
         <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-xs font-semibold text-brand-muted uppercase">Stops:</span>
+            <span className="text-xs font-semibold text-brand-muted uppercase">Routing:</span>
             <button
               onClick={() => setStopsFilter('ALL')}
-              className={`rounded-full px-3 py-1 text-xs font-semibold ${
+              className={`rounded-full px-3.5 py-1 text-xs font-semibold ${
                 stopsFilter === 'ALL' ? 'bg-brand-forest text-white' : 'bg-white text-brand-muted border border-brand-line'
               }`}
             >
@@ -188,25 +236,25 @@ export default function FlightsPage() {
             </button>
             <button
               onClick={() => setStopsFilter('DIRECT')}
-              className={`rounded-full px-3 py-1 text-xs font-semibold ${
+              className={`rounded-full px-3.5 py-1 text-xs font-semibold ${
                 stopsFilter === 'DIRECT' ? 'bg-brand-forest text-white' : 'bg-white text-brand-muted border border-brand-line'
               }`}
             >
-              Nonstop only
+              Nonstop Only
             </button>
             <button
               onClick={() => setStopsFilter('1STOP')}
-              className={`rounded-full px-3 py-1 text-xs font-semibold ${
+              className={`rounded-full px-3.5 py-1 text-xs font-semibold ${
                 stopsFilter === '1STOP' ? 'bg-brand-forest text-white' : 'bg-white text-brand-muted border border-brand-line'
               }`}
             >
-              Up to 1 stop
+              1 Stop Max
             </button>
           </div>
 
           {trips.length > 0 && (
             <div className="flex items-center gap-2 text-xs">
-              <span className="text-brand-muted">Target trip:</span>
+              <span className="text-brand-muted">Target Itinerary:</span>
               <select
                 value={selectedTripId}
                 onChange={(e) => setSelectedTripId(e.target.value)}
@@ -227,58 +275,73 @@ export default function FlightsPage() {
           {filteredOffers.map((offer) => (
             <div
               key={offer.id}
-              className="flex flex-col justify-between gap-6 rounded-3xl border border-brand-line bg-white p-6 shadow-sm transition-all hover:border-brand-sage sm:flex-row sm:items-center"
+              className="flex flex-col justify-between gap-6 rounded-3xl border border-brand-line bg-white p-6 shadow-sm transition-all hover:border-brand-sage hover:shadow-md sm:flex-row sm:items-center"
             >
-              <div className="flex items-center gap-4">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-brand-mist text-brand-forest font-serif text-lg font-bold">
+              <div className="flex items-center gap-5">
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-brand-forest text-white font-serif text-xl font-bold shadow-sm">
                   {offer.airlineCode || 'AIR'}
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <h3 className="font-serif text-xl text-brand-ink">{offer.airlineName}</h3>
-                    <span className="rounded-full bg-brand-mist px-2.5 py-0.5 text-[11px] font-semibold text-brand-muted">
+                    <h3 className="font-serif text-2xl text-brand-ink">{offer.airlineName}</h3>
+                    <span className="rounded-full bg-brand-mist px-2.5 py-0.5 text-xs font-semibold text-brand-forest border border-brand-line">
                       {offer.flightNumber}
                     </span>
+                    <span className="rounded-full bg-brand-forest/10 px-2.5 py-0.5 text-[11px] font-semibold text-brand-forest">
+                      {offer.cabinClass || cabinClass}
+                    </span>
                   </div>
-                  <p className="mt-1 text-xs text-brand-muted">
+
+                  <p className="mt-1 text-xs text-brand-muted font-medium">
                     {offer.origin} &rarr; {offer.destination} &bull; {offer.baggageInfo}
                   </p>
-                  {offer.stopDetails && (
-                    <p className="mt-1 text-xs font-medium text-amber-700">Stop: {offer.stopDetails}</p>
-                  )}
+
+                  <div className="mt-2 flex flex-wrap items-center gap-3 text-xs text-brand-muted">
+                    <span className="flex items-center gap-1 text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full">
+                      <CheckCircle2 className="h-3 w-3" />
+                      Priority Boarding Included
+                    </span>
+                    <span className="flex items-center gap-1 text-brand-muted">
+                      <Wifi className="h-3 w-3" />
+                      High-Speed Wi-Fi
+                    </span>
+                    {offer.stopDetails && (
+                      <span className="text-amber-700 font-medium">Stop: {offer.stopDetails}</span>
+                    )}
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-6 self-end sm:self-center">
-                <div className="text-right">
-                  <span className="text-xs text-brand-muted uppercase">Roundtrip per person</span>
-                  <p className="font-serif text-3xl text-brand-ink">
-                    ${Math.round(offer.priceMinor / 100).toLocaleString()}{' '}
-                    <span className="text-sm font-sans font-medium text-brand-muted">{offer.currency}</span>
+              {/* Price & Action */}
+              <div className="flex flex-col sm:items-end justify-between border-t border-brand-line pt-4 sm:border-0 sm:pt-0">
+                <div>
+                  <span className="text-xs text-brand-muted">Total Fare (incl. taxes)</span>
+                  <p className="font-serif text-3xl font-bold text-brand-ink">
+                    ${Math.round((offer.priceMinor || 85000) / 100).toLocaleString()}
                   </p>
                 </div>
 
-                <div className="flex flex-col gap-2">
-                  <button
-                    type="button"
-                    onClick={() => handleRevalidateAndBook(offer)}
-                    disabled={revalidatingId === offer.id}
-                    className="flex items-center justify-center gap-1.5 rounded-full bg-brand-forest px-5 py-2.5 text-xs font-semibold text-white shadow-sm transition-all hover:-translate-y-0.5 hover:bg-[#274a39]"
-                  >
-                    {revalidatingId === offer.id ? 'Revalidating Fare...' : 'Book on Airline'}
-                    <ExternalLink className="h-3.5 w-3.5" />
-                  </button>
-
+                <div className="mt-3 flex items-center gap-2">
                   {selectedTripId && (
                     <button
                       type="button"
                       onClick={() => handleSaveToTrip(offer)}
-                      className="flex items-center justify-center gap-1 rounded-full border border-brand-line px-4 py-1.5 text-xs font-medium text-brand-muted transition-colors hover:bg-brand-mist hover:text-brand-ink"
+                      className="rounded-full border border-brand-line px-3.5 py-2 text-xs font-semibold text-brand-ink hover:bg-brand-mist transition-colors flex items-center gap-1.5"
                     >
                       <Bookmark className="h-3.5 w-3.5" />
-                      {savedId === offer.id ? 'Saved to Trip!' : 'Save to Trip'}
+                      {savedId === offer.id ? 'Saved!' : 'Save to Trip'}
                     </button>
                   )}
+
+                  <button
+                    type="button"
+                    onClick={() => handleRevalidateAndBook(offer)}
+                    disabled={revalidatingId === offer.id}
+                    className="flex items-center gap-1.5 rounded-full bg-brand-forest px-5 py-2 text-xs font-semibold text-white shadow-sm hover:bg-[#254635] transition-all hover:shadow-md"
+                  >
+                    <span>{revalidatingId === offer.id ? 'Verifying Seat...' : 'Verify & Book'}</span>
+                    <ExternalLink className="h-3 w-3" />
+                  </button>
                 </div>
               </div>
             </div>

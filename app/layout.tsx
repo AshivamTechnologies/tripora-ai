@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Manrope, DM_Serif_Display } from 'next/font/google';
 import { Toaster } from '@/components/ui/toaster';
 import { SiteHeader } from '@/components/site-header';
+import { SiteFooter } from '@/components/site-footer';
 import { AuthProvider } from '@/components/auth/auth-provider';
 import { AiAssistantWidget } from '@/components/ai-assistant-widget';
 
@@ -33,10 +34,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${manrope.variable} ${dmSerif.variable}`}>
-      <body className="font-sans">
+      <body className="font-sans min-h-screen flex flex-col bg-brand-mist/20">
         <AuthProvider>
           <SiteHeader />
-          <main>{children}</main>
+          <main className="flex-1">{children}</main>
+          <SiteFooter />
           <AiAssistantWidget />
         </AuthProvider>
         <Toaster />

@@ -1,5 +1,6 @@
 import { RequireAuth } from '@/components/auth/require-auth';
 import { PlannerWizard } from '@/components/planner/planner-wizard';
+import { Sparkles, Compass } from 'lucide-react';
 
 type PlannerPageProps = {
   searchParams: { destination?: string };
@@ -12,10 +13,20 @@ export default function PlannerPage({ searchParams }: PlannerPageProps) {
     : '/planner';
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-brand-mist">
-      <div className="mx-auto max-w-6xl px-5 pt-10 sm:px-8 sm:pt-14">
-        <p className="text-sm font-semibold uppercase tracking-[0.16em] text-brand-forest">Trip planner</p>
-        <h1 className="mt-3 text-4xl text-brand-ink sm:text-5xl">Plan your next journey</h1>
+    <div className="min-h-screen bg-brand-mist/30 pb-28 pt-10">
+      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+        <div className="mb-8">
+          <div className="inline-flex items-center gap-2 rounded-full border border-brand-forest/20 bg-brand-forest/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-brand-forest mb-2">
+            <Sparkles className="h-3.5 w-3.5 text-brand-gold" />
+            Bespoke Itinerary Studio &bull; Gemini 1.5 Pro
+          </div>
+          <h1 className="text-4xl sm:text-5xl font-serif text-brand-ink tracking-tight">
+            Curate Your Next Expedition
+          </h1>
+          <p className="mt-2 text-sm text-brand-muted font-light max-w-2xl leading-relaxed">
+            Define your dates, travel tempo, budget, and cultural preferences. Our spatial neural engine will optimize morning, afternoon, and evening slots with realistic walking buffers.
+          </p>
+        </div>
       </div>
       <RequireAuth nextPath={returnPath}>
         <PlannerWizard initialDestination={initialDestination} />
