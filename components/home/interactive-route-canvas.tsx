@@ -138,45 +138,45 @@ export function InteractiveRouteCanvas() {
           className="rounded-3xl border border-brand-line bg-white shadow-2xl overflow-hidden grid lg:grid-cols-[1.1fr_0.9fr]"
         >
           {/* Left: Journey Hero & Meta */}
-          <div className="relative aspect-[4/3] lg:aspect-auto overflow-hidden bg-brand-ink min-h-[380px]">
+          <div className="relative aspect-[4/3] lg:aspect-auto overflow-hidden bg-brand-ink min-h-[360px] sm:min-h-[440px] lg:min-h-full">
             <img
               src={selectedJourney.heroImage}
               alt={selectedJourney.title}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover object-[center_20%] sm:object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/95 via-brand-ink/40 to-transparent" />
 
-            <div className="absolute bottom-0 inset-x-0 p-8 sm:p-10 text-white">
-              <div className="flex flex-wrap items-center gap-2 mb-3">
-                <span className="rounded-full bg-brand-gold px-3 py-1 text-xs font-bold text-brand-ink">
+            <div className="absolute bottom-0 inset-x-0 p-5 sm:p-8 lg:p-10 text-white">
+              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-2 sm:mb-3">
+                <span className="rounded-full bg-[#F5D794] px-2.5 sm:px-3 py-1 text-[11px] sm:text-xs font-bold text-brand-ink">
                   {selectedJourney.durationDays} Days Curated
                 </span>
-                <span className="rounded-full bg-white/20 backdrop-blur-md px-3 py-1 text-xs font-medium text-white">
+                <span className="rounded-full bg-white/20 backdrop-blur-md px-2.5 sm:px-3 py-1 text-[11px] sm:text-xs font-medium text-white">
                   {selectedJourney.region}
                 </span>
-                <span className="rounded-full bg-black/40 backdrop-blur-md px-3 py-1 text-xs font-medium text-emerald-300 flex items-center gap-1">
+                <span className="rounded-full bg-black/40 backdrop-blur-md px-2.5 sm:px-3 py-1 text-[11px] sm:text-xs font-medium text-emerald-300 flex items-center gap-1">
                   <Sun className="h-3 w-3" />
                   {selectedJourney.climate}
                 </span>
               </div>
 
-              <h3 className="text-3xl sm:text-4xl font-serif text-white">{selectedJourney.title}</h3>
-              <p className="mt-2 text-sm sm:text-base text-white/85 max-w-lg leading-relaxed font-light">
+              <h3 className="text-2xl sm:text-4xl font-serif text-white">{selectedJourney.title}</h3>
+              <p className="mt-1.5 sm:mt-2 text-xs sm:text-base text-white/85 max-w-lg leading-relaxed font-light line-clamp-2 sm:line-clamp-none">
                 {selectedJourney.tagline}
               </p>
 
-              <div className="mt-6 flex flex-wrap items-center gap-6 pt-5 border-t border-white/20 text-xs sm:text-sm">
+              <div className="mt-4 sm:mt-6 grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:items-center sm:gap-6 pt-4 sm:pt-5 border-t border-white/20 text-xs sm:text-sm">
                 <div>
-                  <div className="text-white/60 text-xs uppercase font-medium">Estimated Total</div>
-                  <div className="text-lg font-serif font-bold text-white mt-0.5">{selectedJourney.estimatedBudget}</div>
+                  <div className="text-white/60 text-[10px] sm:text-xs uppercase font-medium">Estimated</div>
+                  <div className="text-sm sm:text-lg font-serif font-bold text-white mt-0.5">{selectedJourney.estimatedBudget}</div>
                 </div>
                 <div>
-                  <div className="text-white/60 text-xs uppercase font-medium">Pacing</div>
-                  <div className="text-sm font-semibold text-white mt-0.5">Balanced Luxury</div>
+                  <div className="text-white/60 text-[10px] sm:text-xs uppercase font-medium">Pacing</div>
+                  <div className="text-xs sm:text-sm font-semibold text-white mt-0.5">Balanced Luxury</div>
                 </div>
                 <div>
-                  <div className="text-white/60 text-xs uppercase font-medium">Transit</div>
-                  <div className="text-sm font-semibold text-white mt-0.5">High-Speed Rail & Driver</div>
+                  <div className="text-white/60 text-[10px] sm:text-xs uppercase font-medium">Transit</div>
+                  <div className="text-xs sm:text-sm font-semibold text-white mt-0.5">High-Speed Rail</div>
                 </div>
               </div>
             </div>

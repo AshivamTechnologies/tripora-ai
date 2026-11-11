@@ -88,51 +88,51 @@ export function HeroLuxuryCinematic() {
   }, []);
 
   return (
-    <section className="relative isolate overflow-hidden min-h-[820px] lg:min-h-screen flex items-center bg-brand-ink">
+    <section className="relative isolate overflow-hidden min-h-[640px] sm:min-h-[720px] lg:min-h-screen flex items-center bg-brand-ink">
       {/* Background Images with Crossfade Animation */}
       <AnimatePresence mode="sync">
         <motion.div
           key={current.id}
-          initial={{ opacity: 0, scale: 1.08 }}
+          initial={{ opacity: 0, scale: 1.04 }}
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
           className="absolute inset-0 -z-20 overflow-hidden"
         >
           <img
             src={current.image}
             alt={current.name}
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover object-[center_20%] sm:object-center"
           />
         </motion.div>
       </AnimatePresence>
 
-      {/* Cinematic Luxury Vignette & Gradients */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-brand-ink via-brand-ink/35 to-brand-ink/65" />
-      <div className="absolute inset-0 -z-10 bg-radial-[at_center_bottom] from-transparent via-black/20 to-black/60" />
+      {/* Cinematic Luxury Vignette & Gradients - Enhanced for Razor-Sharp Contrast */}
+      <div className="absolute inset-0 -z-10 bg-gradient-to-t from-brand-ink via-brand-ink/45 to-brand-ink/65" />
+      <div className="absolute inset-0 -z-10 bg-radial-[at_center_bottom] from-transparent via-black/25 to-black/65" />
 
       {/* Subtle Gold Shimmer Accent Line on Top */}
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-brand-gold/60 to-transparent" />
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#C5A46A]/60 to-transparent" />
 
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pt-28 sm:pt-36 lg:pt-40 pb-16 sm:pb-20 lg:pb-24">
-        <div className="grid lg:grid-cols-[1.25fr_0.75fr] gap-10 lg:gap-12 lg:items-center">
+      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-20">
+        <div className="grid lg:grid-cols-[1.25fr_0.75fr] gap-8 lg:gap-12 lg:items-center">
           {/* Left Column: Editorial Headline & Search */}
           <div className="max-w-2xl">
             {/* Interactive Destination Selection Pills */}
-            <div className="flex flex-wrap items-center gap-2 mb-6">
-              <span className="flex items-center gap-1.5 text-xs text-white/90 font-medium mr-2">
+            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 mb-5">
+              <span className="flex items-center gap-1.5 text-xs text-white/90 font-medium mr-1 shrink-0">
                 <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                Live Gemini 1.5 Pro Concierge
+                <span className="hidden xs:inline">Live Concierge</span>
               </span>
-              <div className="flex items-center gap-1.5 bg-black/40 backdrop-blur-md p-1 rounded-full border border-white/20">
+              <div className="flex items-center gap-1.5 bg-black/50 backdrop-blur-md p-1 rounded-full border border-white/20 shrink-0">
                 {SLIDES.map((s, idx) => (
                   <button
                     key={s.id}
                     onClick={() => setCurrentSlideIndex(idx)}
-                    className={`rounded-full px-3 py-1 text-[11px] font-semibold transition-all ${
+                    className={`rounded-full px-3 py-1 text-[11px] font-semibold transition-all whitespace-nowrap ${
                       idx === currentSlideIndex
-                        ? 'bg-brand-gold text-brand-ink shadow-sm'
-                        : 'text-white/70 hover:text-white hover:bg-white/10'
+                        ? 'bg-[#F5D794] text-brand-ink shadow-sm'
+                        : 'text-white/75 hover:text-white hover:bg-white/10'
                     }`}
                   >
                     0{idx + 1} {s.label}
@@ -147,10 +147,10 @@ export function HeroLuxuryCinematic() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
-              className="text-4xl sm:text-6xl lg:text-7xl font-serif text-white tracking-tight leading-[1.08]"
+              className="text-3xl xs:text-4xl sm:text-5xl lg:text-7xl font-serif text-white tracking-tight leading-[1.08]"
             >
               Explore More. <br />
-              <span className="italic font-normal text-brand-gold">Plan Smarter.</span> <br />
+              <span className="italic font-normal text-[#F5D794]">Plan Smarter.</span> <br />
               Travel Better.
             </motion.h1>
 
@@ -160,7 +160,7 @@ export function HeroLuxuryCinematic() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.1 }}
-              className="mt-5 text-base sm:text-lg text-white/90 font-light leading-relaxed max-w-xl"
+              className="mt-4 sm:mt-5 text-sm sm:text-base lg:text-lg text-white/90 font-light leading-relaxed max-w-xl"
             >
               {current.tagline}
             </motion.p>
@@ -170,7 +170,7 @@ export function HeroLuxuryCinematic() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
-              className="mt-8"
+              className="mt-6 sm:mt-8"
             >
               <DestinationSearch />
             </motion.div>

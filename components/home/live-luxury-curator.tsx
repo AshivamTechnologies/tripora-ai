@@ -199,33 +199,33 @@ export function LiveLuxuryCurator() {
           className="rounded-3xl border border-brand-line bg-white shadow-2xl overflow-hidden grid lg:grid-cols-[1fr_1.3fr]"
         >
           {/* Left Column: Visual & Stay Highlights */}
-          <div className="relative aspect-[4/3] lg:aspect-auto overflow-hidden bg-brand-ink min-h-[350px]">
+          <div className="relative aspect-[4/3] lg:aspect-auto overflow-hidden bg-brand-ink min-h-[380px] sm:min-h-[440px] lg:min-h-full">
             <img
               src={current.image}
               alt={current.name}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover object-[center_top] sm:object-center"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-brand-ink via-brand-ink/40 to-transparent" />
 
-            <div className="absolute bottom-0 inset-x-0 p-8 text-white">
-              <span className="text-[10px] font-bold uppercase tracking-widest text-brand-gold">
+            <div className="absolute bottom-0 inset-x-0 p-5 sm:p-8 text-white">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-[#F5D794]">
                 {current.destination}
               </span>
-              <h3 className="text-2xl sm:text-3xl font-serif text-white mt-1">{current.name}</h3>
-              <p className="mt-2 text-xs sm:text-sm text-white/85 leading-relaxed font-light">
+              <h3 className="text-xl sm:text-3xl font-serif text-white mt-1">{current.name}</h3>
+              <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-white/85 leading-relaxed font-light line-clamp-2 sm:line-clamp-none">
                 {current.headline}
               </p>
 
               {/* Stay Preview Card */}
-              <div className="mt-5 p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20">
+              <div className="mt-3.5 sm:mt-5 p-3 sm:p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="flex items-center gap-1.5 font-semibold text-brand-gold">
+                  <span className="flex items-center gap-1.5 font-semibold text-[#F5D794]">
                     <Hotel className="h-3.5 w-3.5" />
                     Recommended Stay
                   </span>
-                  <span className="font-mono text-white/90">{current.stayPrice}</span>
+                  <span className="font-mono text-white/90 text-[11px] sm:text-xs">{current.stayPrice}</span>
                 </div>
-                <div className="text-sm font-serif font-bold text-white mt-1">{current.stayTitle}</div>
+                <div className="text-xs sm:text-sm font-serif font-bold text-white mt-1 truncate">{current.stayTitle}</div>
               </div>
             </div>
           </div>

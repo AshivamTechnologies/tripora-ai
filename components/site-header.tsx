@@ -87,7 +87,7 @@ const DRAWER_ITEMS = [
 ];
 
 const ANNOUNCEMENTS = [
-  '✦ WINTER 2026 DISPATCH: AMAN & BELMOND CURATIONS ACTIVE · COMPLIMENTARY VOYAGER ACCESS',
+  '✦ WINTER 2026 DISPATCH: BESPOKE AMAN & BELMOND CURATIONS ACTIVE · 24/7 CONCIERGE',
   '✦ LIVE FLIGHT RADAR & WEATHER-SYNCED PACKING · KYOTO & ZURICH DESKS ONLINE',
   '✦ 45,000+ BESPOKE JOURNEYS SYNTHESIZED BY GEMINI 1.5 PRO NEURAL SPATIAL MATRIX',
 ];
@@ -99,20 +99,9 @@ export function SiteHeader() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [activeAnnouncement, setActiveAnnouncement] = useState(0);
-  const [scrolled, setScrolled] = useState(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
 
   const isHome = pathname === '/';
-
-  // Listen to window scroll for dynamic glassmorphic transition
-  useEffect(() => {
-    function handleScroll() {
-      setScrolled(window.scrollY > 20);
-    }
-    handleScroll();
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Rotate announcement ribbon
   useEffect(() => {
@@ -155,26 +144,17 @@ export function SiteHeader() {
   return (
     <>
       <header
-        className={cn(
-          'fixed top-0 inset-x-0 z-50 select-none transition-all duration-300',
-          isHome && !scrolled
-            ? 'bg-gradient-to-b from-black/85 via-black/45 to-transparent border-b border-white/10'
-            : 'bg-[#070D09]/92 backdrop-blur-2xl border-b border-brand-gold/25 shadow-[0_15px_40px_rgba(0,0,0,0.6)]'
-        )}
+        className="fixed top-0 inset-x-0 z-50 select-none bg-[#080E0A]/95 backdrop-blur-2xl border-b border-[#C5A46A]/25 shadow-[0_12px_40px_rgba(0,0,0,0.7)] transition-all duration-300"
       >
         {/* 1. Ultra-Refined Announcement & Telemetry Ribbon */}
-        <div
-          className={cn(
-            'text-white py-1 px-4 text-center text-[10px] sm:text-[11px] font-semibold tracking-[0.18em] uppercase transition-all duration-300 border-b',
-            isHome && !scrolled
-              ? 'bg-black/30 border-white/10'
-              : 'bg-[#050906] border-brand-gold/20'
-          )}
-        >
-          <div className="mx-auto max-w-7xl flex items-center justify-between gap-4">
+        <div className="bg-[#050906] text-white py-1.5 px-3 sm:px-6 text-center text-[10px] sm:text-[11px] font-semibold tracking-[0.16em] uppercase border-b border-[#C5A46A]/20">
+          <div className="mx-auto max-w-7xl flex items-center justify-between gap-3 sm:gap-4">
             {/* Live Telemetry Pill */}
-            <div className="hidden md:flex items-center gap-2 text-brand-gold shrink-0">
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            <div className="hidden md:flex items-center gap-2 text-[#F5D794] shrink-0">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
+              </span>
               <span className="text-[10px] font-mono tracking-widest text-emerald-300">
                 Kyoto &amp; Zurich Desks Online
               </span>
@@ -182,48 +162,48 @@ export function SiteHeader() {
 
             {/* Rotating Dispatch */}
             <div className="flex-1 flex items-center justify-center gap-2 min-w-0">
-              <Sparkles className="h-3 w-3 text-brand-gold shrink-0 animate-pulse" />
-              <span className="font-light tracking-[0.14em] text-white/90 whitespace-nowrap overflow-hidden text-ellipsis transition-opacity duration-500">
+              <Sparkles className="h-3 w-3 text-[#F5D794] shrink-0 animate-pulse" />
+              <span className="font-light tracking-[0.12em] text-white/90 whitespace-nowrap overflow-hidden text-ellipsis transition-opacity duration-500">
                 {ANNOUNCEMENTS[activeAnnouncement]}
               </span>
               <Link
                 href="/planner"
-                className="underline underline-offset-4 font-bold text-brand-gold hover:text-white transition-colors ml-1 whitespace-nowrap hidden sm:inline tracking-[0.1em]"
+                className="underline underline-offset-4 font-bold text-[#F5D794] hover:text-white transition-colors ml-1 whitespace-nowrap hidden sm:inline tracking-[0.1em]"
               >
                 Launch Studio &rarr;
               </Link>
             </div>
 
             {/* Global Currency / Region */}
-            <div className="hidden lg:flex items-center gap-2 text-white/60 text-[10px] tracking-wider shrink-0">
-              <Globe className="h-3 w-3 text-brand-gold/80" />
+            <div className="hidden lg:flex items-center gap-2 text-white/70 text-[10px] tracking-wider shrink-0 font-mono">
+              <Globe className="h-3 w-3 text-[#F5D794]" />
               <span>GLOBAL EDITION · USD ($)</span>
             </div>
           </div>
         </div>
 
         {/* 2. Haute Horlogerie / Editorial Navigation Bar */}
-        <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex h-16 sm:h-18 max-w-7xl items-center justify-between px-3.5 sm:px-6 lg:px-8">
           {/* Brand Mark (Obsidian Crest + Serif Logo + Reserve Badge) */}
           <Link
             href="/"
-            className="group flex items-center gap-3 shrink-0"
+            className="group flex items-center gap-2.5 sm:gap-3 shrink-0"
             onClick={() => setDrawerOpen(false)}
           >
-            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#1C2C22] to-[#0A120D] text-brand-gold border border-brand-gold/50 shadow-md transition-transform duration-300 group-hover:-rotate-12">
-              <Plane className="h-4 w-4" aria-hidden="true" />
+            <span className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#1C2C22] to-[#0A120D] text-[#F5D794] border border-[#C5A46A]/50 shadow-md transition-transform duration-300 group-hover:-rotate-12">
+              <Plane className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden="true" />
             </span>
-            <div className="flex items-center gap-2">
-              <span className="font-serif text-xl sm:text-2xl tracking-[0.05em] text-white">
+            <div className="flex items-center gap-1.5 sm:gap-2">
+              <span className="font-serif text-lg sm:text-2xl tracking-[0.05em] text-white font-normal">
                 TRIPORA
               </span>
-              <span className="font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-brand-gold bg-brand-gold/15 px-2 py-0.5 rounded-full border border-brand-gold/40">
+              <span className="font-mono text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.18em] text-[#F5D794] bg-[#F5D794]/15 px-1.5 sm:px-2 py-0.5 rounded-full border border-[#C5A46A]/40">
                 RESERVE
               </span>
             </div>
           </Link>
 
-          {/* Center: Primary Navigation Links (Single Line, High-Fashion Spacing, Flawless Contrast) */}
+          {/* Center: Primary Navigation Links (Desktop Only, High-Fashion Spacing, 100% Legible) */}
           <nav className="hidden lg:flex items-center gap-6 xl:gap-8" aria-label="Main Navigation">
             {PRIMARY_LINKS.map((link) => {
               const active =
@@ -237,8 +217,8 @@ export function SiteHeader() {
                   className={cn(
                     'whitespace-nowrap text-[11px] xl:text-[12px] font-semibold tracking-[0.18em] uppercase transition-all duration-200 relative py-1.5',
                     active
-                      ? 'text-brand-gold font-bold after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-4 after:bg-brand-gold after:rounded-full'
-                      : 'text-white/80 hover:text-white hover:text-brand-gold'
+                      ? 'text-[#F5D794] font-bold after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-4 after:bg-[#F5D794] after:rounded-full'
+                      : 'text-white/80 hover:text-white hover:text-[#F5D794]'
                   )}
                 >
                   {link.label}
@@ -248,16 +228,16 @@ export function SiteHeader() {
           </nav>
 
           {/* Right Actions: Authenticated Menu or Guest CTAs */}
-          <div className="flex items-center gap-2.5 sm:gap-4 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3.5 shrink-0">
             {/* Authenticated State */}
             {!loading && user ? (
               <div className="flex items-center gap-2">
                 <Link
                   href="/trips"
                   className={cn(
-                    'hidden sm:inline-flex whitespace-nowrap text-[11px] font-semibold tracking-[0.14em] uppercase transition-colors px-3 py-1.5 rounded-full',
+                    'hidden md:inline-flex whitespace-nowrap text-[11px] font-semibold tracking-[0.14em] uppercase transition-colors px-3 py-1.5 rounded-full',
                     pathname.startsWith('/trips')
-                      ? 'bg-white/15 text-brand-gold'
+                      ? 'bg-white/15 text-[#F5D794]'
                       : 'text-white/75 hover:text-white hover:bg-white/10'
                   )}
                 >
@@ -269,12 +249,12 @@ export function SiteHeader() {
                   <button
                     type="button"
                     onClick={() => setUserMenuOpen((prev) => !prev)}
-                    className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white transition-all hover:border-brand-gold/60 hover:bg-white/15 shadow-2xs"
+                    className="flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/20 bg-white/10 px-2.5 sm:px-3 py-1.5 text-xs font-semibold text-white transition-all hover:border-[#C5A46A]/60 hover:bg-white/15 shadow-2xs"
                   >
-                    <div className="h-5 w-5 rounded-full bg-brand-gold text-brand-ink flex items-center justify-center text-[10px] font-bold">
+                    <div className="h-5 w-5 rounded-full bg-[#F5D794] text-brand-ink flex items-center justify-center text-[10px] font-bold">
                       {(user.profile?.fullName || user.email || 'U')[0].toUpperCase()}
                     </div>
-                    <span className="max-w-[80px] sm:max-w-[110px] truncate hidden md:inline">
+                    <span className="max-w-[70px] sm:max-w-[100px] truncate hidden md:inline text-[11px]">
                       {user.profile?.fullName || user.email.split('@')[0]}
                     </span>
                     <ChevronDown className="h-3 w-3 text-white/60" />
@@ -298,7 +278,7 @@ export function SiteHeader() {
                           onClick={() => setUserMenuOpen(false)}
                           className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors"
                         >
-                          <LayoutDashboard className="h-3.5 w-3.5 text-brand-gold" />
+                          <LayoutDashboard className="h-3.5 w-3.5 text-[#F5D794]" />
                           <span>Traveler Cockpit</span>
                         </Link>
                         <Link
@@ -306,7 +286,7 @@ export function SiteHeader() {
                           onClick={() => setUserMenuOpen(false)}
                           className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium text-white/80 hover:text-white hover:bg-white/10 transition-colors"
                         >
-                          <Bookmark className="h-3.5 w-3.5 text-brand-gold" />
+                          <Bookmark className="h-3.5 w-3.5 text-[#F5D794]" />
                           <span>My Expeditions</span>
                         </Link>
                         <Link
@@ -338,38 +318,39 @@ export function SiteHeader() {
               <div className="flex items-center gap-2">
                 <Link
                   href="/auth"
-                  className="whitespace-nowrap text-[11px] font-semibold tracking-[0.16em] uppercase text-white/80 hover:text-brand-gold transition-colors px-3 py-1.5 hidden sm:inline"
+                  className="whitespace-nowrap text-[10px] sm:text-[11px] font-semibold tracking-[0.16em] uppercase text-white/80 hover:text-[#F5D794] transition-colors px-2.5 sm:px-3 py-1.5 hidden sm:inline"
                 >
                   Sign In
                 </Link>
               </div>
             )}
 
-            {/* Primary Action Button (Gold Luxury Pill) */}
+            {/* Primary Action Button (Gold Luxury Pill - Adaptive on Mobile) */}
             <Link
               href="/planner"
-              className="whitespace-nowrap inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-gold via-[#e8d2a0] to-brand-gold px-4 sm:px-5 py-2.5 text-xs font-bold text-brand-ink shadow-lg shadow-brand-gold/25 transition-all duration-300 hover:scale-105 hover:shadow-brand-gold/40 shrink-0"
+              className="whitespace-nowrap inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-gradient-to-r from-[#F5D794] via-[#edd9a8] to-[#C5A46A] px-3.5 sm:px-5 py-2 sm:py-2.5 text-[11px] sm:text-xs font-bold text-brand-ink shadow-lg shadow-[#C5A46A]/25 transition-all duration-300 hover:scale-105 hover:shadow-[#C5A46A]/40 shrink-0"
             >
-              <Sparkles className="h-3.5 w-3.5 text-brand-ink shrink-0 animate-pulse" />
-              <span>Plan Journey</span>
+              <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-brand-ink shrink-0 animate-pulse" />
+              <span className="hidden xs:inline">Plan Journey</span>
+              <span className="xs:hidden">Plan</span>
             </Link>
 
             {/* Luxury Editorial Drawer Toggle */}
             <button
               type="button"
               onClick={() => setDrawerOpen((prev) => !prev)}
-              className="flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 sm:px-3.5 py-2 text-xs font-semibold uppercase tracking-wider text-white transition-all hover:bg-white/20 hover:border-brand-gold/40"
+              className="flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/20 bg-white/10 px-2.5 sm:px-3.5 py-1.5 sm:py-2 text-xs font-semibold uppercase tracking-wider text-white transition-all hover:bg-white/20 hover:border-[#C5A46A]/40"
               aria-label={drawerOpen ? 'Close Menu' : 'Open Editorial Directory'}
             >
-              <span className="hidden sm:inline text-[11px] font-bold tracking-[0.16em] text-white">
+              <span className="hidden md:inline text-[11px] font-bold tracking-[0.16em] text-white">
                 Index
               </span>
               {drawerOpen ? (
-                <X className="h-4 w-4 text-brand-gold" />
+                <X className="h-4 w-4 text-[#F5D794]" />
               ) : (
-                <div className="flex flex-col gap-1 w-4">
+                <div className="flex flex-col gap-1 w-3.5 sm:w-4">
                   <span className="h-0.5 w-full bg-white rounded-full" />
-                  <span className="h-0.5 w-3 bg-brand-gold rounded-full" />
+                  <span className="h-0.5 w-2.5 sm:w-3 bg-[#F5D794] rounded-full" />
                 </div>
               )}
             </button>
@@ -377,59 +358,59 @@ export function SiteHeader() {
         </div>
       </header>
 
-      {/* Spacer for non-home pages so content starts smoothly below the fixed header */}
-      {!isHome && <div className="h-24 sm:h-26 w-full" aria-hidden="true" />}
+      {/* Spacer for all pages so content starts smoothly below the fixed header */}
+      <div className="h-24 sm:h-26 w-full" aria-hidden="true" />
 
       {/* 3. Obsidian Dark Ultra-Luxury Editorial Drawer (Aman & Pelorus Standard) */}
       {drawerOpen && (
         <div className="fixed inset-0 top-0 z-50 flex justify-end bg-black/75 backdrop-blur-md animate-in fade-in duration-300">
-          <div className="w-full max-w-xl h-full bg-[#0A120D] text-white shadow-[-30px_0_80px_rgba(0,0,0,0.9)] p-6 sm:p-10 lg:p-12 overflow-y-auto flex flex-col justify-between border-l border-brand-gold/30 relative animate-in slide-in-from-right duration-400">
+          <div className="w-full max-w-lg h-full bg-[#0A120D] text-white shadow-[-30px_0_80px_rgba(0,0,0,0.9)] p-6 sm:p-10 overflow-y-auto flex flex-col justify-between border-l border-[#C5A46A]/30 relative animate-in slide-in-from-right duration-400">
             {/* Ambient Lighting */}
-            <div className="absolute top-0 right-0 -z-10 h-96 w-96 rounded-full bg-brand-gold/10 blur-3xl pointer-events-none" />
+            <div className="absolute top-0 right-0 -z-10 h-96 w-96 rounded-full bg-[#C5A46A]/10 blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 left-0 -z-10 h-72 w-72 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
 
             <div>
               {/* Drawer Top Bar */}
-              <div className="flex items-center justify-between pb-8 border-b border-white/15">
+              <div className="flex items-center justify-between pb-6 sm:pb-8 border-b border-white/15">
                 <div>
-                  <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-brand-gold">
+                  <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.2em] text-[#F5D794]">
                     <Crown className="h-3 w-3" />
                     The Private Directory
                   </span>
-                  <h3 className="font-serif text-3xl sm:text-4xl text-white mt-1 tracking-tight">
+                  <h3 className="font-serif text-2xl sm:text-4xl text-white mt-1 tracking-tight">
                     Editorial Index
                   </h3>
                 </div>
 
                 <button
                   onClick={() => setDrawerOpen(false)}
-                  className="h-10 w-10 rounded-full flex items-center justify-center bg-white/10 text-white hover:bg-white/20 border border-white/20 transition-all hover:scale-105"
+                  className="h-9 w-9 sm:h-10 sm:w-10 rounded-full flex items-center justify-center bg-white/10 text-white hover:bg-white/20 border border-white/20 transition-all hover:scale-105"
                   aria-label="Close Drawer"
                 >
-                  <X className="h-5 w-5" />
+                  <X className="h-4 w-4 sm:h-5 sm:w-5" />
                 </button>
               </div>
 
               {/* Navigation Items with Gold Numerals */}
-              <div className="mt-8 space-y-2">
+              <div className="mt-6 sm:mt-8 space-y-1.5 sm:space-y-2">
                 {DRAWER_ITEMS.map((item) => (
                   <Link
                     key={item.href}
                     href={item.href}
                     onClick={() => setDrawerOpen(false)}
-                    className="group flex items-start gap-5 p-3.5 rounded-2xl transition-all duration-200 hover:bg-white/10 hover:translate-x-1"
+                    className="group flex items-start gap-4 p-3 rounded-2xl transition-all duration-200 hover:bg-white/10 hover:translate-x-1"
                   >
-                    <span className="font-mono text-xs font-semibold text-brand-gold/80 mt-1">
+                    <span className="font-mono text-xs font-semibold text-[#F5D794] mt-1">
                       {item.num}
                     </span>
                     <div className="flex-1">
                       <div className="flex items-center justify-between">
-                        <span className="font-serif text-xl sm:text-2xl text-white group-hover:text-brand-gold transition-colors">
+                        <span className="font-serif text-lg sm:text-xl text-white group-hover:text-[#F5D794] transition-colors">
                           {item.title}
                         </span>
-                        <ArrowRight className="h-4 w-4 text-white/40 transition-transform group-hover:translate-x-1 group-hover:text-brand-gold" />
+                        <ArrowRight className="h-3.5 w-3.5 text-white/40 transition-transform group-hover:translate-x-1 group-hover:text-[#F5D794]" />
                       </div>
-                      <p className="text-xs text-white/70 font-light mt-0.5 leading-relaxed">
+                      <p className="text-xs text-white/70 font-light mt-0.5 leading-relaxed line-clamp-2 sm:line-clamp-none">
                         {item.desc}
                       </p>
                     </div>
@@ -439,21 +420,21 @@ export function SiteHeader() {
             </div>
 
             {/* Bottom Section: 24/7 Concierge Hotline & VIP Status */}
-            <div className="pt-8 border-t border-white/15 mt-8">
-              <div className="rounded-2xl bg-white/10 p-5 backdrop-blur-md border border-white/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="pt-6 sm:pt-8 border-t border-white/15 mt-6 sm:mt-8">
+              <div className="rounded-2xl bg-white/10 p-4 sm:p-5 backdrop-blur-md border border-white/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
                 <div>
                   <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-emerald-400">
                     <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
                     <span>Kyoto &amp; Zurich Desks Online</span>
                   </div>
-                  <p className="font-serif text-lg text-white mt-0.5">24/7 Aviation &amp; Concierge Desk</p>
-                  <p className="font-mono text-xs text-brand-gold mt-0.5">+1 (800) 874-7672</p>
+                  <p className="font-serif text-base sm:text-lg text-white mt-0.5">24/7 Aviation &amp; Concierge Desk</p>
+                  <p className="font-mono text-xs text-[#F5D794] mt-0.5 font-bold">+1 (800) 874-7672</p>
                 </div>
 
                 <Link
                   href="/contact"
                   onClick={() => setDrawerOpen(false)}
-                  className="shrink-0 inline-flex items-center justify-center gap-2 rounded-full bg-brand-gold px-5 py-2.5 text-xs font-bold text-brand-ink shadow-md hover:bg-white transition-all"
+                  className="shrink-0 inline-flex items-center justify-center gap-2 rounded-full bg-[#F5D794] px-4 sm:px-5 py-2 sm:py-2.5 text-xs font-bold text-brand-ink shadow-md hover:bg-white transition-all"
                 >
                   <span>Connect Now</span>
                   <ArrowRight className="h-3.5 w-3.5" />
@@ -462,10 +443,10 @@ export function SiteHeader() {
 
               {/* User Authentication Status */}
               <div className="mt-4 flex items-center justify-between text-xs text-white/70">
-                <p>
+                <p className="truncate mr-2">
                   {user ? (
                     <span>
-                      Signed in as <strong className="text-white font-medium">{user.email}</strong>
+                      Signed in: <strong className="text-white font-medium">{user.email}</strong>
                     </span>
                   ) : (
                     <span>Guest Traveler</span>
@@ -476,7 +457,7 @@ export function SiteHeader() {
                   <button
                     type="button"
                     onClick={handleSignOut}
-                    className="text-red-400 hover:text-red-300 transition-colors font-medium"
+                    className="text-red-400 hover:text-red-300 transition-colors font-medium shrink-0"
                   >
                     Sign Out &rarr;
                   </button>
@@ -484,9 +465,9 @@ export function SiteHeader() {
                   <Link
                     href="/auth"
                     onClick={() => setDrawerOpen(false)}
-                    className="text-brand-gold hover:text-white transition-colors font-semibold"
+                    className="text-[#F5D794] hover:text-white transition-colors font-semibold shrink-0"
                   >
-                    Sign In / Register &rarr;
+                    Sign In &rarr;
                   </Link>
                 )}
               </div>
