@@ -325,14 +325,14 @@ export function SiteHeader() {
               </div>
             )}
 
-            {/* Primary Action Button (Gold Luxury Pill - Adaptive on Mobile) */}
+            {/* Primary Action Button (Gold Luxury Pill - Full on Desktop, Compact on Mobile) */}
             <Link
               href="/planner"
               className="whitespace-nowrap inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-gradient-to-r from-[#F5D794] via-[#edd9a8] to-[#C5A46A] px-3.5 sm:px-5 py-2 sm:py-2.5 text-[11px] sm:text-xs font-bold text-brand-ink shadow-lg shadow-[#C5A46A]/25 transition-all duration-300 hover:scale-105 hover:shadow-[#C5A46A]/40 shrink-0"
             >
               <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-brand-ink shrink-0 animate-pulse" />
-              <span className="hidden xs:inline">Plan Journey</span>
-              <span className="xs:hidden">Plan</span>
+              <span className="hidden sm:inline">Plan Journey</span>
+              <span className="sm:hidden">Plan</span>
             </Link>
 
             {/* Luxury Editorial Drawer Toggle */}
@@ -359,7 +359,7 @@ export function SiteHeader() {
       </header>
 
       {/* Spacer for all pages so content starts smoothly below the fixed header */}
-      <div className="h-24 sm:h-26 w-full" aria-hidden="true" />
+      <div className="h-[96px] sm:h-[104px] w-full" aria-hidden="true" />
 
       {/* 3. Obsidian Dark Ultra-Luxury Editorial Drawer (Aman & Pelorus Standard) */}
       {drawerOpen && (

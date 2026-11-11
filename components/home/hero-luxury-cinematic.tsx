@@ -122,7 +122,7 @@ export function HeroLuxuryCinematic() {
             <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 mb-5">
               <span className="flex items-center gap-1.5 text-xs text-white/90 font-medium mr-1 shrink-0">
                 <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="hidden xs:inline">Live Concierge</span>
+                <span className="hidden sm:inline">Live Concierge</span>
               </span>
               <div className="flex items-center gap-1.5 bg-black/50 backdrop-blur-md p-1 rounded-full border border-white/20 shrink-0">
                 {SLIDES.map((s, idx) => (
@@ -147,7 +147,7 @@ export function HeroLuxuryCinematic() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7 }}
-              className="text-3xl xs:text-4xl sm:text-5xl lg:text-7xl font-serif text-white tracking-tight leading-[1.08]"
+              className="text-4xl sm:text-5xl lg:text-7xl font-serif text-white tracking-tight leading-[1.08]"
             >
               Explore More. <br />
               <span className="italic font-normal text-[#F5D794]">Plan Smarter.</span> <br />
