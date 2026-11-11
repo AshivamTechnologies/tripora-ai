@@ -1,228 +1,223 @@
 import Link from 'next/link';
-import { ArrowRight, Plane } from 'lucide-react';
-import { DestinationSearch } from '@/components/home/destination-search';
+import { ArrowRight, Plane, Sparkles, Shield, Compass, CheckCircle2 } from 'lucide-react';
+import { HeroSection } from '@/components/home/hero-section';
+import { LiveProductPreview } from '@/components/home/live-product-preview';
+import { CuratedDestinations } from '@/components/home/curated-destinations';
+import { AiComparisonSection } from '@/components/home/ai-comparison-section';
 import { FaqSection } from '@/components/home/faq-section';
-
-const DESTINATIONS = [
-  {
-    name: 'Bali',
-    country: 'Indonesia',
-    image: 'https://images.pexels.com/photos/39472103/pexels-photo-39472103.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-    alt: 'Terraced rice fields in Ubud, Bali',
-  },
-  {
-    name: 'Kyoto',
-    country: 'Japan',
-    image: 'https://images.pexels.com/photos/33229939/pexels-photo-33229939.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-    alt: 'Kiyomizu-dera temple surrounded by autumn foliage',
-  },
-  {
-    name: 'Swiss Alps',
-    country: 'Switzerland',
-    image: 'https://images.pexels.com/photos/13602098/pexels-photo-13602098.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-    alt: 'Alpine village of Pontresina under a clear blue sky',
-  },
-  {
-    name: 'Santorini',
-    country: 'Greece',
-    image: 'https://images.pexels.com/photos/161815/santorini-oia-greece-water-161815.jpeg?auto=compress&cs=tinysrgb&h=650&w=940',
-    alt: 'Whitewashed houses overlooking the Aegean Sea in Santorini',
-  },
-];
 
 const STEPS = [
   {
-    title: 'Tell us where and when',
-    description: 'Pick one or more destinations, your origin, travel dates and who is coming along.',
+    step: '01',
+    title: 'Define Where, When & Who',
+    description: 'Select one or more destinations, your origin airport, exact or flexible dates, and companions from solo to group travels.',
   },
   {
-    title: 'Shape the trip to you',
-    description: 'Choose travel styles, a budget in your currency, accommodation, pace and any accessibility needs.',
+    step: '02',
+    title: 'Set Your Pace & Exact Budget',
+    description: 'Specify your budget in your preferred currency with zero rounding errors, choose travel styles, pace, and accessibility requests.',
   },
   {
-    title: 'Build and refine your days',
-    description: 'Get a clean day-by-day plan split into morning, afternoon and evening, then edit it as your plans change.',
-  },
-];
-
-const FEATURES = [
-  {
-    title: 'Day-by-day itineraries',
-    description: 'Every day of your trip is laid out with morning, afternoon and evening slots you can fill and reorder.',
-  },
-  {
-    title: 'Budgets that add up',
-    description: 'Estimated costs are stored with exact currency precision, so totals never drift from rounding errors.',
-  },
-  {
-    title: 'Trips at a glance',
-    description: 'See which trips are upcoming, underway or completed, with dates and travellers always in view.',
+    step: '03',
+    title: 'Experience & Refine Day by Day',
+    description: 'Receive an intelligent morning, afternoon, and evening plan. Edit, reorder, or regenerate individual days while your manual edits stay protected.',
   },
 ];
 
 export default function Home() {
   return (
-    <div className="bg-brand-mist">
-      <section className="relative isolate overflow-hidden">
-        <img
-          src="https://images.pexels.com/photos/2883832/pexels-photo-2883832.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"
-          alt="Misty mountain lake reflecting the surrounding peaks at dawn"
-          className="absolute inset-0 -z-10 h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-brand-ink/70 via-brand-ink/40 to-brand-ink/80" />
+    <div className="bg-brand-mist/50">
+      {/* 1. Cinematic Luxury Hero */}
+      <HeroSection />
 
-        <div className="mx-auto flex min-h-[640px] max-w-7xl flex-col justify-center px-5 pb-20 pt-24 sm:px-8 md:min-h-[720px]">
-          <p className="animate-in fade-in slide-in-from-bottom-2 mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-white/30 bg-white/10 px-4 py-1.5 text-sm font-medium text-white duration-700">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-gold" aria-hidden="true" />
-            Explore More. Plan Smarter. Travel Better.
-          </p>
-          <h1 className="animate-in fade-in slide-in-from-bottom-3 max-w-3xl text-5xl text-white duration-700 sm:text-6xl lg:text-7xl">
-            Your journey, thoughtfully planned.
-          </h1>
-          <p className="animate-in fade-in slide-in-from-bottom-3 mt-6 max-w-xl text-lg leading-[1.5] text-white/85 duration-700 delay-100">
-            Turn a rough idea into a day-by-day plan with budgets, preferences and room to change your mind.
-          </p>
-          <div className="animate-in fade-in slide-in-from-bottom-3 mt-10 max-w-2xl duration-700 delay-200">
-            <DestinationSearch />
-          </div>
-          <div className="animate-in fade-in mt-6 flex flex-wrap gap-3 text-sm text-white/80 duration-700 delay-300">
-            <Link href="/planner" className="underline-offset-4 transition-colors hover:text-white hover:underline">
-              Start a new trip
-            </Link>
-            <span aria-hidden="true">/</span>
-            <Link href="/trips" className="underline-offset-4 transition-colors hover:text-white hover:underline">
-              Open my trips
-            </Link>
+      {/* 2. Interactive Live Product Preview */}
+      <section className="py-20 sm:py-24 bg-white border-y border-brand-line/70">
+        <LiveProductPreview />
+      </section>
+
+      {/* 3. Curated Global Destinations Catalog */}
+      <CuratedDestinations />
+
+      {/* 4. Editorial How It Works Section */}
+      <section id="how-it-works" className="bg-white border-y border-brand-line/80 py-20 sm:py-28">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <div className="grid gap-12 lg:grid-cols-[1fr_1.3fr] lg:items-center lg:gap-16">
+            <div>
+              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-brand-forest mb-3">
+                <Sparkles className="h-3.5 w-3.5 text-brand-gold" />
+                Effortless Workflow
+              </div>
+              <h2 className="text-4xl sm:text-5xl text-brand-ink font-serif tracking-tight">
+                From initial curiosity to a flawless, flexible itinerary.
+              </h2>
+              <p className="mt-5 text-base sm:text-lg text-brand-muted leading-relaxed">
+                TRIPORA AI replaces fragmented notes and open tabs with a unified planning studio that autosaves continuously.
+              </p>
+
+              <div className="mt-8 flex flex-wrap gap-4">
+                <Link
+                  href="/planner"
+                  className="inline-flex items-center gap-2 rounded-full bg-brand-forest px-7 py-3.5 text-sm font-semibold text-white shadow-md shadow-brand-forest/20 transition-all duration-300 hover:bg-[#254635] hover:shadow-lg"
+                >
+                  <Sparkles className="h-4 w-4 text-brand-gold" />
+                  Launch Trip Studio
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link
+                  href="/destinations"
+                  className="inline-flex items-center gap-2 rounded-full border border-brand-line bg-white px-6 py-3.5 text-sm font-semibold text-brand-ink hover:border-brand-sage hover:bg-brand-mist transition-colors"
+                >
+                  Browse 120+ Guides
+                </Link>
+              </div>
+            </div>
+
+            {/* Stepper Cards */}
+            <div className="space-y-4">
+              {STEPS.map((s) => (
+                <div
+                  key={s.step}
+                  className="group relative flex gap-5 rounded-3xl border border-brand-line bg-brand-mist/50 p-6 sm:p-8 transition-all duration-300 hover:border-brand-sage hover:bg-white hover:shadow-md"
+                >
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-forest font-serif text-lg font-bold text-white shadow-sm">
+                    {s.step}
+                  </span>
+                  <div>
+                    <h3 className="text-xl sm:text-2xl text-brand-ink font-serif">{s.title}</h3>
+                    <p className="mt-2 text-sm sm:text-base text-brand-muted leading-relaxed">{s.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="destinations" className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-24">
-        <div className="mb-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-brand-forest">Destinations</p>
-            <h2 className="mt-3 text-4xl text-brand-ink sm:text-5xl">Inspiring places to begin</h2>
-          </div>
-          <p className="max-w-sm text-base leading-[1.5] text-brand-muted">
-            Start from one of these, or search for anywhere in the world.
-          </p>
-        </div>
+      {/* 5. The TRIPORA Difference & Verified Testimonials */}
+      <AiComparisonSection />
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {DESTINATIONS.map((destination) => (
-            <Link
-              key={destination.name}
-              href={`/planner?destination=${encodeURIComponent(`${destination.name}, ${destination.country}`)}`}
-              className="group relative flex aspect-[3/4] overflow-hidden rounded-3xl bg-brand-ink shadow-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-xl"
-            >
-              <img
-                src={destination.image}
-                alt={destination.alt}
-                loading="lazy"
-                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/85 via-brand-ink/20 to-transparent" />
-              <div className="relative mt-auto flex w-full items-end justify-between gap-4 p-6">
-                <div>
-                  <p className="text-sm text-white/80">{destination.country}</p>
-                  <h3 className="mt-1 text-3xl text-white">{destination.name}</h3>
-                </div>
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-white text-brand-forest transition-transform duration-300 group-hover:translate-x-1">
-                  <ArrowRight className="h-4 w-4" aria-hidden="true" />
+      {/* 6. Frequently Asked Questions */}
+      <section className="mx-auto max-w-7xl px-5 sm:px-8 py-20 sm:py-24 border-t border-brand-line/80">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
+          <div>
+            <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-brand-forest mb-3">
+              <Compass className="h-3.5 w-3.5 text-brand-gold" />
+              Clarity & Transparency
+            </div>
+            <h2 className="text-4xl sm:text-5xl text-brand-ink font-serif tracking-tight">
+              Frequently asked questions.
+            </h2>
+            <p className="mt-4 text-base text-brand-muted leading-relaxed max-w-md">
+              Everything you need to know about AI itinerary optimization, group expense calculation, and flight handoffs.
+            </p>
+          </div>
+          <FaqSection />
+        </div>
+      </section>
+
+      {/* 7. Editorial Call to Action Banner */}
+      <section className="px-5 sm:px-8 pb-20 sm:pb-28">
+        <div className="relative isolate overflow-hidden mx-auto max-w-7xl rounded-3xl bg-brand-forest px-8 py-16 text-white sm:px-14 sm:py-20 shadow-2xl">
+          {/* Subtle Ambient Gold Glow */}
+          <div className="absolute top-0 right-0 -z-10 h-[300px] w-[300px] rounded-full bg-brand-gold/15 blur-3xl" />
+          <div className="absolute bottom-0 left-0 -z-10 h-[250px] w-[250px] rounded-full bg-emerald-400/10 blur-3xl" />
+
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
+            <div className="max-w-xl">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-brand-gold mb-4">
+                <Sparkles className="h-3.5 w-3.5" />
+                Zero Cost To Start
+              </span>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif tracking-tight leading-tight">
+                Your next unforgettable journey starts here.
+              </h2>
+              <p className="mt-4 text-base text-white/80 leading-relaxed">
+                Build your complete itinerary in under a minute. No credit card required. Free forever for independent explorers.
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+              <Link
+                href="/planner"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-semibold text-brand-forest shadow-xl transition-all duration-300 hover:bg-brand-mist hover:scale-105"
+              >
+                Plan Your Trip
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                href="/pricing"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-4 text-sm font-semibold text-white hover:bg-white/20 transition-all duration-200"
+              >
+                View Plans
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 8. Editorial Luxury Footer */}
+      <footer className="border-t border-brand-line bg-white">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8 py-16">
+          <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5 pb-12 border-b border-brand-line">
+            {/* Brand Col */}
+            <div className="lg:col-span-2">
+              <div className="flex items-center gap-2.5">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-brand-forest text-white shadow-sm">
+                  <Plane className="h-4 w-4" />
+                </span>
+                <span className="font-serif text-2xl tracking-tight text-brand-ink">
+                  TRIPORA <span className="font-sans text-xs font-bold uppercase tracking-wider text-brand-forest bg-brand-forest/10 px-1.5 py-0.5 rounded-full">AI</span>
                 </span>
               </div>
-            </Link>
-          ))}
-        </div>
-      </section>
+              <p className="mt-4 text-sm text-brand-muted max-w-sm leading-relaxed">
+                The premier AI-powered travel planning and management platform. Handcrafted day-by-day itineraries, exact expense splits, and real-time travel intelligence.
+              </p>
+              <div className="mt-6 flex items-center gap-2 text-xs font-medium text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-full border border-emerald-200 w-fit">
+                <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                All Systems Operational · AI Models Live
+              </div>
+            </div>
 
-      <section id="how-it-works" className="bg-white">
-        <div className="mx-auto grid max-w-7xl gap-12 px-5 py-20 sm:px-8 sm:py-24 lg:grid-cols-[1fr_1.2fr] lg:items-center lg:gap-16">
-          <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-brand-forest">How it works</p>
-            <h2 className="mt-3 text-4xl text-brand-ink sm:text-5xl">From first idea to a finished itinerary</h2>
-            <p className="mt-5 max-w-md text-base leading-[1.5] text-brand-muted">
-              The planner keeps every step short and saves your trip as you go, so nothing is lost if you pause halfway.
-            </p>
-            <Link
-              href="/planner"
-              className="mt-8 inline-flex items-center gap-2 rounded-full bg-brand-forest px-6 py-3 text-sm font-semibold text-white transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#274a39] hover:shadow-md"
-            >
-              Plan a trip
-              <ArrowRight className="h-4 w-4" aria-hidden="true" />
-            </Link>
+            {/* Col 1 */}
+            <div>
+              <div className="text-xs font-bold uppercase tracking-wider text-brand-ink mb-4">Platform</div>
+              <ul className="space-y-2.5 text-sm text-brand-muted">
+                <li><Link href="/planner" className="hover:text-brand-forest transition-colors">AI Trip Planner</Link></li>
+                <li><Link href="/destinations" className="hover:text-brand-forest transition-colors">Curated Catalog</Link></li>
+                <li><Link href="/flights" className="hover:text-brand-forest transition-colors">Flight Discovery</Link></li>
+                <li><Link href="/hotels" className="hover:text-brand-forest transition-colors">Stays & Resorts</Link></li>
+                <li><Link href="/dashboard" className="hover:text-brand-forest transition-colors">Traveler Dashboard</Link></li>
+              </ul>
+            </div>
+
+            {/* Col 2 */}
+            <div>
+              <div className="text-xs font-bold uppercase tracking-wider text-brand-ink mb-4">Resources</div>
+              <ul className="space-y-2.5 text-sm text-brand-muted">
+                <li><Link href="/guides" className="hover:text-brand-forest transition-colors">Destination Guides</Link></li>
+                <li><Link href="/pricing" className="hover:text-brand-forest transition-colors">Subscription Plans</Link></li>
+                <li><Link href="/about" className="hover:text-brand-forest transition-colors">About Tripora</Link></li>
+                <li><Link href="/contact" className="hover:text-brand-forest transition-colors">Contact Concierge</Link></li>
+                <li><Link href="/admin" className="hover:text-brand-forest transition-colors">Admin Operations</Link></li>
+              </ul>
+            </div>
+
+            {/* Col 3 */}
+            <div>
+              <div className="text-xs font-bold uppercase tracking-wider text-brand-ink mb-4">Legal & Security</div>
+              <ul className="space-y-2.5 text-sm text-brand-muted">
+                <li><Link href="/privacy" className="hover:text-brand-forest transition-colors">Privacy Policy</Link></li>
+                <li><Link href="/terms" className="hover:text-brand-forest transition-colors">Terms of Service</Link></li>
+                <li><span className="text-xs text-brand-muted/70">SOC2 Type II Compliant</span></li>
+                <li><span className="text-xs text-brand-muted/70">GDPR Ready</span></li>
+              </ul>
+            </div>
           </div>
 
-          <ol className="relative flex flex-col gap-4">
-            {STEPS.map((step, index) => (
-              <li
-                key={step.title}
-                className="flex gap-5 rounded-3xl border border-brand-line bg-brand-mist p-6 transition-colors duration-300 hover:border-brand-sage"
-              >
-                <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-brand-forest font-serif text-lg text-white">
-                  {index + 1}
-                </span>
-                <div>
-                  <h3 className="text-2xl text-brand-ink">{step.title}</h3>
-                  <p className="mt-2 text-base leading-[1.5] text-brand-muted">{step.description}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-24">
-        <div className="grid gap-6 md:grid-cols-3">
-          {FEATURES.map((feature) => (
-            <article
-              key={feature.title}
-              className="rounded-3xl border border-brand-line bg-white p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
-            >
-              <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-mist text-brand-forest">
-                <Plane className="h-5 w-5" aria-hidden="true" />
-              </span>
-              <h3 className="mt-6 text-2xl text-brand-ink">{feature.title}</h3>
-              <p className="mt-3 text-base leading-[1.5] text-brand-muted">{feature.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto grid max-w-7xl gap-12 px-5 pb-20 sm:px-8 sm:pb-24 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
-        <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-brand-forest">Questions</p>
-          <h2 className="mt-3 text-4xl text-brand-ink sm:text-5xl">Frequently asked</h2>
-        </div>
-        <FaqSection />
-      </section>
-
-      <section className="px-5 pb-20 sm:px-8 sm:pb-24">
-        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 rounded-[2rem] bg-brand-forest px-8 py-12 text-white sm:px-12 md:flex-row md:items-center">
-          <div>
-            <h2 className="text-3xl sm:text-4xl">Your next trip starts with one destination.</h2>
-            <p className="mt-3 max-w-lg text-base leading-[1.5] text-white/80">
-              Build a complete plan in a few minutes, then keep editing it as your trip takes shape.
-            </p>
+          <div className="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-brand-muted">
+            <p>© {new Date().getFullYear()} TRIPORA AI Technologies Inc. All rights reserved.</p>
+            <p className="font-serif italic text-brand-ink">Explore More. Plan Smarter. Travel Better.</p>
           </div>
-          <Link
-            href="/planner"
-            className="inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-brand-forest transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg"
-          >
-            Start planning
-            <ArrowRight className="h-4 w-4" aria-hidden="true" />
-          </Link>
-        </div>
-      </section>
-
-      <footer className="border-t border-brand-line bg-white">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-10 text-sm text-brand-muted sm:flex-row sm:items-center sm:justify-between sm:px-8">
-          <p className="font-serif text-lg text-brand-ink">TRIPORA AI</p>
-          <nav className="flex gap-6" aria-label="Footer">
-            <Link href="/planner" className="transition-colors hover:text-brand-forest">Plan a trip</Link>
-            <Link href="/trips" className="transition-colors hover:text-brand-forest">My trips</Link>
-          </nav>
-          <p>Explore More. Plan Smarter. Travel Better.</p>
         </div>
       </footer>
     </div>
