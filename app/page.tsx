@@ -1,10 +1,12 @@
 import Link from 'next/link';
 import { ArrowRight, Plane, Sparkles, Shield, Compass, CheckCircle2 } from 'lucide-react';
-import { HeroSection } from '@/components/home/hero-section';
+import { HeroLuxuryCinematic } from '@/components/home/hero-luxury-cinematic';
 import { WorldTimeTicker } from '@/components/home/world-time-ticker';
+import { LiveLuxuryCurator } from '@/components/home/live-luxury-curator';
 import { LiveProductPreview } from '@/components/home/live-product-preview';
 import { InteractiveRouteCanvas } from '@/components/home/interactive-route-canvas';
 import { CuratedDestinations } from '@/components/home/curated-destinations';
+import { LuxuryVipTiers } from '@/components/home/luxury-vip-tiers';
 import { AiComparisonSection } from '@/components/home/ai-comparison-section';
 import { FaqSection } from '@/components/home/faq-section';
 
@@ -29,24 +31,27 @@ const STEPS = [
 export default function Home() {
   return (
     <div className="bg-brand-mist/50">
-      {/* 1. Cinematic Luxury Hero */}
-      <HeroSection />
+      {/* 1. Cinematic Aman-Grade Editorial Hero */}
+      <HeroLuxuryCinematic />
 
-      {/* 2. Live World Hub Clocks Ticker */}
+      {/* 2. Live International Hub Clocks Ticker */}
       <WorldTimeTicker />
 
-      {/* 3. Interactive Live Product Preview */}
-      <section className="py-20 sm:py-24 bg-white border-b border-brand-line/70">
+      {/* 3. Interactive Luxury Vibe & Atmosphere Curator */}
+      <LiveLuxuryCurator />
+
+      {/* 4. Interactive Live Product Preview Canvas */}
+      <section className="py-20 sm:py-24 bg-white border-y border-brand-line/70">
         <LiveProductPreview />
       </section>
 
-      {/* 4. Multi-Destination Grand Journeys Sequencer */}
+      {/* 5. Multi-Destination Grand Journeys Sequencer */}
       <InteractiveRouteCanvas />
 
-      {/* 5. Curated Global Destinations Catalog */}
+      {/* 6. Curated Global Destinations Catalog */}
       <CuratedDestinations />
 
-      {/* 6. Editorial How It Works Section */}
+      {/* 7. Editorial How It Works Section */}
       <section id="how-it-works" className="bg-white border-y border-brand-line/80 py-20 sm:py-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.3fr] lg:items-center lg:gap-16">
@@ -101,10 +106,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 7. The TRIPORA Difference & Verified Testimonials */}
+      {/* 8. Luxury VIP Membership Tiers */}
+      <LuxuryVipTiers />
+
+      {/* 9. The TRIPORA Difference & Verified Testimonials */}
       <AiComparisonSection />
 
-      {/* 8. Frequently Asked Questions */}
+      {/* 10. Frequently Asked Questions */}
       <section className="mx-auto max-w-7xl px-5 sm:px-8 py-20 sm:py-24 border-t border-brand-line/80">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
           <div>
@@ -123,7 +131,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 9. Editorial Call to Action Banner */}
+      {/* 11. Editorial Call to Action Banner */}
       <section className="px-5 sm:px-8 pb-20 sm:pb-28">
         <div className="relative isolate overflow-hidden mx-auto max-w-7xl rounded-3xl bg-brand-forest px-8 py-16 text-white sm:px-14 sm:py-20 shadow-2xl">
           {/* Subtle Ambient Gold Glow */}
@@ -163,7 +171,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 10. Editorial Luxury Footer */}
+      {/* 12. Editorial Luxury Footer */}
       <footer className="border-t border-brand-line bg-white">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 py-16">
           <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5 pb-12 border-b border-brand-line">
