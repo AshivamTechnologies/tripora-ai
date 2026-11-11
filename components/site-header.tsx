@@ -141,7 +141,7 @@ export function SiteHeader() {
 
   return (
     <>
-      <header className="fixed top-0 inset-x-0 z-50 select-none bg-[#080E0A]/95 backdrop-blur-2xl border-b border-[#C5A46A]/25 shadow-[0_12px_40px_rgba(0,0,0,0.7)] transition-all duration-300">
+      <header className="sticky top-0 z-50 select-none bg-[#080E0A]/95 backdrop-blur-2xl border-b border-[#C5A46A]/25 shadow-[0_12px_40px_rgba(0,0,0,0.7)] transition-all duration-300">
         {/* 1. Ultra-Refined Announcement & Telemetry Ribbon */}
         <div className="bg-[#050906] text-white py-1.5 px-4 sm:px-6 text-center text-[11px] font-semibold tracking-[0.16em] uppercase border-b border-[#C5A46A]/20">
           <div className="mx-auto max-w-7xl flex items-center justify-between gap-4">
@@ -351,9 +351,6 @@ export function SiteHeader() {
           </div>
         </div>
       </header>
-
-      {/* Spacer for all pages so content starts smoothly below the fixed header */}
-      <div className="h-[96px] sm:h-[104px] w-full" aria-hidden="true" />
 
       {/* 3. Obsidian Dark Ultra-Luxury Editorial Drawer (Aman & Pelorus Standard) */}
       {drawerOpen && (
