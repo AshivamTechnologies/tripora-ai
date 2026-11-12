@@ -18,7 +18,7 @@ export default function PlannerPage({ searchParams }: PlannerPageProps) {
         <div className="mb-8">
           <div className="inline-flex items-center gap-2 rounded-full border border-brand-forest/20 bg-brand-forest/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-brand-forest mb-2">
             <Sparkles className="h-3.5 w-3.5 text-brand-gold" />
-            Bespoke Itinerary Studio &bull; Gemini 1.5 Pro
+            Bespoke Itinerary Studio &bull; Tripora Atelier
           </div>
           <h1 className="text-4xl sm:text-5xl font-serif text-brand-ink tracking-tight">
             Curate Your Next Expedition

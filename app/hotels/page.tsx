@@ -271,15 +271,13 @@ export default function HotelsPage() {
                       <Bookmark className={`h-4 w-4 ${savedId === h.id ? 'fill-brand-forest text-brand-forest' : ''}`} />
                     </button>
                   )}
-                  <a
-                    href={h.bookingUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-1 rounded-full bg-brand-forest px-4 py-2.5 text-xs font-semibold text-white shadow-sm hover:bg-[#254635] transition-all"
+                  <Link
+                    href={`/checkout?destination=${encodeURIComponent(h.name + ', ' + h.location)}`}
+                    className="flex items-center gap-1.5 rounded-full bg-brand-forest px-4 py-2.5 text-xs font-semibold text-white shadow-sm hover:bg-[#254635] transition-all"
                   >
-                    <span>Reserve Stay</span>
-                    <ExternalLink className="h-3 w-3" />
-                  </a>
+                    <span>Reserve Sanctuary</span>
+                    <Sparkles className="h-3 w-3 text-brand-gold" />
+                  </Link>
                 </div>
               </div>
             </div>

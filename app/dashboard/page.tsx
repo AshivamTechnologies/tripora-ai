@@ -100,11 +100,11 @@ export default function DashboardPage() {
 
           <div className="rounded-3xl border border-brand-line bg-white p-6 shadow-sm">
             <div className="flex items-center justify-between text-brand-forest">
-              <span className="text-[11px] font-bold uppercase tracking-wider text-brand-muted">Neural Synthesis</span>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-brand-muted">Concierge Liaison</span>
               <Sparkles className="h-5 w-5 text-brand-gold" />
             </div>
-            <p className="mt-3 text-3xl sm:text-4xl font-serif text-brand-ink">Gemini 1.5</p>
-            <p className="mt-1 text-xs text-emerald-700 font-medium">99.98% Model Uptime</p>
+            <p className="mt-3 text-3xl sm:text-4xl font-serif text-brand-ink">24/7 Active</p>
+            <p className="mt-1 text-xs text-emerald-700 font-medium">Kyoto &amp; Zurich Desks Online</p>
           </div>
 
           <div className="rounded-3xl border border-brand-line bg-white p-6 shadow-sm">

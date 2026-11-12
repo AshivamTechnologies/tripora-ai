@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { CalendarDays, Users, Wallet, Sparkles, DollarSign, CheckSquare, UserPlus, MapPin } from 'lucide-react';
+import { CalendarDays, Users, Wallet, Sparkles, DollarSign, CheckSquare, UserPlus, MapPin, CreditCard, ShieldCheck } from 'lucide-react';
 import { TripStatusBadge } from '@/components/trips/trip-card';
 import { formatMoney } from '@/lib/money';
 import { formatShortDate, inclusiveDayCount, parseISODate } from '@/lib/dates';
@@ -69,6 +69,13 @@ export function TripSummary({ trip, status, estimatedMinor }: TripSummaryProps) 
           >
             <UserPlus className="h-3 w-3" />
             Collaborators
+          </Link>
+          <Link
+            href={`/trips/${trip.id}/checkout`}
+            className="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#1C2C22] to-[#0A120D] text-[#F5D794] border border-[#C5A46A]/50 px-4 py-1.5 text-xs font-bold uppercase tracking-wider shadow-sm hover:brightness-125 transition-all"
+          >
+            <CreditCard className="h-3.5 w-3.5 text-[#F5D794]" />
+            Reserve Expedition
           </Link>
         </div>
       </div>

@@ -252,22 +252,22 @@ export function HeroLuxuryCinematic() {
         {/* Bottom Editorial Stats Strip */}
         <div className="mt-12 sm:mt-16 pt-8 border-t border-white/15 grid grid-cols-2 gap-6 sm:grid-cols-4 max-w-5xl">
           <div>
-            <div className="text-2xl sm:text-3xl font-serif text-white tracking-tight">120+</div>
-            <div className="text-[11px] text-white/70 mt-1 uppercase tracking-wider font-medium">Bespoke Destinations</div>
+            <div className="text-2xl sm:text-3xl font-serif text-white tracking-tight">180+</div>
+            <div className="text-[11px] text-white/70 mt-1 uppercase tracking-wider font-medium">Curated Sanctuaries</div>
           </div>
           <div>
-            <div className="text-2xl sm:text-3xl font-serif text-white tracking-tight">30 Sec</div>
-            <div className="text-[11px] text-white/70 mt-1 uppercase tracking-wider font-medium">AI Optimization Speed</div>
+            <div className="text-2xl sm:text-3xl font-serif text-white tracking-tight">24/7</div>
+            <div className="text-[11px] text-white/70 mt-1 uppercase tracking-wider font-medium">Dedicated Concierge</div>
           </div>
           <div>
-            <div className="text-2xl sm:text-3xl font-serif text-white tracking-tight">$0 Hidden Fees</div>
-            <div className="text-[11px] text-white/70 mt-1 uppercase tracking-wider font-medium">Direct Provider Handoff</div>
+            <div className="text-2xl sm:text-3xl font-serif text-white tracking-tight">100%</div>
+            <div className="text-[11px] text-white/70 mt-1 uppercase tracking-wider font-medium">Bespoke Curation</div>
           </div>
           <div>
             <div className="text-2xl sm:text-3xl font-serif text-white tracking-tight flex items-center gap-1">
               4.98 <Star className="h-4 w-4 fill-brand-gold text-brand-gold" />
             </div>
-            <div className="text-[11px] text-white/70 mt-1 uppercase tracking-wider font-medium">Conde Nast Quality Rating</div>
+            <div className="text-[11px] text-white/70 mt-1 uppercase tracking-wider font-medium">Condé Nast Traveler Rating</div>
           </div>
         </div>
       </div>

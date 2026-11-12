@@ -90,14 +90,14 @@ export function SiteFooter() {
               The premier AI-powered luxury travel planning and management platform. Handcrafted day-by-day itineraries, exact minor-unit currency splits, weather-synced packing, and verified booking handoffs.
             </p>
 
-            {/* Live Operational Status Badge */}
+            {/* Luxury Accreditation & Trust Badges */}
             <div className="mt-6 flex flex-wrap items-center gap-2">
-              <div className="flex items-center gap-2 text-xs font-medium text-emerald-300 bg-emerald-950/80 px-3.5 py-1.5 rounded-full border border-emerald-500/40">
-                <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span>All Systems Operational · 99.98% Uptime</span>
+              <div className="flex items-center gap-2 text-xs font-medium text-[#F5D794] bg-[#16241B] px-3.5 py-1.5 rounded-full border border-[#C5A46A]/40 shadow-sm">
+                <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                <span>Virtuoso Member · Verified Luxury Travel Guild</span>
               </div>
-              <span className="font-mono text-[11px] text-white/60 bg-white/5 px-2.5 py-1 rounded-full border border-white/10">
-                Gemini 1.5 Pro Latency: 420ms
+              <span className="text-[11px] font-medium tracking-wider uppercase text-white/75 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
+                IATA & ATOL Accredited · PCI-DSS Level 1 Secure
               </span>
             </div>
           </div>

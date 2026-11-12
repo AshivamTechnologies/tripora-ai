@@ -7,7 +7,7 @@ const STATS = [
   { value: '45,000+', label: 'Discerning Journeys Curated', sub: 'Across 6 continents' },
   { value: '$12.8M', label: 'Balanced Minor-Unit Expenses', sub: 'Zero penny drift' },
   { value: '184', label: 'World Sanctuaries Mapped', sub: 'Verified by regional fellows' },
-  { value: '99.98%', label: 'Neural Core Uptime', sub: 'Gemini 1.5 Pro pipeline' },
+  { value: '100%', label: 'Carbon-Neutral Journeys', sub: 'Gold Standard certified offsets' },
 ];
 
 const PRINCIPLES = [
@@ -81,7 +81,7 @@ export default function AboutPage() {
               Before TRIPORA AI, discerning travelers faced a false dichotomy: either surrender their trip to cookie-cutter bus tours and mass-market OTAs, or spend 20+ hours piecing together scattered booking confirmations and fragmented blogs.
             </p>
             <p>
-              We believed technology could do better. By marrying the editorial rigor of an Aman or Belmond concierge with Google’s Gemini 1.5 Pro multimodal reasoning engine, we created a studio that crafts bespoke day-by-day itineraries in seconds—without sacrificing intimacy or spatial logic.
+              We believed travel curation could do better. By marrying the editorial rigor of an Aman or Belmond concierge with advanced spatial intelligence, we created a private atelier that crafts bespoke day-by-day itineraries with unprecedented precision—without sacrificing intimacy or spatial logic.
             </p>
             <div className="flex items-center gap-3 pt-2">
               <div className="h-10 w-10 rounded-full bg-brand-forest flex items-center justify-center text-white font-serif font-bold">

@@ -231,3 +231,135 @@ export async function sendTripInvitationEmail({
     html,
   });
 }
+
+export interface SendBookingConfirmationParams {
+  to: string;
+  guestName: string;
+  bookingRef: string;
+  destination: string;
+  dates: string;
+  totalAmount: string;
+  paymentMethod: string;
+  inclusions?: string[];
+  receiptLink: string;
+}
+
+export async function sendBookingConfirmationEmail({
+  to,
+  guestName,
+  bookingRef,
+  destination,
+  dates,
+  totalAmount,
+  paymentMethod,
+  inclusions = [
+    '5-Star Private Sanctuary Reservation',
+    'Lie-Flat Aviation Corridors with Priority Boarding',
+    '24/7 Dedicated Concierge & WhatsApp Dispatch Hotline',
+    'Curated Michelin Dining Allocations & Private Transfers',
+  ],
+  receiptLink,
+}: SendBookingConfirmationParams) {
+  const html = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>TRIPORA RESERVE — Official Reservation Confirmation</title>
+  <style>
+    body { margin: 0; padding: 0; background-color: #080E0A; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; color: #FFFFFF; }
+    .wrapper { width: 100%; table-layout: fixed; background-color: #080E0A; padding: 40px 0; }
+    .container { max-width: 620px; margin: 0 auto; background-color: #0D1510; border: 1px solid rgba(197, 164, 106, 0.4); border-radius: 24px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.8); }
+    .header { padding: 36px 36px 24px 36px; text-align: center; border-bottom: 1px solid rgba(255, 255, 255, 0.08); background: linear-gradient(180deg, #14221A 0%, #0D1510 100%); }
+    .brand-mark { font-size: 24px; letter-spacing: 0.15em; color: #FFFFFF; text-transform: uppercase; font-family: Georgia, serif; }
+    .reserve-badge { font-size: 9px; letter-spacing: 0.2em; color: #F5D794; background: rgba(245, 215, 148, 0.18); border: 1px solid rgba(197, 164, 106, 0.5); padding: 3px 10px; border-radius: 9999px; margin-left: 8px; font-weight: 700; }
+    .content { padding: 36px; }
+    .status-badge { display: inline-block; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.4); color: #34D399; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; padding: 6px 14px; border-radius: 9999px; margin-bottom: 20px; }
+    .h1 { font-family: Georgia, serif; font-size: 26px; line-height: 1.3; color: #FFFFFF; margin: 0 0 12px 0; }
+    .sub { font-size: 14px; color: rgba(255, 255, 255, 0.7); line-height: 1.6; margin-bottom: 24px; }
+    .card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(197, 164, 106, 0.25); border-radius: 16px; padding: 22px; margin-bottom: 24px; }
+    .card-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 13px; }
+    .card-row:last-child { border-bottom: none; }
+    .label { color: rgba(255, 255, 255, 0.5); }
+    .val { color: #FFFFFF; font-weight: 600; text-align: right; }
+    .highlight { color: #F5D794; font-size: 16px; font-weight: 700; }
+    .inclusions-list { margin: 16px 0 24px 0; padding-left: 20px; font-size: 13px; color: rgba(255, 255, 255, 0.8); line-height: 1.8; }
+    .cta-button { display: inline-block; background: linear-gradient(135deg, #F5D794 0%, #C5A46A 100%); color: #080E0A; text-decoration: none; padding: 14px 32px; border-radius: 9999px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .footer { padding: 24px 36px; border-top: 1px solid rgba(255, 255, 255, 0.08); text-align: center; font-size: 11px; color: rgba(255, 255, 255, 0.4); line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="container">
+      <div class="header">
+        <span class="brand-mark">TRIPORA</span>
+        <span class="reserve-badge">RESERVE</span>
+      </div>
+      <div class="content">
+        <div style="text-align: center;">
+          <span class="status-badge">✦ RESERVATION CONFIRMED &amp; DISPATCHED</span>
+          <h1 class="h1">Your Expedition to ${destination} is Confirmed</h1>
+          <p class="sub">Honored Guest <strong>${guestName}</strong>, your itinerary has been officially reserved through our private global desk. Our concierge team is actively preparing your arrival amenities.</p>
+        </div>
+
+        <div class="card">
+          <table width="100%" cellpadding="6" cellspacing="0" style="font-size: 13px; color: #FFFFFF;">
+            <tr>
+              <td style="color: rgba(255,255,255,0.5);">Booking Reference</td>
+              <td align="right" style="font-family: monospace; font-size: 14px; color: #F5D794; font-weight: 700;">${bookingRef}</td>
+            </tr>
+            <tr>
+              <td style="color: rgba(255,255,255,0.5);">Destination</td>
+              <td align="right" style="font-weight: 600;">${destination}</td>
+            </tr>
+            <tr>
+              <td style="color: rgba(255,255,255,0.5);">Expedition Dates</td>
+              <td align="right" style="font-weight: 600;">${dates}</td>
+            </tr>
+            <tr>
+              <td style="color: rgba(255,255,255,0.5);">Payment Method</td>
+              <td align="right" style="font-weight: 600;">${paymentMethod}</td>
+            </tr>
+            <tr>
+              <td style="color: rgba(255,255,255,0.5); padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1);">Total Amount Settled</td>
+              <td align="right" style="padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.1); font-size: 17px; color: #F5D794; font-weight: 700;">${totalAmount}</td>
+            </tr>
+          </table>
+        </div>
+
+        <h3 style="font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: #F5D794; margin: 24px 0 10px 0;">Confirmed Reserve Privileges</h3>
+        <ul class="inclusions-list">
+          ${inclusions.map((item) => `<li>${item}</li>`).join('')}
+        </ul>
+
+        <div style="text-align: center; margin: 32px 0 16px 0;">
+          <a href="${receiptLink}" class="cta-button">View Expedition Dossier &amp; Receipt &rarr;</a>
+        </div>
+      </div>
+      <div class="footer">
+        TRIPORA RESERVE &bull; Global Atelier &amp; Diplomatic Hospitality<br/>
+        24/7 VIP Concierge Hotline: concierge@tripora.ai &bull; Zurich &amp; Kyoto Desks
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+  `;
+
+  const transporter = getTransporter();
+  if (!transporter) {
+    console.warn('[TRIPORA MAILER] SMTP not configured; returning simulated confirmation.');
+    return {
+      messageId: `sim-booking-${Date.now()}`,
+      response: 'Simulation mode',
+    } as any;
+  }
+
+  return await transporter.sendMail({
+    from: SMTP_FROM,
+    to,
+    subject: `Reservation Confirmed [${bookingRef}]: ${destination} — TRIPORA RESERVE`,
+    text: `Your reservation ${bookingRef} for ${destination} (${dates}) is confirmed. Total: ${totalAmount}. Access your receipt: ${receiptLink}`,
+    html,
+  });
+}

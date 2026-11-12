@@ -59,9 +59,9 @@ const DRAWER_ITEMS = [
   {
     num: '04',
     href: '/planner',
-    title: 'The AI Itinerary Studio',
-    desc: 'Neural spatial optimization & paced day-by-day schedules by Gemini 1.5',
-    tag: 'AI Studio',
+    title: 'The Atelier Itinerary Studio',
+    desc: 'Spatial optimization & bespoke paced day-by-day schedules',
+    tag: 'Atelier',
   },
   {
     num: '05',
@@ -89,7 +89,7 @@ const DRAWER_ITEMS = [
 const ANNOUNCEMENTS = [
   '✦ WINTER 2026 DISPATCH: AMAN & BELMOND CURATIONS ACTIVE · 24/7 CONCIERGE',
   '✦ LIVE GDS RADAR & WEATHER-SYNCED PACKING · COMPLIMENTARY VOYAGER ACCESS',
-  '✦ 45,000+ BESPOKE JOURNEYS SYNTHESIZED BY GEMINI 1.5 PRO NEURAL MATRIX',
+  '✦ 45,000+ BESPOKE JOURNEYS CURATED BY OUR GLOBAL TRAVEL ATELIER',
 ];
 
 export function SiteHeader() {

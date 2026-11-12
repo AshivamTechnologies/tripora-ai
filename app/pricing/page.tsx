@@ -14,7 +14,7 @@ const TIERS = [
     description: 'Perfect for independent explorers planning occasional bespoke journeys.',
     features: [
       'Up to 3 Active Journeys',
-      'Gemini 1.5 Pro Neural Itinerary Generation',
+      'Bespoke Spatial Itinerary Generation',
       'Day-by-Day Spatial Activity Editing',
       'Weather-Synced Smart Packing Matrix',
       'Multi-Carrier Flight & Hotel Search Engine',
@@ -33,16 +33,16 @@ const TIERS = [
     description: 'Designed for couples, frequent jetsetters, and luxury wanderers.',
     features: [
       'Unlimited Active Journeys & Archives',
-      'Priority Gemini 1.5 Pro Neural Queue',
+      'Priority Concierge Atelier Routing',
       'Collaborative Planning (Up to 8 Co-Travelers)',
       'Precision Currency Expense Split Engine',
       'Interactive Route Sequences & Transit Buffers',
       'Live Flight Revalidation & Fare Monitoring',
-      'Single-Day AI Regeneration & Pacing Toggles',
+      'Single-Day Atelier Regeneration & Pacing Toggles',
       'Offline Itinerary PDF & Calendar Sync',
     ],
     cta: 'Join Voyager Club',
-    href: '/auth',
+    href: '/checkout/membership?tier=voyager',
     popular: true,
   },
   {
@@ -63,14 +63,14 @@ const TIERS = [
       'Dedicated Travel Producer Consultation',
     ],
     cta: 'Apply for Private Reserve',
-    href: '/auth',
+    href: '/checkout/membership?tier=reserve',
     popular: false,
   },
 ];
 
 const COMPARISON_FEATURES = [
   { name: 'Active Itineraries', free: '3', voyager: 'Unlimited', reserve: 'Unlimited' },
-  { name: 'AI Generation Engine', free: 'Standard', voyager: 'Priority Gemini 1.5', reserve: 'Dedicated Pro Pipeline' },
+  { name: 'Itinerary Curation Atelier', free: 'Standard', voyager: 'Priority Atelier', reserve: 'Dedicated Private Producer' },
   { name: 'Group Expense Balancing', free: 'Basic', voyager: 'Multi-Currency Cent-Level', reserve: 'Corporate & Multi-Currency' },
   { name: 'Weather-Synced Packing', free: 'Included', voyager: 'Included', reserve: 'Real-Time Sync + Wardrobe Notes' },
   { name: 'Aman & Belmond VIP Perks', free: '—', voyager: '—', reserve: 'Full Virtuoso / FHR Equivalent' },

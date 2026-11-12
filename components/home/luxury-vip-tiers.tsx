@@ -31,7 +31,7 @@ const TIERS = [
       'Everything in Explorer Tier',
       'Real-Time Flight Price Revalidation & Alerts',
       'Multi-User Realtime Trip Collaboration (Editor / Viewer)',
-      'Uncapped Gemini 1.5 Pro AI Generation Quota',
+      'Unlimited Bespoke Itinerary Synthesis Atelier',
       'Comprehensive CSV & PDF Export for Travel Records',
     ],
     ctaText: 'Explore Voyager Pass',
