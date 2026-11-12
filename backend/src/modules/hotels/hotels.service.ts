@@ -25,6 +25,7 @@ export interface HotelDto {
   longitude: number;
   amenities: string[];
   mainImage: string;
+  imageUrl?: string;
   images: string[];
   pricePerNightMinor: number;
   totalPriceMinor: number;
@@ -54,6 +55,7 @@ export class HotelsService {
         longitude: 115.2447,
         amenities: ['Private Pool', 'Ayung River Views', 'Spa Sanctuary', 'Butler Service', 'Organic Dining'],
         mainImage: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800',
+        imageUrl: 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800',
         images: [
           'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800',
           'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800',
@@ -76,6 +78,7 @@ export class HotelsService {
         longitude: 115.2755,
         amenities: ['Valley Infinity Pool', 'Floating Breakfast', 'Yoga Pavilion', 'Free Shuttle'],
         mainImage: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800',
+        imageUrl: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800',
         images: [
           'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800',
           'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800',
@@ -98,6 +101,7 @@ export class HotelsService {
         longitude: 115.2412,
         amenities: ['Natural Swimming Pools', 'Permaculture Garden', 'Riverside Dining', 'Artisan Bamboo Villas'],
         mainImage: 'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=800',
+        imageUrl: 'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=800',
         images: [
           'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=800',
         ],

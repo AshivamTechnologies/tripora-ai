@@ -333,11 +333,11 @@ export function SiteHeader() {
             <button
               type="button"
               onClick={() => setDrawerOpen((prev) => !prev)}
-              className="flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/20 bg-white/10 px-3 sm:px-3.5 py-1.5 sm:py-2 text-xs font-semibold uppercase tracking-wider text-white transition-all hover:bg-white/20 hover:border-[#C5A46A]/40"
+              className="flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/20 bg-white/10 px-3 sm:px-3.5 py-1.5 sm:py-2 text-xs font-semibold uppercase tracking-wider text-white transition-all hover:bg-white/20 hover:border-[#C5A46A]/40 shrink-0"
               aria-label={drawerOpen ? 'Close Menu' : 'Open Editorial Directory'}
             >
-              <span className="hidden md:inline text-[11px] font-bold tracking-[0.16em] text-white">
-                Index
+              <span className="text-[11px] font-bold tracking-[0.16em] text-white">
+                Menu
               </span>
               {drawerOpen ? (
                 <X className="h-4 w-4 text-[#F5D794]" />
@@ -348,6 +348,31 @@ export function SiteHeader() {
                 </div>
               )}
             </button>
+          </div>
+        </div>
+
+        {/* Mobile & Tablet Quick Business Flow Sub-Nav (Visible on screens < lg) */}
+        <div className="lg:hidden border-t border-white/10 bg-[#050906]/95 px-3 py-1.5 overflow-x-auto no-scrollbar">
+          <div className="flex items-center gap-1.5 min-w-max">
+            {PRIMARY_LINKS.concat([{ href: '/trips', label: 'My Trips' }]).map((link) => {
+              const active =
+                pathname === link.href ||
+                (link.href !== '/' && pathname.startsWith(`${link.href}/`));
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={cn(
+                    'whitespace-nowrap rounded-full px-3 py-1 text-[11px] font-semibold tracking-wider uppercase transition-all shrink-0',
+                    active
+                      ? 'bg-[#C5A46A]/25 text-[#F5D794] border border-[#C5A46A]/50 shadow-xs'
+                      : 'text-white/75 hover:text-white hover:bg-white/10'
+                  )}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </header>
@@ -380,6 +405,36 @@ export function SiteHeader() {
                 >
                   <X className="h-4 w-4 sm:h-5 sm:w-5" />
                 </button>
+              </div>
+
+              {/* Quick Journey Flow Sequence */}
+              <div className="mt-4 p-3 rounded-2xl bg-white/5 border border-white/10">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#F5D794] block mb-2">
+                  ✦ The Journey Sequence
+                </span>
+                <div className="grid grid-cols-5 gap-1 text-center">
+                  {[
+                    { label: 'Sanctuaries', href: '/destinations', num: '1' },
+                    { label: 'Stays', href: '/hotels', num: '2' },
+                    { label: 'Aviation', href: '/flights', num: '3' },
+                    { label: 'AI Plan', href: '/planner', num: '4' },
+                    { label: 'Trips', href: '/trips', num: '5' },
+                  ].map((s) => (
+                    <Link
+                      key={s.href}
+                      href={s.href}
+                      onClick={() => setDrawerOpen(false)}
+                      className="flex flex-col items-center p-1.5 rounded-xl hover:bg-white/10 transition-colors"
+                    >
+                      <span className="h-5 w-5 rounded-full bg-[#F5D794]/20 text-[#F5D794] text-[10px] font-mono font-bold flex items-center justify-center mb-1">
+                        {s.num}
+                      </span>
+                      <span className="text-[9px] uppercase tracking-wider text-white/80 line-clamp-1">
+                        {s.label}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
               </div>
 
               {/* Navigation Items with Gold Numerals */}

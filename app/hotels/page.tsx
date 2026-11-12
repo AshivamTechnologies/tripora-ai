@@ -209,20 +209,25 @@ export default function HotelsPage() {
               className="group flex flex-col justify-between overflow-hidden rounded-3xl border border-brand-line bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-brand-sage"
             >
               <div>
-                <div className="relative aspect-[16/10] overflow-hidden bg-brand-ink">
+                <div className="relative aspect-[16/10] overflow-hidden bg-[#0A120D]">
                   <img
-                    src={h.imageUrl}
+                    src={h.imageUrl || h.mainImage || (h.images && h.images[0]) || 'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800'}
                     alt={h.name}
+                    loading="lazy"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLImageElement).src =
+                        'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800';
+                    }}
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-                  <div className="absolute top-3 left-3 flex items-center gap-1 rounded-full bg-brand-forest/90 backdrop-blur-md px-2.5 py-1 text-[11px] font-semibold text-brand-gold border border-brand-gold/30">
-                    <Sparkles className="h-3 w-3" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
+                  <div className="absolute top-3 left-3 flex items-center gap-1 rounded-full bg-brand-forest/90 backdrop-blur-md px-2.5 py-1 text-[11px] font-semibold text-[#F5D794] border border-[#C5A46A]/40 shadow-sm">
+                    <Sparkles className="h-3 w-3 text-[#F5D794]" />
                     <span>Private Reserve</span>
                   </div>
-                  <div className="absolute bottom-3 right-3 flex items-center gap-1 rounded-full bg-black/60 backdrop-blur-md px-2.5 py-1 text-xs font-semibold text-amber-300">
-                    <Star className="h-3 w-3 fill-amber-300" />
-                    <span>{h.rating}</span>
+                  <div className="absolute bottom-3 right-3 flex items-center gap-1 rounded-full bg-black/75 backdrop-blur-md px-2.5 py-1 text-xs font-semibold text-amber-300 border border-white/10">
+                    <Star className="h-3 w-3 fill-amber-300 text-amber-300" />
+                    <span>{h.reviewScore || h.rating || h.starRating || 5.0}</span>
                   </div>
                 </div>
 

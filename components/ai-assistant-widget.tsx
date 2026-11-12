@@ -53,7 +53,7 @@ export function AiAssistantWidget() {
   return (
     <>
       {/* Floating Action Pill */}
-      <aside aria-label="AI Travel Assistant" className="fixed bottom-6 right-6 z-40">
+      <aside aria-label="AI Travel Assistant" className="fixed bottom-20 right-4 sm:bottom-20 sm:right-6 lg:bottom-6 lg:right-6 z-40">
         {!open && (
           <button
             type="button"
