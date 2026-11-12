@@ -339,21 +339,42 @@ class ApiClient {
     if (endpoint.includes('/admin/overview')) {
       return Promise.resolve({
         metrics: {
-          totalUsers: 2,
-          activeUsers: 2,
-          totalTrips: 3,
-          activeTrips: 2,
-          completedTrips: 1,
-          totalAiCalls: 14,
-          totalTrackedExpensesMinor: 212000,
+          totalUsers: 4,
+          activeUsers: 4,
+          totalTrips: 6,
+          activeTrips: 3,
+          completedTrips: 2,
+          totalAiCalls: 48,
+          totalTrackedExpensesMinor: 16150000,
           currency: 'USD',
+          grossMerchandiseValueUsd: 161500,
         },
         providers: [
-          { providerType: 'AI', providerName: 'Google Gemini', circuitStatus: 'CLOSED', monthlyQuota: 50000 },
-          { providerType: 'FLIGHTS', providerName: 'Amadeus Travel API', circuitStatus: 'CLOSED', monthlyQuota: 2000 },
-          { providerType: 'WEATHER', providerName: 'OpenWeatherMap', circuitStatus: 'CLOSED', monthlyQuota: 10000 },
+          { providerType: 'AI_NEURAL', providerName: 'Google Gemini 1.5 Pro', circuitStatus: 'CLOSED', monthlyQuota: 1000000, latencyMs: 182 },
+          { providerType: 'GDS_AVIATION', providerName: 'Amadeus Private Charter & GDS', circuitStatus: 'CLOSED', monthlyQuota: 150000, latencyMs: 245 },
+          { providerType: 'METEOROLOGY', providerName: 'OpenWeather Microclimate Radar', circuitStatus: 'CLOSED', monthlyQuota: 500000, latencyMs: 94 },
+          { providerType: 'PAYMENT_VAULT', providerName: 'Stripe Private Concierge Vault', circuitStatus: 'CLOSED', monthlyQuota: 200000, latencyMs: 140 },
+          { providerType: 'HOSPITALITY_CRS', providerName: 'Aman Private Direct CRS', circuitStatus: 'CLOSED', monthlyQuota: 50000, latencyMs: 310 },
         ],
       } as any);
+    }
+
+    if (endpoint.includes('/admin/users')) {
+      return Promise.resolve([
+        { id: 'usr-001', fullName: 'Lady Eleanor Montagu', email: 'e.montagu@mayfair-advisory.co.uk', role: 'VIP_SOVEREIGN', status: 'ACTIVE', country: 'United Kingdom' },
+        { id: 'usr-002', fullName: 'Alex Vance', email: 'traveler@tripora.ai', role: 'VIP_RESERVE', status: 'ACTIVE', country: 'United States' },
+        { id: 'usr-003', fullName: 'Baroness Sylvie de Saint-Germain', email: 'sylvie.stgermain@elysee-heritage.fr', role: 'VIP_SOVEREIGN', status: 'ACTIVE', country: 'France' },
+        { id: 'usr-004', fullName: 'Carlos Mendez-Valdes', email: 'carlos.mendez@valdes-group.es', role: 'VIP_VOYAGER', status: 'ACTIVE', country: 'Spain' },
+      ] as any);
+    }
+
+    if (endpoint.includes('/admin/trips')) {
+      return Promise.resolve([
+        { id: 'jrn-8821', title: 'Kyoto Imperial Sanctuaries & Kaiseki', destination: 'Kyoto, Japan', startDate: '2026-11-20', endDate: '2026-11-28', status: 'CONCIERGE_APPROVED', budgetMinor: 4850000, currency: 'USD' },
+        { id: 'jrn-8822', title: 'Zermatt Private Peak & Glacier Expedition', destination: 'Zermatt, Switzerland', startDate: '2026-12-12', endDate: '2026-12-19', status: 'EXPEDITION_ACTIVE', budgetMinor: 3620000, currency: 'USD' },
+        { id: 'jrn-8823', title: 'Amalfi Coast Cliffside Estates & Yachting', destination: 'Amalfi Coast, Italy', startDate: '2027-04-14', endDate: '2027-04-22', status: 'SYNTHESIZING', budgetMinor: 5400000, currency: 'USD' },
+        { id: 'jrn-8824', title: 'Bali Sacred Highlands & River Sanctuary', destination: 'Bali, Indonesia', startDate: '2027-01-15', endDate: '2027-01-24', status: 'PENDING_REVIEW', budgetMinor: 2280000, currency: 'USD' },
+      ] as any);
     }
 
     return Promise.resolve([] as any);

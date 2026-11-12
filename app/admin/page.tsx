@@ -1,315 +1,395 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
   ShieldCheck,
-  Users,
+  Building2,
+  Compass,
   Plane,
+  Users,
+  BookOpen,
   Sparkles,
-  Server,
-  Activity,
-  DollarSign,
-  AlertCircle,
-  CheckCircle2,
   Lock,
-  ArrowRight,
+  Activity,
+  CheckCircle2,
+  AlertCircle,
+  X,
 } from 'lucide-react';
-import { api } from '@/lib/api';
 import { useAuth } from '@/components/auth/auth-provider';
+import { api } from '@/lib/api';
+import {
+  adminStore,
+  Sanctuary,
+  BespokeJourney,
+  AviationCharter,
+  VIPMember,
+  EditorialArticle,
+  ProviderCircuit,
+  AuditLogEntry,
+} from '@/lib/admin-store';
 
-export default function AdminDashboardPage() {
+import { AdminHeader } from '@/components/admin/admin-header';
+import { OverviewTab } from '@/components/admin/overview-tab';
+import { SanctuariesTab } from '@/components/admin/sanctuaries-tab';
+import { JourneysTab } from '@/components/admin/journeys-tab';
+import { AviationTab } from '@/components/admin/aviation-tab';
+import { MembersTab } from '@/components/admin/members-tab';
+import { EditorialTab } from '@/components/admin/editorial-tab';
+import { AiGovernanceTab } from '@/components/admin/ai-governance-tab';
+import { AuditTab } from '@/components/admin/audit-tab';
+
+type AdminTab =
+  | 'overview'
+  | 'sanctuaries'
+  | 'journeys'
+  | 'aviation'
+  | 'members'
+  | 'editorial'
+  | 'ai-governance'
+  | 'audit';
+
+export default function LuxuryAdminPortal() {
   const { user } = useAuth();
-  const [activeTab, setActiveTab] = useState<'overview' | 'users' | 'trips' | 'ai' | 'providers' | 'logs'>('overview');
-  const [data, setData] = useState<any>(null);
-  const [usersList, setUsersList] = useState<any[]>([]);
-  const [tripsList, setTripsList] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<AdminTab>('overview');
+
+  // Live Data States
+  const [sanctuaries, setSanctuaries] = useState<Sanctuary[]>([]);
+  const [journeys, setJourneys] = useState<BespokeJourney[]>([]);
+  const [aviation, setAviation] = useState<AviationCharter[]>([]);
+  const [members, setMembers] = useState<VIPMember[]>([]);
+  const [articles, setArticles] = useState<EditorialArticle[]>([]);
+  const [circuits, setCircuits] = useState<ProviderCircuit[]>([]);
+  const [auditLogs, setAuditLogs] = useState<AuditLogEntry[]>([]);
+  const [metrics, setMetrics] = useState<any>({
+    grossMerchandiseValueUsd: 161500,
+    totalCuratedSanctuaries: 6,
+    activeExpeditions: 3,
+    pendingRequests: 1,
+    averageConciergeSlaMin: 4.8,
+    neuralMatrixLatencyMs: 182,
+    conciergeDesks: [],
+  });
+
+  const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [selectedJourneyForView, setSelectedJourneyForView] = useState<BespokeJourney | null>(null);
+
+  // Load store data
+  const refreshData = () => {
+    setSanctuaries(adminStore.getSanctuaries());
+    setJourneys(adminStore.getJourneys());
+    setAviation(adminStore.getAviationCharters());
+    setMembers(adminStore.getMembers());
+    setArticles(adminStore.getEditorialArticles());
+    setCircuits(adminStore.getProviderCircuits());
+    setAuditLogs(adminStore.getAuditLogs());
+    setMetrics(adminStore.getExecutiveMetrics());
+  };
 
   useEffect(() => {
-    loadAdminData();
-  }, [user]);
+    refreshData();
+  }, []);
 
-  async function loadAdminData() {
-    setLoading(true);
-    setError(null);
-    try {
-      const [overview, users, trips] = await Promise.all([
-        api.request('/admin/overview'),
-        api.request('/admin/users').catch(() => []),
-        api.request('/admin/trips').catch(() => []),
-      ]);
-      setData(overview);
-      setUsersList(users);
-      setTripsList(trips);
-    } catch (err: any) {
-      console.warn('Admin load error:', err);
-      // For demo testing, provide simulated admin view if not admin
-      setError(err.message || 'Access restricted to administrators');
-    } finally {
-      setLoading(false);
+  const triggerToast = (msg: string) => {
+    setToastMessage(msg);
+    setTimeout(() => {
+      setToastMessage(null);
+    }, 3500);
+  };
+
+  // --- Actions Handlers ---
+  const handleAddSanctuary = (item: Omit<Sanctuary, 'id'>) => {
+    const created = adminStore.addSanctuary(item);
+    refreshData();
+    triggerToast(`Curated sanctuary "${created.name}" added to the Private Reserve.`);
+  };
+
+  const handleUpdateSanctuary = (id: string, updates: Partial<Sanctuary>) => {
+    adminStore.updateSanctuary(id, updates);
+    refreshData();
+    triggerToast(`Sanctuary parameters successfully updated.`);
+  };
+
+  const handleDeleteSanctuary = (id: string) => {
+    adminStore.deleteSanctuary(id);
+    refreshData();
+    triggerToast(`Sanctuary removed from the portfolio.`);
+  };
+
+  const handleUpdateJourneyStatus = (id: string, status: BespokeJourney['status']) => {
+    adminStore.updateJourneyStatus(id, status);
+    refreshData();
+    triggerToast(`Expedition status updated to ${status.replace('_', ' ')}.`);
+  };
+
+  const handleAssignDesk = (id: string, desk: BespokeJourney['assignedConciergeDesk']) => {
+    adminStore.assignJourneyDesk(id, desk);
+    refreshData();
+    triggerToast(`Assigned expedition to ${desk}.`);
+  };
+
+  const handleUpdateDirective = (id: string, directive: string) => {
+    adminStore.updateJourneyDirective(id, directive);
+    refreshData();
+    triggerToast(`Private concierge directive synchronized.`);
+  };
+
+  const handleUpdateAviationStatus = (id: string, status: AviationCharter['status']) => {
+    adminStore.updateAviationStatus(id, status);
+    refreshData();
+    triggerToast(`Aviation dispatch status updated to ${status}.`);
+  };
+
+  const handleUpdateMemberTier = (id: string, tier: VIPMember['memberTier']) => {
+    adminStore.updateMemberTier(id, tier);
+    refreshData();
+    triggerToast(`Traveler membership tier updated to ${tier}.`);
+  };
+
+  const handleUpdatePreferences = (
+    id: string,
+    preferences: VIPMember['preferences'],
+    conciergeNotes: string
+  ) => {
+    adminStore.updateMemberPreferences(id, preferences, conciergeNotes);
+    refreshData();
+    triggerToast(`High-net-worth preference dossier synchronized.`);
+  };
+
+  const handleToggleSpotlight = (id: string) => {
+    adminStore.toggleArticleSpotlight(id);
+    refreshData();
+    triggerToast(`Editorial spotlight hero visibility toggled.`);
+  };
+
+  const handleToggleArticleStatus = (id: string) => {
+    adminStore.toggleArticleStatus(id);
+    refreshData();
+    triggerToast(`Publication status updated.`);
+  };
+
+  const handleToggleCircuit = (id: string) => {
+    adminStore.toggleProviderCircuit(id);
+    refreshData();
+    triggerToast(`Provider circuit breaker state toggled.`);
+  };
+
+  const handleResetData = () => {
+    if (confirm('Reset all admin modules and logs to pristine luxury seed defaults?')) {
+      adminStore.resetToDefaults();
+      refreshData();
+      triggerToast('Platform restored to luxury reference state.');
     }
-  }
+  };
+
+  const handleExportMaster = () => {
+    const fullExport = {
+      system: 'TRIPORA RESERVE ENTERPRISE OPERATIONS',
+      exportedAt: new Date().toISOString(),
+      metrics,
+      sanctuaries,
+      bespokeJourneys: journeys,
+      aviationCharters: aviation,
+      vipMembers: members,
+      editorialArticles: articles,
+      circuits,
+      auditLogs,
+    };
+
+    const blob = new Blob([JSON.stringify(fullExport, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `Tripora_Reserve_Master_Export_${new Date().toISOString().substring(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    triggerToast('Master JSON manifest downloaded.');
+  };
+
+  const handleSelectJourneyFromOverview = (j: BespokeJourney) => {
+    setSelectedJourneyForView(j);
+    setActiveTab('journeys');
+  };
 
   return (
-    <div className="min-h-screen bg-brand-mist pb-24 pt-10">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        {/* Header */}
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <div className="inline-flex items-center gap-2 rounded-full bg-amber-100 px-3 py-1 text-xs font-bold uppercase tracking-wider text-amber-900 shadow-sm">
-              <ShieldCheck className="h-4 w-4" />
-              Administrative Operations Center
-            </div>
-            <h1 className="mt-2 font-serif text-3xl text-brand-ink sm:text-4xl">Platform Operations & Telemetry</h1>
-            <p className="mt-1 text-sm text-brand-muted">
-              Live SaaS metrics, AI token quotas, external API circuit health, and user management.
-            </p>
-          </div>
-
-          <Link
-            href="/dashboard"
-            className="flex items-center gap-2 rounded-full border border-brand-line bg-white px-4 py-2 text-xs font-semibold text-brand-ink shadow-sm hover:bg-brand-mist"
+    <div className="min-h-screen bg-[#080E0A] text-white selection:bg-[#F5D794] selection:text-[#0A120D] pb-24">
+      {/* Toast Feedback Notification */}
+      {toastMessage && (
+        <div className="fixed top-6 right-6 z-50 flex items-center gap-2.5 rounded-2xl border border-[#C5A46A]/60 bg-[#121c16]/95 backdrop-blur-md px-4 py-3 text-xs font-medium text-white shadow-2xl animate-in slide-in-from-top-4 duration-200">
+          <CheckCircle2 className="h-4 w-4 text-[#F5D794]" />
+          <span>{toastMessage}</span>
+          <button
+            onClick={() => setToastMessage(null)}
+            className="ml-2 text-white/50 hover:text-white"
           >
-            User Dashboard &rarr;
-          </Link>
+            <X className="h-3.5 w-3.5" />
+          </button>
         </div>
+      )}
 
-        {error && (
-          <div className="mt-6 rounded-2xl border border-amber-300 bg-amber-50 p-4 text-xs text-amber-900 flex items-center justify-between">
-            <span>Notice: {error}. (Sign in as admin@tripora.ai for full live write access)</span>
-            <button
-              onClick={async () => {
-                await api.request('/auth/login', {
-                  method: 'POST',
-                  body: JSON.stringify({ email: 'admin@tripora.ai', password: 'Password123!' }),
-                }).then((res) => {
-                  api.setToken(res.tokens.accessToken);
-                  window.location.reload();
-                });
-              }}
-              className="rounded-full bg-amber-900 text-white px-3 py-1 font-semibold hover:bg-amber-950"
-            >
-              Sign in as Admin
-            </button>
-          </div>
-        )}
+      {/* Admin Executive Header */}
+      <AdminHeader
+        onOpenAddSanctuary={() => setActiveTab('sanctuaries')}
+        onOpenAiSandbox={() => setActiveTab('ai-governance')}
+        onExportData={handleExportMaster}
+        onResetData={handleResetData}
+      />
 
-        {/* Navigation Tabs */}
-        <div className="mt-8 flex gap-2 border-b border-brand-line pb-2">
+      {/* Master Content Area */}
+      <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-6">
+        {/* Luxury Navigation Tabs */}
+        <div className="flex overflow-x-auto no-scrollbar gap-2 border-b border-white/10 pb-4">
           {[
-            { id: 'overview', label: 'Overview Metrics' },
-            { id: 'users', label: 'User Directory' },
-            { id: 'trips', label: 'All Trips' },
-            { id: 'providers', label: 'API Provider Health' },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
-              className={`rounded-full px-4 py-2 text-xs font-semibold transition-colors ${
-                activeTab === tab.id
-                  ? 'bg-brand-forest text-white shadow-sm'
-                  : 'bg-white text-brand-muted hover:text-brand-ink border border-brand-line'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
+            {
+              id: 'overview',
+              label: 'Command Telemetry',
+              icon: Activity,
+              badge: 'LIVE',
+              badgeColor: 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30',
+            },
+            {
+              id: 'sanctuaries',
+              label: 'Sanctuaries & Estates',
+              icon: Building2,
+              badge: `${sanctuaries.length}`,
+              badgeColor: 'bg-[#C5A46A]/20 text-[#F5D794] border border-[#C5A46A]/30',
+            },
+            {
+              id: 'journeys',
+              label: 'VIP Expeditions',
+              icon: Compass,
+              badge: `${journeys.length}`,
+              badgeColor: 'bg-[#C5A46A]/20 text-[#F5D794] border border-[#C5A46A]/30',
+            },
+            {
+              id: 'aviation',
+              label: 'Private Aviation',
+              icon: Plane,
+              badge: `${aviation.length} Jets`,
+              badgeColor: 'bg-blue-500/20 text-blue-300 border border-blue-500/30',
+            },
+            {
+              id: 'members',
+              label: 'Traveler CRM',
+              icon: Users,
+              badge: 'HNWI',
+              badgeColor: 'bg-amber-500/20 text-amber-300 border border-amber-500/30',
+            },
+            {
+              id: 'editorial',
+              label: 'Field Notes CMS',
+              icon: BookOpen,
+              badge: `${articles.length}`,
+              badgeColor: 'bg-white/10 text-white/70 border border-white/10',
+            },
+            {
+              id: 'ai-governance',
+              label: 'AI Matrix & Circuits',
+              icon: Sparkles,
+              badge: 'Gemini 1.5 Pro',
+              badgeColor: 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30',
+            },
+            {
+              id: 'audit',
+              label: 'Audit Trail',
+              icon: ShieldCheck,
+              badge: 'SHA-256',
+              badgeColor: 'bg-white/10 text-white/70 border border-white/10',
+            },
+          ].map((tab) => {
+            const Icon = tab.icon;
+            const isActive = activeTab === tab.id;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as AdminTab)}
+                className={`flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition-all ${
+                  isActive
+                    ? 'bg-gradient-to-r from-[#F5D794] via-[#edd9a8] to-[#C5A46A] text-[#0A120D] shadow-md shadow-[#C5A46A]/10 font-bold scale-[1.02]'
+                    : 'bg-white/[0.04] text-white/70 hover:bg-white/[0.08] hover:text-white border border-white/5'
+                }`}
+              >
+                <Icon className={`h-3.5 w-3.5 ${isActive ? 'text-[#0A120D]' : 'text-[#F5D794]'}`} />
+                <span>{tab.label}</span>
+                <span
+                  className={`rounded-full px-1.5 py-0.2 text-[9px] font-mono font-bold ${
+                    isActive ? 'bg-[#0A120D]/20 text-[#0A120D]' : tab.badgeColor
+                  }`}
+                >
+                  {tab.badge}
+                </span>
+              </button>
+            );
+          })}
         </div>
 
-        {/* Tab Content */}
-        {activeTab === 'overview' && (
-          <div className="mt-8 space-y-8">
-            {/* KPI Cards */}
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-              <div className="rounded-3xl border border-brand-line bg-white p-6 shadow-sm">
-                <span className="text-xs font-semibold uppercase tracking-wider text-brand-muted">Registered Users</span>
-                <p className="mt-3 font-serif text-3xl text-brand-ink">{data?.metrics?.totalUsers || 2}</p>
-                <p className="mt-1 text-xs text-emerald-700 font-medium">100% Active standing</p>
-              </div>
+        {/* Tab Panels */}
+        <div className="mt-8 animate-in fade-in duration-300">
+          {activeTab === 'overview' && (
+            <OverviewTab
+              metrics={metrics}
+              journeys={journeys}
+              sanctuaries={sanctuaries}
+              aviation={aviation}
+              members={members}
+              circuits={circuits}
+              onSelectTab={(tabId) => setActiveTab(tabId)}
+              onSelectJourney={handleSelectJourneyFromOverview}
+            />
+          )}
 
-              <div className="rounded-3xl border border-brand-line bg-white p-6 shadow-sm">
-                <span className="text-xs font-semibold uppercase tracking-wider text-brand-muted">Total Trips Generated</span>
-                <p className="mt-3 font-serif text-3xl text-brand-ink">{data?.metrics?.totalTrips || 3}</p>
-                <p className="mt-1 text-xs text-brand-muted">Includes ongoing & upcoming</p>
-              </div>
+          {activeTab === 'sanctuaries' && (
+            <SanctuariesTab
+              sanctuaries={sanctuaries}
+              onAddSanctuary={handleAddSanctuary}
+              onUpdateSanctuary={handleUpdateSanctuary}
+              onDeleteSanctuary={handleDeleteSanctuary}
+            />
+          )}
 
-              <div className="rounded-3xl border border-brand-line bg-white p-6 shadow-sm">
-                <span className="text-xs font-semibold uppercase tracking-wider text-brand-muted">AI Operations</span>
-                <p className="mt-3 font-serif text-3xl text-brand-ink">{data?.metrics?.totalAiCalls || 14}</p>
-                <p className="mt-1 text-xs text-brand-gold font-medium">Gemini 1.5 Flash provider</p>
-              </div>
+          {activeTab === 'journeys' && (
+            <JourneysTab
+              journeys={journeys}
+              onUpdateStatus={handleUpdateJourneyStatus}
+              onAssignDesk={handleAssignDesk}
+              onUpdateDirective={handleUpdateDirective}
+              selectedJourney={selectedJourneyForView}
+            />
+          )}
 
-              <div className="rounded-3xl border border-brand-line bg-white p-6 shadow-sm">
-                <span className="text-xs font-semibold uppercase tracking-wider text-brand-muted">Tracked Volume</span>
-                <p className="mt-3 font-serif text-3xl text-brand-ink">
-                  ${Math.round((data?.metrics?.totalTrackedExpensesMinor || 212000) / 100).toLocaleString()}
-                </p>
-                <p className="mt-1 text-xs text-brand-muted">Across user expense logs</p>
-              </div>
-            </div>
+          {activeTab === 'aviation' && (
+            <AviationTab
+              charters={aviation}
+              onUpdateStatus={handleUpdateAviationStatus}
+            />
+          )}
 
-            {/* Providers Status Table */}
-            <div className="rounded-3xl border border-brand-line bg-white p-6 shadow-sm">
-              <h2 className="font-serif text-2xl text-brand-ink">Live Provider Adapters</h2>
-              <p className="mt-1 text-xs text-brand-muted">
-                Circuit breakers, uptime, and fallback policy monitoring.
-              </p>
+          {activeTab === 'members' && (
+            <MembersTab
+              members={members}
+              onUpdateTier={handleUpdateMemberTier}
+              onUpdatePreferences={handleUpdatePreferences}
+            />
+          )}
 
-              <div className="mt-4 overflow-x-auto">
-                <table className="w-full text-left text-xs">
-                  <thead>
-                    <tr className="border-b border-brand-line text-brand-muted uppercase">
-                      <th className="pb-3">Provider</th>
-                      <th className="pb-3">Type</th>
-                      <th className="pb-3">Status</th>
-                      <th className="pb-3">Circuit Status</th>
-                      <th className="pb-3">Monthly Quota</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-brand-line">
-                    {(data?.providers || []).map((p: any) => (
-                      <tr key={p.providerName} className="hover:bg-brand-mist/40">
-                        <td className="py-3 font-medium text-brand-ink">{p.providerName}</td>
-                        <td className="py-3 text-brand-muted">{p.providerType}</td>
-                        <td className="py-3">
-                          <span className="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 font-semibold text-emerald-800">
-                            <CheckCircle2 className="h-3 w-3" /> Operational
-                          </span>
-                        </td>
-                        <td className="py-3">
-                          <span className="rounded font-mono text-[11px] bg-brand-mist px-2 py-0.5">
-                            {p.circuitStatus || 'CLOSED'}
-                          </span>
-                        </td>
-                        <td className="py-3 text-brand-muted">{p.monthlyQuota?.toLocaleString()} req/mo</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        )}
+          {activeTab === 'editorial' && (
+            <EditorialTab
+              articles={articles}
+              onToggleSpotlight={handleToggleSpotlight}
+              onToggleStatus={handleToggleArticleStatus}
+            />
+          )}
 
-        {activeTab === 'users' && (
-          <div className="mt-8 rounded-3xl border border-brand-line bg-white p-6 shadow-sm">
-            <h2 className="font-serif text-2xl text-brand-ink">Platform Users</h2>
-            <div className="mt-4 overflow-x-auto">
-              <table className="w-full text-left text-xs">
-                <thead>
-                  <tr className="border-b border-brand-line text-brand-muted uppercase">
-                    <th className="pb-3">User</th>
-                    <th className="pb-3">Email</th>
-                    <th className="pb-3">Role</th>
-                    <th className="pb-3">Status</th>
-                    <th className="pb-3">Country</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-brand-line">
-                  {usersList.map((u) => (
-                    <tr key={u.id} className="hover:bg-brand-mist/40">
-                      <td className="py-3 font-semibold text-brand-ink">{u.fullName}</td>
-                      <td className="py-3 text-brand-muted font-mono">{u.email}</td>
-                      <td className="py-3">
-                        <span className={`rounded-full px-2 py-0.5 font-semibold ${u.role === 'ADMIN' ? 'bg-amber-100 text-amber-900' : 'bg-brand-mist text-brand-forest'}`}>
-                          {u.role}
-                        </span>
-                      </td>
-                      <td className="py-3">
-                        <span className="text-emerald-700 font-medium">{u.status}</span>
-                      </td>
-                      <td className="py-3 text-brand-muted">{u.country || 'Global'}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
+          {activeTab === 'ai-governance' && (
+            <AiGovernanceTab
+              circuits={circuits}
+              onToggleCircuit={handleToggleCircuit}
+            />
+          )}
 
-        {activeTab === 'trips' && (
-          <div className="mt-8 rounded-3xl border border-brand-line bg-white p-6 shadow-sm">
-            <h2 className="font-serif text-2xl text-brand-ink">Global Trips Log</h2>
-            <div className="mt-4 overflow-x-auto">
-              <table className="w-full text-left text-xs">
-                <thead>
-                  <tr className="border-b border-brand-line text-brand-muted uppercase">
-                    <th className="pb-3">Trip Title</th>
-                    <th className="pb-3">Destination</th>
-                    <th className="pb-3">Dates</th>
-                    <th className="pb-3">Status</th>
-                    <th className="pb-3">Budget</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-brand-line">
-                  {tripsList.map((t) => (
-                    <tr key={t.id} className="hover:bg-brand-mist/40">
-                      <td className="py-3 font-semibold text-brand-ink">{t.title}</td>
-                      <td className="py-3 text-brand-forest font-medium">{t.destination}</td>
-                      <td className="py-3 text-brand-muted">{t.startDate} &rarr; {t.endDate}</td>
-                      <td className="py-3">
-                        <span className="rounded-full bg-brand-mist px-2.5 py-0.5 font-semibold text-brand-ink">
-                          {t.status}
-                        </span>
-                      </td>
-                      <td className="py-3 font-semibold text-brand-ink">
-                        ${Math.round((t.budgetMinor || 0) / 100).toLocaleString()} {t.currency}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        )}
-
-        {activeTab === 'providers' && (
-          <div className="mt-8 space-y-4">
-            <div className="rounded-3xl border border-brand-line bg-white p-6 shadow-sm">
-              <h2 className="font-serif text-2xl text-brand-ink">External Providers & API Health</h2>
-              <p className="mt-1 text-xs text-brand-muted">
-                Each integration supports configured live credentials with seamless automated sandbox/mock fallback.
-              </p>
-
-              <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                <div className="rounded-2xl border border-brand-line bg-brand-mist/40 p-4">
-                  <span className="font-serif text-base font-semibold text-brand-ink">Google Gemini API</span>
-                  <p className="mt-1 text-xs text-brand-muted">Provider: Gemini 1.5 Flash structured output engine</p>
-                  <span className="mt-3 inline-block rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-semibold px-2.5 py-0.5">
-                    Operational &bull; Schema Validation Active
-                  </span>
-                </div>
-
-                <div className="rounded-2xl border border-brand-line bg-brand-mist/40 p-4">
-                  <span className="font-serif text-base font-semibold text-brand-ink">Amadeus Travel API</span>
-                  <p className="mt-1 text-xs text-brand-muted">Provider: Self-service global flight search & pricing</p>
-                  <span className="mt-3 inline-block rounded-full bg-blue-100 text-blue-800 text-[11px] font-semibold px-2.5 py-0.5">
-                    Sandbox Ready &bull; Live Fallback Guard
-                  </span>
-                </div>
-
-                <div className="rounded-2xl border border-brand-line bg-brand-mist/40 p-4">
-                  <span className="font-serif text-base font-semibold text-brand-ink">OpenWeather API</span>
-                  <p className="mt-1 text-xs text-brand-muted">Provider: Global 5-day destination forecast</p>
-                  <span className="mt-3 inline-block rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-semibold px-2.5 py-0.5">
-                    Operational &bull; Cache Enabled
-                  </span>
-                </div>
-
-                <div className="rounded-2xl border border-brand-line bg-brand-mist/40 p-4">
-                  <span className="font-serif text-base font-semibold text-brand-ink">Razorpay / Stripe</span>
-                  <p className="mt-1 text-xs text-brand-muted">Provider: Subscription & checkout payments</p>
-                  <span className="mt-3 inline-block rounded-full bg-purple-100 text-purple-800 text-[11px] font-semibold px-2.5 py-0.5">
-                    Commercial Webhook Architecture Ready
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
+          {activeTab === 'audit' && <AuditTab logs={auditLogs} />}
+        </div>
+      </main>
     </div>
   );
 }
