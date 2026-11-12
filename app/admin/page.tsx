@@ -30,6 +30,7 @@ import {
 } from '@/lib/admin-store';
 
 import { AdminHeader } from '@/components/admin/admin-header';
+import { AdminSecurityGate } from '@/components/admin/admin-security-gate';
 import { OverviewTab } from '@/components/admin/overview-tab';
 import { SanctuariesTab } from '@/components/admin/sanctuaries-tab';
 import { JourneysTab } from '@/components/admin/journeys-tab';
@@ -50,7 +51,7 @@ type AdminTab =
   | 'audit';
 
 export default function LuxuryAdminPortal() {
-  const { user } = useAuth();
+  const { user, loading, setUser } = useAuth();
   const [activeTab, setActiveTab] = useState<AdminTab>('overview');
 
   // Live Data States
@@ -210,6 +211,51 @@ export default function LuxuryAdminPortal() {
     setSelectedJourneyForView(j);
     setActiveTab('journeys');
   };
+
+  const handleAuthenticateAdmin = async (email: string, pass: string): Promise<boolean> => {
+    try {
+      const res = await api.request('/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ email, password: pass }),
+      });
+      if (res?.tokens?.accessToken) {
+        api.setToken(res.tokens.accessToken);
+      }
+      if (res?.user && res.user.role === 'ADMIN') {
+        setUser(res.user);
+        adminStore.addAuditLog('ADMIN_CLEARANCE_AUTHENTICATED', `Master concierge access authorized for ${email}`);
+        refreshData();
+        return true;
+      }
+      return false;
+    } catch (err) {
+      console.error('Admin authentication failure:', err);
+      return false;
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#080E0A] text-white flex items-center justify-center">
+        <div className="flex flex-col items-center gap-3">
+          <span className="h-8 w-8 border-2 border-[#C5A46A] border-t-transparent rounded-full animate-spin" />
+          <span className="font-mono text-xs text-[#F5D794] tracking-widest uppercase">
+            Verifying Diplomatic Clearance...
+          </span>
+        </div>
+      </div>
+    );
+  }
+
+  // Security Gate: Restrict access to verified ADMIN role only
+  if (!user || user.role !== 'ADMIN') {
+    return (
+      <AdminSecurityGate
+        currentUser={user}
+        onAuthenticateAdmin={handleAuthenticateAdmin}
+      />
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#080E0A] text-white selection:bg-[#F5D794] selection:text-[#0A120D] pb-24">

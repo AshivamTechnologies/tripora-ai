@@ -301,14 +301,16 @@ export function SiteHeader() {
                           <Bookmark className="h-3.5 w-3.5 text-[#F5D794]" />
                           <span>My Expeditions</span>
                         </Link>
-                        <Link
-                          href="/admin"
-                          onClick={() => setUserMenuOpen(false)}
-                          className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-medium text-amber-300 hover:bg-white/10 transition-colors"
-                        >
-                          <ShieldCheck className="h-3.5 w-3.5" />
-                          <span>Admin Portal</span>
-                        </Link>
+                        {user.role === 'ADMIN' && (
+                          <Link
+                            href="/admin"
+                            onClick={() => setUserMenuOpen(false)}
+                            className="flex items-center gap-2 rounded-xl px-3 py-2 text-xs font-semibold text-[#F5D794] hover:bg-white/10 transition-colors border border-[#C5A46A]/30 bg-[#C5A46A]/10 mt-1"
+                          >
+                            <ShieldCheck className="h-3.5 w-3.5 text-[#F5D794]" />
+                            <span>Executive Operations</span>
+                          </Link>
+                        )}
                       </div>
 
                       <div className="border-t border-white/10 pt-1">

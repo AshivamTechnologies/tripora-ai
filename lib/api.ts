@@ -98,8 +98,12 @@ class ApiClient {
     if (typeof window !== 'undefined') {
       if (token) {
         localStorage.setItem('tripora_access_token', token);
+        document.cookie = `tripora_access_token=${token}; path=/; max-age=604800; SameSite=Lax`;
       } else {
         localStorage.removeItem('tripora_access_token');
+        localStorage.removeItem('tripora_current_user');
+        document.cookie = 'tripora_access_token=; path=/; max-age=0; SameSite=Lax';
+        document.cookie = 'tripora_role=; path=/; max-age=0; SameSite=Lax';
       }
     }
   }
@@ -142,28 +146,63 @@ class ApiClient {
     const isBrowser = typeof window !== 'undefined';
 
     if (endpoint.includes('/auth/login') || endpoint.includes('/auth/register')) {
-      const demoUser: UserSession = {
-        id: 'usr-demo-002',
-        email: 'traveler@tripora.ai',
-        role: 'USER',
-        profile: {
-          fullName: 'Alex Vance',
-          avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop',
-          country: 'United States',
-          city: 'New York',
-        },
-        preference: {
-          preferredCurrency: 'USD',
-          preferredLanguage: 'en',
-          travelPace: 'Balanced',
-          budgetTier: 'Moderate',
-        },
-      };
-      if (isBrowser) {
-        this.setToken('mock-jwt-token-active-session');
-        localStorage.setItem('tripora_current_user', JSON.stringify(demoUser));
+      let reqBody: any = {};
+      if (options.body && typeof options.body === 'string') {
+        try {
+          reqBody = JSON.parse(options.body);
+        } catch {}
       }
-      return Promise.resolve({ user: demoUser, tokens: { accessToken: 'mock-jwt-token-active-session' } } as any);
+
+      const email = (reqBody.email || '').toLowerCase().trim();
+      const isAdmin = email === 'admin@tripora.ai' || reqBody.role === 'ADMIN';
+
+      let user: UserSession;
+      if (isAdmin) {
+        user = {
+          id: 'usr-admin-001',
+          email: 'admin@tripora.ai',
+          role: 'ADMIN',
+          profile: {
+            fullName: 'Master Concierge Administrator',
+            avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop',
+            country: 'Global Command',
+            city: 'Executive Operations',
+          },
+          preference: {
+            preferredCurrency: 'USD',
+            preferredLanguage: 'en',
+            travelPace: 'Executive',
+            budgetTier: 'Luxury',
+          },
+        };
+      } else {
+        const displayName = reqBody.fullName || (email ? email.split('@')[0] : 'Alex Vance');
+        user = {
+          id: `usr-${Date.now().toString(36)}`,
+          email: email || 'traveler@tripora.ai',
+          role: 'USER',
+          profile: {
+            fullName: displayName,
+            avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop',
+            country: reqBody.country || 'United States',
+            city: 'New York',
+          },
+          preference: {
+            preferredCurrency: 'USD',
+            preferredLanguage: 'en',
+            travelPace: 'Balanced',
+            budgetTier: 'Luxury',
+          },
+        };
+      }
+
+      if (isBrowser) {
+        const token = `token-${user.role.toLowerCase()}-${user.id}`;
+        this.setToken(token);
+        localStorage.setItem('tripora_current_user', JSON.stringify(user));
+        document.cookie = `tripora_role=${user.role}; path=/; max-age=604800; SameSite=Lax`;
+      }
+      return Promise.resolve({ user, tokens: { accessToken: `token-${user.role.toLowerCase()}-${user.id}` } } as any);
     }
 
     if (endpoint.includes('/auth/me')) {
@@ -171,22 +210,13 @@ class ApiClient {
         const saved = localStorage.getItem('tripora_current_user');
         if (saved) {
           try {
-            return Promise.resolve(JSON.parse(saved) as any);
+            const parsed = JSON.parse(saved);
+            document.cookie = `tripora_role=${parsed.role}; path=/; max-age=604800; SameSite=Lax`;
+            return Promise.resolve(parsed as any);
           } catch {}
         }
       }
-      const demoUser: UserSession = {
-        id: 'usr-demo-002',
-        email: 'traveler@tripora.ai',
-        role: 'USER',
-        profile: {
-          fullName: 'Alex Vance',
-          avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop',
-          country: 'United States',
-          city: 'New York',
-        },
-      };
-      return Promise.resolve(demoUser as any);
+      return Promise.resolve(null as any);
     }
 
     if (endpoint.includes('/destinations')) {
@@ -334,6 +364,21 @@ class ApiClient {
         sender: 'ASSISTANT',
         suggestedActions: ['Check weather', 'Suggest restaurants', 'Optimize schedule'],
       } as any);
+    }
+
+    if (endpoint.includes('/admin/')) {
+      let currentUser: any = null;
+      if (isBrowser) {
+        const saved = localStorage.getItem('tripora_current_user');
+        if (saved) {
+          try {
+            currentUser = JSON.parse(saved);
+          } catch {}
+        }
+      }
+      if (!currentUser || currentUser.role !== 'ADMIN') {
+        throw new Error('403 Forbidden: Diplomatic & Administrative clearance required to access executive operations.');
+      }
     }
 
     if (endpoint.includes('/admin/overview')) {

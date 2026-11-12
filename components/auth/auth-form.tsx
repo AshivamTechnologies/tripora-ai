@@ -3,35 +3,54 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, type FormEvent } from 'react';
-import { Loader2, Sparkles } from 'lucide-react';
-import { controlClass, Field } from '@/components/planner/planner-field';
+import {
+  ShieldCheck,
+  User,
+  Sparkles,
+  KeyRound,
+  AlertTriangle,
+  ArrowRight,
+  Lock,
+  Compass,
+} from 'lucide-react';
 import { api } from '@/lib/api';
 import { useAuth } from '@/components/auth/auth-provider';
 
-type Mode = 'signin' | 'signup';
+type Mode = 'signin' | 'signup' | 'admin';
 
 const MIN_PASSWORD_LENGTH = 8;
 
-export function AuthForm({ nextPath }: { nextPath: string }) {
+interface AuthFormProps {
+  nextPath: string;
+  reason?: string;
+}
+
+export function AuthForm({ nextPath, reason }: AuthFormProps) {
   const router = useRouter();
   const { setUser } = useAuth();
-  const [mode, setMode] = useState<Mode>('signin');
-  const [email, setEmail] = useState('');
+  const [mode, setMode] = useState<Mode>(reason ? 'admin' : 'signin');
+  const [email, setEmail] = useState(reason ? 'admin@tripora.ai' : '');
   const [fullName, setFullName] = useState('');
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState(reason ? 'Password123!' : '');
+  const [country, setCountry] = useState('United States');
   const [error, setError] = useState<string | null>(null);
-  const [notice, setNotice] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
-
-  const isSignUp = mode === 'signup';
 
   function switchMode(next: Mode) {
     setMode(next);
     setError(null);
-    setNotice(null);
+    if (next === 'admin') {
+      setEmail('admin@tripora.ai');
+      setPassword('Password123!');
+    } else {
+      if (email === 'admin@tripora.ai') {
+        setEmail('');
+        setPassword('');
+      }
+    }
   }
 
-  async function handleDemoSignIn() {
+  async function handleDemoTraveler() {
     setSubmitting(true);
     setError(null);
     try {
@@ -41,18 +60,27 @@ export function AuthForm({ nextPath }: { nextPath: string }) {
       });
       api.setToken(res.tokens.accessToken);
       setUser(res.user);
-      router.replace(nextPath || '/dashboard');
-    } catch {
-      // Fallback
-      const demoUser = {
-        id: 'usr-demo-002',
-        email: 'traveler@tripora.ai',
-        role: 'USER' as const,
-        profile: { fullName: 'Alex Vance', country: 'United States' },
-      };
-      api.setToken('mock-session');
-      setUser(demoUser);
-      router.replace(nextPath || '/dashboard');
+      router.replace(nextPath.startsWith('/admin') ? '/dashboard' : nextPath || '/dashboard');
+    } catch (err: any) {
+      setError(err?.message || 'Demo sign-in failed');
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  async function handleDemoAdmin() {
+    setSubmitting(true);
+    setError(null);
+    try {
+      const res = await api.request('/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ email: 'admin@tripora.ai', password: 'Password123!' }),
+      });
+      api.setToken(res.tokens.accessToken);
+      setUser(res.user);
+      router.replace('/admin');
+    } catch (err: any) {
+      setError(err?.message || 'Admin sign-in failed');
     } finally {
       setSubmitting(false);
     }
@@ -61,36 +89,38 @@ export function AuthForm({ nextPath }: { nextPath: string }) {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
-    setNotice(null);
 
     const trimmedEmail = email.trim();
     if (!/^\S+@\S+\.\S+$/.test(trimmedEmail)) {
-      setError('Enter a valid email address.');
+      setError('Please provide a valid email address.');
       return;
     }
-    if (isSignUp && password.length < MIN_PASSWORD_LENGTH) {
-      setError(`Use at least ${MIN_PASSWORD_LENGTH} characters for your password.`);
+
+    if (mode === 'signup' && password.length < MIN_PASSWORD_LENGTH) {
+      setError(`Password must be at least ${MIN_PASSWORD_LENGTH} characters long.`);
       return;
     }
+
     if (password.length === 0) {
-      setError('Enter your password.');
+      setError('Please enter your password.');
       return;
     }
 
     setSubmitting(true);
     try {
-      if (isSignUp) {
+      if (mode === 'signup') {
         const res = await api.request('/auth/register', {
           method: 'POST',
           body: JSON.stringify({
             email: trimmedEmail,
             password,
             fullName: fullName.trim() || trimmedEmail.split('@')[0],
+            country,
           }),
         });
         api.setToken(res.tokens.accessToken);
         setUser(res.user);
-        router.replace(nextPath || '/dashboard');
+        router.replace(nextPath.startsWith('/admin') ? '/dashboard' : nextPath || '/dashboard');
       } else {
         const res = await api.request('/auth/login', {
           method: 'POST',
@@ -98,127 +128,219 @@ export function AuthForm({ nextPath }: { nextPath: string }) {
         });
         api.setToken(res.tokens.accessToken);
         setUser(res.user);
-        router.replace(nextPath || '/dashboard');
+
+        if (res.user.role === 'ADMIN') {
+          router.replace('/admin');
+        } else {
+          router.replace(nextPath.startsWith('/admin') ? '/dashboard' : nextPath || '/dashboard');
+        }
       }
     } catch (err: any) {
-      setError(err.message || 'Authentication failed. Please try again.');
+      setError(err.message || 'Authentication rejected. Please check your credentials.');
     } finally {
       setSubmitting(false);
     }
   }
 
   return (
-    <div className="rounded-3xl border border-brand-line bg-white p-8 shadow-sm sm:p-10">
-      <div className="flex border-b border-brand-line">
+    <div className="w-full max-w-lg rounded-3xl border border-[#C5A46A]/40 bg-[#0D1510] p-6 sm:p-10 shadow-2xl backdrop-blur-xl text-white">
+      {/* Brand Header */}
+      <div className="text-center">
+        <div className="inline-flex items-center gap-2 rounded-full border border-[#C5A46A]/40 bg-[#C5A46A]/10 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#F5D794]">
+          <Lock className="h-3 w-3" />
+          TRIPORA RESERVE AUTHENTICATION
+        </div>
+
+        <h1 className="mt-3 font-serif text-2xl sm:text-3xl text-white font-normal">
+          {mode === 'admin'
+            ? 'Executive Operations Clearance'
+            : mode === 'signup'
+            ? 'Create Your Traveler Dossier'
+            : 'Welcome Back to the Studio'}
+        </h1>
+        <p className="mt-1 text-xs text-white/60 font-light">
+          {mode === 'admin'
+            ? 'Master Concierge and Operations Command Terminal.'
+            : mode === 'signup'
+            ? 'Join our private circle to unlock AI spatial routing and private sanctuaries.'
+            : 'Access your saved expeditions, luxury suites, and flight passes.'}
+        </p>
+      </div>
+
+      {/* Security Redirection Alert Banner */}
+      {reason && (
+        <div className="mt-5 flex items-start gap-2.5 rounded-2xl border border-amber-500/40 bg-amber-500/15 p-3.5 text-xs text-amber-200 animate-in fade-in duration-200">
+          <AlertTriangle className="h-4 w-4 shrink-0 text-[#F5D794] mt-0.5" />
+          <div>
+            <span className="font-bold block uppercase tracking-wider text-[10px] text-[#F5D794]">
+              {reason === 'insufficient_clearance' ? '403 Forbidden: Insufficient Clearance' : 'Diplomatic Clearance Required'}
+            </span>
+            <p className="mt-0.5 text-[11px] leading-relaxed text-white/90">
+              The Administrative Command Matrix requires verified Master Concierge credentials. Sign in via the Executive Clearance tab below.
+            </p>
+          </div>
+        </div>
+      )}
+
+      {/* Mode Navigation Tabs */}
+      <div className="mt-6 flex rounded-2xl border border-white/10 bg-white/5 p-1 text-xs font-semibold">
         <button
           type="button"
           onClick={() => switchMode('signin')}
-          className={`flex-1 pb-4 text-center text-sm font-semibold transition-colors ${
-            !isSignUp ? 'border-b-2 border-brand-forest text-brand-forest' : 'text-brand-muted hover:text-brand-ink'
+          className={`flex-1 py-2 text-center rounded-xl transition-all ${
+            mode === 'signin'
+              ? 'bg-[#C5A46A] text-[#0A120D] font-bold shadow-md'
+              : 'text-white/70 hover:text-white'
           }`}
         >
-          Sign in
+          Traveler Sign In
         </button>
         <button
           type="button"
           onClick={() => switchMode('signup')}
-          className={`flex-1 pb-4 text-center text-sm font-semibold transition-colors ${
-            isSignUp ? 'border-b-2 border-brand-forest text-brand-forest' : 'text-brand-muted hover:text-brand-ink'
+          className={`flex-1 py-2 text-center rounded-xl transition-all ${
+            mode === 'signup'
+              ? 'bg-[#C5A46A] text-[#0A120D] font-bold shadow-md'
+              : 'text-white/70 hover:text-white'
           }`}
         >
-          Create account
+          Register
         </button>
-      </div>
-
-      <div className="mt-6">
         <button
           type="button"
-          onClick={handleDemoSignIn}
-          disabled={submitting}
-          className="flex w-full items-center justify-center gap-2 rounded-2xl border border-brand-forest/30 bg-brand-forest/5 px-4 py-3 text-sm font-semibold text-brand-forest transition-colors hover:bg-brand-forest/10"
+          onClick={() => switchMode('admin')}
+          className={`flex-1 py-2 text-center rounded-xl transition-all flex items-center justify-center gap-1.5 ${
+            mode === 'admin'
+              ? 'bg-amber-500/30 text-amber-300 border border-amber-500/50 font-bold shadow-md'
+              : 'text-white/70 hover:text-amber-300'
+          }`}
         >
-          <Sparkles className="h-4 w-4" />
-          Continue with Demo Account (Instant Access)
+          <ShieldCheck className="h-3.5 w-3.5" />
+          <span>Admin Gate</span>
         </button>
       </div>
 
-      <div className="relative my-6 text-center">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-brand-line" />
+      {/* Error Message */}
+      {error && (
+        <div className="mt-4 flex items-center gap-2 rounded-xl border border-red-500/30 bg-red-500/10 p-3 text-xs text-red-300">
+          <AlertTriangle className="h-4 w-4 shrink-0" />
+          <span>{error}</span>
         </div>
-        <span className="relative bg-white px-3 text-xs uppercase tracking-wider text-brand-muted">
-          Or continue with email
-        </span>
-      </div>
+      )}
 
-      <form onSubmit={handleSubmit} className="space-y-4">
-        {error && (
-          <div className="rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
-            {error}
-          </div>
-        )}
-        {notice && (
-          <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-800">
-            {notice}
-          </div>
-        )}
-
-        {isSignUp && (
-          <Field id="fullName" label="Full name" error={undefined}>
+      {/* Main Authentication Form */}
+      <form onSubmit={handleSubmit} className="mt-6 space-y-4 text-xs">
+        {mode === 'signup' && (
+          <div>
+            <label className="block font-medium text-white/80">Full Legal Name</label>
             <input
-              id="fullName"
               type="text"
+              required
               value={fullName}
               onChange={(e) => setFullName(e.target.value)}
-              placeholder="e.g. Eleanor Vance"
-              className={controlClass}
+              placeholder="e.g. Alex Vance"
+              className="mt-1 w-full rounded-xl border border-white/15 bg-white/5 px-3.5 py-2.5 text-white placeholder-white/40 focus:border-[#C5A46A] focus:outline-none"
             />
-          </Field>
+          </div>
         )}
 
-        <Field id="email" label="Email address" error={undefined}>
+        <div>
+          <label className="block font-medium text-white/80">
+            {mode === 'admin' ? 'Executive Officer Email' : 'Email Address'}
+          </label>
           <input
-            id="email"
             type="email"
-            autoComplete="email"
+            required
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="you@domain.com"
-            className={controlClass}
+            placeholder={mode === 'admin' ? 'admin@tripora.ai' : 'traveler@tripora.ai'}
+            className="mt-1 w-full rounded-xl border border-white/15 bg-white/5 px-3.5 py-2.5 text-white placeholder-white/40 focus:border-[#C5A46A] focus:outline-none font-mono text-xs"
           />
-        </Field>
+        </div>
 
-        <Field id="password" label="Password" error={undefined}>
+        <div>
+          <label className="block font-medium text-white/80">
+            {mode === 'admin' ? 'Master Security Passcode' : 'Password'}
+          </label>
           <input
-            id="password"
             type="password"
-            autoComplete={isSignUp ? 'new-password' : 'current-password'}
+            required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder={isSignUp ? 'At least 8 characters' : 'Enter your password'}
-            className={controlClass}
+            placeholder="••••••••••••"
+            className="mt-1 w-full rounded-xl border border-white/15 bg-white/5 px-3.5 py-2.5 text-white placeholder-white/40 focus:border-[#C5A46A] focus:outline-none font-mono text-xs"
           />
-        </Field>
+        </div>
+
+        {mode === 'signup' && (
+          <div>
+            <label className="block font-medium text-white/80">Country of Residence</label>
+            <input
+              type="text"
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+              className="mt-1 w-full rounded-xl border border-white/15 bg-white/5 px-3.5 py-2.5 text-white focus:border-[#C5A46A] focus:outline-none"
+            />
+          </div>
+        )}
 
         <button
           type="submit"
           disabled={submitting}
-          className="mt-6 flex w-full items-center justify-center gap-2 rounded-full bg-brand-forest px-6 py-3.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#274a39] hover:shadow-md disabled:cursor-not-allowed disabled:opacity-50"
+          className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#F5D794] via-[#edd9a8] to-[#C5A46A] py-3 text-xs font-bold uppercase tracking-wider text-[#0A120D] shadow-md hover:scale-[1.02] transition-all disabled:opacity-50"
         >
-          {submitting && <Loader2 className="h-4 w-4 animate-spin" />}
-          {isSignUp ? 'Create free account' : 'Sign in'}
+          {submitting ? (
+            <span>Authenticating...</span>
+          ) : (
+            <>
+              {mode === 'admin' ? (
+                <>
+                  <KeyRound className="h-4 w-4" />
+                  <span>Authenticate Executive Clearance</span>
+                </>
+              ) : mode === 'signup' ? (
+                <>
+                  <Compass className="h-4 w-4" />
+                  <span>Create Traveler Account</span>
+                </>
+              ) : (
+                <>
+                  <User className="h-4 w-4" />
+                  <span>Sign In as Traveler</span>
+                </>
+              )}
+              <ArrowRight className="h-3.5 w-3.5" />
+            </>
+          )}
         </button>
       </form>
 
-      <div className="mt-6 text-center text-xs text-brand-muted">
-        By continuing, you agree to Tripora&apos;s{' '}
-        <Link href="/terms" className="underline hover:text-brand-ink">
-          Terms of Service
-        </Link>{' '}
-        and{' '}
-        <Link href="/privacy" className="underline hover:text-brand-ink">
-          Privacy Policy
-        </Link>.
+      {/* Quick Demo Access Bar */}
+      <div className="mt-8 border-t border-white/10 pt-5">
+        <span className="block text-center text-[10px] font-mono uppercase tracking-wider text-white/40">
+          Or Quick Test with Pre-Seeded Profiles
+        </span>
+        <div className="mt-3 grid grid-cols-2 gap-2.5">
+          <button
+            type="button"
+            onClick={handleDemoTraveler}
+            disabled={submitting}
+            className="rounded-2xl border border-white/15 bg-white/5 p-2.5 text-center hover:bg-white/10 transition-colors"
+          >
+            <span className="block text-[11px] font-bold text-white">Traveler Demo</span>
+            <span className="block text-[9px] font-mono text-white/50 truncate">Alex Vance (USER)</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={handleDemoAdmin}
+            disabled={submitting}
+            className="rounded-2xl border border-[#C5A46A]/40 bg-[#C5A46A]/10 p-2.5 text-center hover:bg-[#C5A46A]/20 transition-colors"
+          >
+            <span className="block text-[11px] font-bold text-[#F5D794]">Master Concierge</span>
+            <span className="block text-[9px] font-mono text-amber-300/70 truncate">Admin Terminal</span>
+          </button>
+        </div>
       </div>
     </div>
   );

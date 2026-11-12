@@ -1,7 +1,7 @@
 import { AuthForm } from '@/components/auth/auth-form';
 
 type AuthPageProps = {
-  searchParams: { next?: string };
+  searchParams: { next?: string; reason?: string };
 };
 
 function safeNextPath(value: string | undefined): string {
@@ -11,8 +11,11 @@ function safeNextPath(value: string | undefined): string {
 
 export default function AuthPage({ searchParams }: AuthPageProps) {
   return (
-    <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center bg-brand-mist px-5 py-16">
-      <AuthForm nextPath={safeNextPath(searchParams.next)} />
+    <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center bg-[#080E0A] px-4 py-16 selection:bg-[#F5D794] selection:text-[#0A120D]">
+      <AuthForm
+        nextPath={safeNextPath(searchParams.next)}
+        reason={searchParams.reason}
+      />
     </div>
   );
 }
