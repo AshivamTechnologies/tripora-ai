@@ -205,7 +205,7 @@ export function SiteHeader() {
           <div className="hidden lg:flex items-center justify-center flex-1 mx-4 xl:mx-8">
             {/* Left Hairline Divider: Guaranteed Spacing Between Brand (Reserve) & Sanctuaries */}
             <div
-              className="h-4 w-px bg-gradient-to-b from-transparent via-[#C5A46A]/45 to-transparent mr-5 xl:mr-7 shrink-0"
+              className="h-4 w-[1.5px] bg-gradient-to-b from-transparent via-[#C5A46A]/70 to-transparent mr-5 xl:mr-7 shrink-0"
               aria-hidden="true"
             />
 
@@ -234,7 +234,7 @@ export function SiteHeader() {
 
             {/* Right Hairline Divider: Guaranteed Spacing Between Privileges & Sign In / Actions */}
             <div
-              className="h-4 w-px bg-gradient-to-b from-transparent via-[#C5A46A]/45 to-transparent ml-5 xl:ml-7 shrink-0"
+              className="h-4 w-[1.5px] bg-gradient-to-b from-transparent via-[#C5A46A]/70 to-transparent ml-5 xl:ml-7 shrink-0"
               aria-hidden="true"
             />
           </div>
