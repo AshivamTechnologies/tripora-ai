@@ -201,15 +201,15 @@ export function SiteHeader() {
             </Link>
           </div>
 
-          {/* Center: Primary Editorial Navigation Links with Architectural Hairline Separators */}
-          <div className="hidden lg:flex items-center justify-center flex-1 min-w-0 mx-2 xl:mx-6">
-            {/* Left Hairline Divider: Guaranteed Spacing Between Brand (Reserve) & Sanctuaries */}
+          {/* Center: Primary Editorial Navigation Links with Architectural Hairline Separators (Desktop 1280px+) */}
+          <div className="hidden xl:flex items-center justify-center flex-1 min-w-0 mx-4 2xl:mx-8">
+            {/* Left Hairline Divider */}
             <div
-              className="h-4 w-[1.5px] bg-gradient-to-b from-transparent via-[#C5A46A]/70 to-transparent mr-3 xl:mr-5 shrink-0"
+              className="h-4 w-[1.5px] bg-gradient-to-b from-transparent via-[#C5A46A]/70 to-transparent mr-4 2xl:mr-6 shrink-0"
               aria-hidden="true"
             />
 
-            <nav className="flex items-center gap-2.5 xl:gap-5 2xl:gap-7" aria-label="Main Navigation">
+            <nav className="flex items-center gap-4 2xl:gap-7 shrink-0" aria-label="Main Navigation">
               {PRIMARY_LINKS.map((link) => {
                 const active =
                   pathname === link.href ||
@@ -220,10 +220,10 @@ export function SiteHeader() {
                     href={link.href}
                     aria-current={active ? 'page' : undefined}
                     className={cn(
-                      'whitespace-nowrap text-[10px] xl:text-[11px] 2xl:text-[12px] font-semibold tracking-[0.12em] xl:tracking-[0.16em] uppercase transition-all duration-200 relative py-1.5',
+                      'whitespace-nowrap text-[11px] 2xl:text-[12px] font-semibold tracking-[0.14em] 2xl:tracking-[0.18em] uppercase transition-all duration-200 relative py-1.5',
                       active
                         ? 'text-[#F5D794] font-bold after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-4 after:bg-[#F5D794] after:rounded-full'
-                        : 'text-white/80 hover:text-white hover:text-[#F5D794]'
+                        : 'text-white/80 hover:text-[#F5D794]'
                     )}
                   >
                     {link.label}
@@ -232,30 +232,18 @@ export function SiteHeader() {
               })}
             </nav>
 
-            {/* Right Hairline Divider: Guaranteed Spacing Between Privileges & Sign In / Actions */}
+            {/* Right Hairline Divider */}
             <div
-              className="h-4 w-[1.5px] bg-gradient-to-b from-transparent via-[#C5A46A]/70 to-transparent ml-3 xl:ml-5 shrink-0"
+              className="h-4 w-[1.5px] bg-gradient-to-b from-transparent via-[#C5A46A]/70 to-transparent ml-4 2xl:mr-6 shrink-0"
               aria-hidden="true"
             />
           </div>
 
           {/* Right Actions: Distinct Action Group */}
-          <div className="flex items-center gap-1.5 sm:gap-2 xl:gap-2.5 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
             {/* Authenticated State */}
             {!loading && user ? (
-              <div className="flex items-center gap-1.5 sm:gap-2">
-                <Link
-                  href="/trips"
-                  className={cn(
-                    'hidden 2xl:inline-flex whitespace-nowrap text-[10px] xl:text-[11px] font-semibold tracking-[0.12em] uppercase transition-colors px-2.5 py-1.5 rounded-full border border-white/15 bg-white/5 hover:bg-white/10',
-                    pathname.startsWith('/trips')
-                      ? 'border-[#F5D794]/50 text-[#F5D794] bg-[#C5A46A]/15'
-                      : 'text-white/80 hover:text-white'
-                  )}
-                >
-                  My Trips
-                </Link>
-
+              <div className="flex items-center gap-2">
                 {/* Profile Pill with Dropdown */}
                 <div className="relative" ref={userMenuRef}>
                   <button
@@ -369,30 +357,6 @@ export function SiteHeader() {
           </div>
         </div>
 
-        {/* Mobile & Tablet Quick Business Flow Sub-Nav (Visible on screens < lg) */}
-        <div className="lg:hidden border-t border-white/10 bg-[#050906]/95 px-3 py-1.5 overflow-x-auto no-scrollbar">
-          <div className="flex items-center gap-1.5 min-w-max">
-            {PRIMARY_LINKS.concat([{ href: '/trips', label: 'My Trips' }]).map((link) => {
-              const active =
-                pathname === link.href ||
-                (link.href !== '/' && pathname.startsWith(`${link.href}/`));
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={cn(
-                    'whitespace-nowrap rounded-full px-3 py-1 text-[11px] font-semibold tracking-wider uppercase transition-all shrink-0',
-                    active
-                      ? 'bg-[#C5A46A]/25 text-[#F5D794] border border-[#C5A46A]/50 shadow-xs'
-                      : 'text-white/75 hover:text-white hover:bg-white/10'
-                  )}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-          </div>
-        </div>
       </header>
 
       {/* 3. Obsidian Dark Ultra-Luxury Editorial Drawer (Aman & Pelorus Standard) */}

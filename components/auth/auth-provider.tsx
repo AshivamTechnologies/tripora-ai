@@ -47,11 +47,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             localStorage.setItem('tripora_current_user', JSON.stringify(profile));
           }
         }
-      } catch (err) {
-        console.warn('Failed to fetch user session:', err);
+      } catch {
         if (active && typeof window !== 'undefined') {
           const cached = localStorage.getItem('tripora_current_user');
-          if (cached) setUser(JSON.parse(cached));
+          if (cached) {
+            try {
+              setUser(JSON.parse(cached));
+            } catch {
+              setUser(null);
+            }
+          }
         }
       } finally {
         if (active) setLoading(false);

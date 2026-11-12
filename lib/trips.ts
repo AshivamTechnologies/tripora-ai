@@ -248,78 +248,84 @@ function saveLocalTrips(trips: TripDetail[]) {
 }
 
 export async function listTrips(): Promise<TripRecord[]> {
-  try {
-    const data = await api.request<any[]>('/trips');
-    if (data && Array.isArray(data)) {
-      return data.map((t) => ({
-        id: t.id,
-        title: t.title,
-        origin: t.origin,
-        destination: t.destination,
-        start_date: t.startDate ? t.startDate.slice(0, 10) : t.start_date,
-        end_date: t.endDate ? t.endDate.slice(0, 10) : t.end_date,
-        adults: t.adults,
-        children: t.children,
-        infants: t.infants,
-        travel_styles: Array.isArray(t.travelStyles) ? t.travelStyles : (t.travel_styles || []),
-        budget_minor: t.budgetMinor || t.budget_minor || 0,
-        currency: t.currency || 'USD',
-        notes: t.notes || '',
-        preferences: t.preferences || {},
-        created_at: t.createdAt || t.created_at || new Date().toISOString(),
-      }));
-    }
-  } catch {}
+  const token = typeof window !== 'undefined' ? api.getToken() : null;
+  if (token && !token.startsWith('token-')) {
+    try {
+      const data = await api.request<any[]>('/trips');
+      if (data && Array.isArray(data)) {
+        return data.map((t) => ({
+          id: t.id,
+          title: t.title,
+          origin: t.origin,
+          destination: t.destination,
+          start_date: t.startDate ? t.startDate.slice(0, 10) : t.start_date,
+          end_date: t.endDate ? t.endDate.slice(0, 10) : t.end_date,
+          adults: t.adults,
+          children: t.children,
+          infants: t.infants,
+          travel_styles: Array.isArray(t.travelStyles) ? t.travelStyles : (t.travel_styles || []),
+          budget_minor: t.budgetMinor || t.budget_minor || 0,
+          currency: t.currency || 'USD',
+          notes: t.notes || '',
+          preferences: t.preferences || {},
+          created_at: t.createdAt || t.created_at || new Date().toISOString(),
+        }));
+      }
+    } catch {}
+  }
 
   const local = getLocalTrips();
   return local.map(({ days, ...rest }) => rest);
 }
 
 export async function getTripDetail(tripId: string): Promise<TripDetail | null> {
-  try {
-    const data = await api.request<any>(`/trips/${tripId}`);
-    if (data?.trip) {
-      const trip = data.trip;
-      const days = (data.itinerary?.days || []).map((d: any) => ({
-        id: d.id,
-        trip_id: trip.id,
-        day_number: d.dayNumber,
-        day_date: d.date ? d.date.slice(0, 10) : d.day_date,
-        activities: (d.activities || []).map((a: any) => ({
-          id: a.id,
+  const token = typeof window !== 'undefined' ? api.getToken() : null;
+  if (token && !token.startsWith('token-')) {
+    try {
+      const data = await api.request<any>(`/trips/${tripId}`);
+      if (data?.trip) {
+        const trip = data.trip;
+        const days = (data.itinerary?.days || []).map((d: any) => ({
+          id: d.id,
           trip_id: trip.id,
-          trip_day_id: d.id,
-          title: a.title,
-          description: a.description || '',
-          location: a.location || '',
-          time_slot: a.timeSlot || a.time_slot || 'MORNING',
-          start_time: a.startTime || a.start_time || null,
-          duration_minutes: a.durationMinutes || a.duration_minutes || null,
-          estimated_cost_minor: a.estimatedCostMinor || a.estimated_cost_minor || 0,
-          position: a.position || 0,
-        })),
-      }));
+          day_number: d.dayNumber,
+          day_date: d.date ? d.date.slice(0, 10) : d.day_date,
+          activities: (d.activities || []).map((a: any) => ({
+            id: a.id,
+            trip_id: trip.id,
+            trip_day_id: d.id,
+            title: a.title,
+            description: a.description || '',
+            location: a.location || '',
+            time_slot: a.timeSlot || a.time_slot || 'MORNING',
+            start_time: a.startTime || a.start_time || null,
+            duration_minutes: a.durationMinutes || a.duration_minutes || null,
+            estimated_cost_minor: a.estimatedCostMinor || a.estimated_cost_minor || 0,
+            position: a.position || 0,
+          })),
+        }));
 
-      return {
-        id: trip.id,
-        title: trip.title,
-        origin: trip.origin,
-        destination: trip.destination,
-        start_date: trip.startDate ? trip.startDate.slice(0, 10) : trip.start_date,
-        end_date: trip.endDate ? trip.endDate.slice(0, 10) : trip.end_date,
-        adults: trip.adults,
-        children: trip.children,
-        infants: trip.infants,
-        travel_styles: Array.isArray(trip.travelStyles) ? trip.travelStyles : (trip.travel_styles || []),
-        budget_minor: trip.budgetMinor || trip.budget_minor || 0,
-        currency: trip.currency || 'USD',
-        notes: trip.notes || '',
-        preferences: trip.preferences || {},
-        created_at: trip.createdAt || trip.created_at || new Date().toISOString(),
-        days,
-      };
-    }
-  } catch {}
+        return {
+          id: trip.id,
+          title: trip.title,
+          origin: trip.origin,
+          destination: trip.destination,
+          start_date: trip.startDate ? trip.startDate.slice(0, 10) : trip.start_date,
+          end_date: trip.endDate ? trip.endDate.slice(0, 10) : trip.end_date,
+          adults: trip.adults,
+          children: trip.children,
+          infants: trip.infants,
+          travel_styles: Array.isArray(trip.travelStyles) ? trip.travelStyles : (trip.travel_styles || []),
+          budget_minor: trip.budgetMinor || trip.budget_minor || 0,
+          currency: trip.currency || 'USD',
+          notes: trip.notes || '',
+          preferences: trip.preferences || {},
+          created_at: trip.createdAt || trip.created_at || new Date().toISOString(),
+          days,
+        };
+      }
+    } catch {}
+  }
 
   const local = getLocalTrips();
   const found = local.find((t) => t.id === tripId);

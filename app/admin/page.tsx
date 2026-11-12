@@ -15,6 +15,8 @@ import {
   CheckCircle2,
   AlertCircle,
   X,
+  ChevronLeft,
+  ChevronRight,
 } from 'lucide-react';
 import { useAuth } from '@/components/auth/auth-provider';
 import { api } from '@/lib/api';
@@ -74,6 +76,33 @@ export default function LuxuryAdminPortal() {
 
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [selectedJourneyForView, setSelectedJourneyForView] = useState<BespokeJourney | null>(null);
+
+  // Horizontal scroll state for admin tabs
+  const tabsRef = React.useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+
+  const checkScroll = React.useCallback(() => {
+    if (tabsRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = tabsRef.current;
+      setCanScrollLeft(scrollLeft > 10);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
+    }
+  }, []);
+
+  const scrollTabs = (direction: 'left' | 'right') => {
+    if (tabsRef.current) {
+      const offset = direction === 'left' ? -320 : 320;
+      tabsRef.current.scrollBy({ left: offset, behavior: 'smooth' });
+      setTimeout(checkScroll, 350);
+    }
+  };
+
+  useEffect(() => {
+    checkScroll();
+    window.addEventListener('resize', checkScroll);
+    return () => window.removeEventListener('resize', checkScroll);
+  }, [checkScroll]);
 
   // Load store data
   const refreshData = () => {
@@ -283,90 +312,121 @@ export default function LuxuryAdminPortal() {
 
       {/* Master Content Area */}
       <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-6">
-        {/* Luxury Navigation Tabs */}
-        <div className="flex overflow-x-auto no-scrollbar gap-2 border-b border-white/10 pb-4">
-          {[
-            {
-              id: 'overview',
-              label: 'Command Telemetry',
-              icon: Activity,
-              badge: 'LIVE',
-              badgeColor: 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30',
-            },
-            {
-              id: 'sanctuaries',
-              label: 'Sanctuaries & Estates',
-              icon: Building2,
-              badge: `${sanctuaries.length}`,
-              badgeColor: 'bg-[#C5A46A]/20 text-[#F5D794] border border-[#C5A46A]/30',
-            },
-            {
-              id: 'journeys',
-              label: 'VIP Expeditions',
-              icon: Compass,
-              badge: `${journeys.length}`,
-              badgeColor: 'bg-[#C5A46A]/20 text-[#F5D794] border border-[#C5A46A]/30',
-            },
-            {
-              id: 'aviation',
-              label: 'Private Aviation',
-              icon: Plane,
-              badge: `${aviation.length} Jets`,
-              badgeColor: 'bg-blue-500/20 text-blue-300 border border-blue-500/30',
-            },
-            {
-              id: 'members',
-              label: 'Traveler CRM',
-              icon: Users,
-              badge: 'HNWI',
-              badgeColor: 'bg-amber-500/20 text-amber-300 border border-amber-500/30',
-            },
-            {
-              id: 'editorial',
-              label: 'Field Notes CMS',
-              icon: BookOpen,
-              badge: `${articles.length}`,
-              badgeColor: 'bg-white/10 text-white/70 border border-white/10',
-            },
-            {
-              id: 'ai-governance',
-              label: 'Dispatch Protocols',
-              icon: Sparkles,
-              badge: 'Active',
-              badgeColor: 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30',
-            },
-            {
-              id: 'audit',
-              label: 'Audit Trail',
-              icon: ShieldCheck,
-              badge: 'SHA-256',
-              badgeColor: 'bg-white/10 text-white/70 border border-white/10',
-            },
-          ].map((tab) => {
-            const Icon = tab.icon;
-            const isActive = activeTab === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as AdminTab)}
-                className={`flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition-all ${
-                  isActive
-                    ? 'bg-gradient-to-r from-[#F5D794] via-[#edd9a8] to-[#C5A46A] text-[#0A120D] shadow-md shadow-[#C5A46A]/10 font-bold scale-[1.02]'
-                    : 'bg-white/[0.04] text-white/70 hover:bg-white/[0.08] hover:text-white border border-white/5'
-                }`}
-              >
-                <Icon className={`h-3.5 w-3.5 ${isActive ? 'text-[#0A120D]' : 'text-[#F5D794]'}`} />
-                <span>{tab.label}</span>
-                <span
-                  className={`rounded-full px-1.5 py-0.2 text-[9px] font-mono font-bold ${
-                    isActive ? 'bg-[#0A120D]/20 text-[#0A120D]' : tab.badgeColor
+        {/* Luxury Navigation Tabs with Smooth Horizontal Scroll & Nav Chevrons */}
+        <div className="relative mb-2">
+          {/* Left Scroll Button */}
+          {canScrollLeft && (
+            <button
+              type="button"
+              onClick={() => scrollTabs('left')}
+              className="absolute left-0 top-1/2 -translate-y-1/2 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-[#0A120D]/95 text-[#F5D794] border border-[#C5A46A]/60 shadow-[0_4px_16px_rgba(0,0,0,0.8)] hover:bg-[#1C2C22] hover:scale-105 transition-all -ml-2"
+              aria-label="Scroll tabs left"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+          )}
+
+          {/* Scrollable Tabs Track */}
+          <div
+            ref={tabsRef}
+            onScroll={checkScroll}
+            className="flex overflow-x-auto gap-2.5 border-b border-white/10 pb-4 pt-1 px-1 scroll-smooth touch-pan-x [scrollbar-width:thin] [scrollbar-color:#C5A46A55_transparent]"
+          >
+            {[
+              {
+                id: 'overview',
+                label: 'Command Telemetry',
+                icon: Activity,
+                badge: 'LIVE',
+                badgeColor: 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30',
+              },
+              {
+                id: 'sanctuaries',
+                label: 'Sanctuaries & Estates',
+                icon: Building2,
+                badge: `${sanctuaries.length}`,
+                badgeColor: 'bg-[#C5A46A]/20 text-[#F5D794] border border-[#C5A46A]/30',
+              },
+              {
+                id: 'journeys',
+                label: 'VIP Expeditions',
+                icon: Compass,
+                badge: `${journeys.length}`,
+                badgeColor: 'bg-[#C5A46A]/20 text-[#F5D794] border border-[#C5A46A]/30',
+              },
+              {
+                id: 'aviation',
+                label: 'Private Aviation',
+                icon: Plane,
+                badge: `${aviation.length} Jets`,
+                badgeColor: 'bg-blue-500/20 text-blue-300 border border-blue-500/30',
+              },
+              {
+                id: 'members',
+                label: 'Traveler CRM',
+                icon: Users,
+                badge: 'HNWI',
+                badgeColor: 'bg-amber-500/20 text-amber-300 border border-amber-500/30',
+              },
+              {
+                id: 'editorial',
+                label: 'Field Notes CMS',
+                icon: BookOpen,
+                badge: `${articles.length}`,
+                badgeColor: 'bg-white/10 text-white/70 border border-white/10',
+              },
+              {
+                id: 'ai-governance',
+                label: 'Dispatch Protocols',
+                icon: Sparkles,
+                badge: 'Active',
+                badgeColor: 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30',
+              },
+              {
+                id: 'audit',
+                label: 'Audit Trail',
+                icon: ShieldCheck,
+                badge: 'SHA-256',
+                badgeColor: 'bg-white/10 text-white/70 border border-white/10',
+              },
+            ].map((tab) => {
+              const Icon = tab.icon;
+              const isActive = activeTab === tab.id;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id as AdminTab)}
+                  className={`flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-xs font-semibold transition-all ${
+                    isActive
+                      ? 'bg-gradient-to-r from-[#F5D794] via-[#edd9a8] to-[#C5A46A] text-[#0A120D] shadow-md shadow-[#C5A46A]/10 font-bold scale-[1.02]'
+                      : 'bg-white/[0.04] text-white/70 hover:bg-white/[0.08] hover:text-white border border-white/5'
                   }`}
                 >
-                  {tab.badge}
-                </span>
-              </button>
-            );
-          })}
+                  <Icon className={`h-3.5 w-3.5 ${isActive ? 'text-[#0A120D]' : 'text-[#F5D794]'}`} />
+                  <span>{tab.label}</span>
+                  <span
+                    className={`rounded-full px-1.5 py-0.2 text-[9px] font-mono font-bold ${
+                      isActive ? 'bg-[#0A120D]/20 text-[#0A120D]' : tab.badgeColor
+                    }`}
+                  >
+                    {tab.badge}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Right Scroll Button */}
+          {canScrollRight && (
+            <button
+              type="button"
+              onClick={() => scrollTabs('right')}
+              className="absolute right-0 top-1/2 -translate-y-1/2 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-[#0A120D]/95 text-[#F5D794] border border-[#C5A46A]/60 shadow-[0_4px_16px_rgba(0,0,0,0.8)] hover:bg-[#1C2C22] hover:scale-105 transition-all -mr-2"
+              aria-label="Scroll tabs right"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          )}
         </div>
 
         {/* Tab Panels */}

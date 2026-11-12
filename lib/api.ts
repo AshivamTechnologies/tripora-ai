@@ -121,6 +121,15 @@ class ApiClient {
     headers.set('Content-Type', 'application/json');
 
     const token = this.getToken();
+
+    // Prevent futile unauthenticated calls to remote backend that result in 401 console logs
+    if (endpoint.includes('/auth/me') && (!token || token.startsWith('token-'))) {
+      return this.handleFallback<T>(endpoint, options, new Error('Client session'));
+    }
+    if (endpoint.includes('/trips') && (!token || token.startsWith('token-'))) {
+      return this.handleFallback<T>(endpoint, options, new Error('Client session'));
+    }
+
     if (token) {
       headers.set('Authorization', `Bearer ${token}`);
     }
