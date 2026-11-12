@@ -181,60 +181,76 @@ export function SiteHeader() {
         {/* 2. Haute Horlogerie / Editorial Navigation Bar */}
         <div className="mx-auto flex h-16 sm:h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Brand Mark (Obsidian Crest + Serif Logo + Reserve Badge) */}
-          <Link
-            href="/"
-            className="group flex items-center gap-2.5 sm:gap-3 shrink-0"
-            onClick={() => setDrawerOpen(false)}
-          >
-            <span className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#1C2C22] to-[#0A120D] text-[#F5D794] border border-[#C5A46A]/50 shadow-md transition-transform duration-300 group-hover:-rotate-12">
-              <Plane className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden="true" />
-            </span>
-            <div className="flex items-center gap-1.5 sm:gap-2">
-              <span className="font-serif text-lg sm:text-2xl tracking-[0.05em] text-white font-normal">
-                TRIPORA
+          <div className="flex items-center shrink-0">
+            <Link
+              href="/"
+              className="group flex items-center gap-2.5 sm:gap-3 shrink-0"
+              onClick={() => setDrawerOpen(false)}
+            >
+              <span className="flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full bg-gradient-to-br from-[#1C2C22] to-[#0A120D] text-[#F5D794] border border-[#C5A46A]/50 shadow-md transition-transform duration-300 group-hover:-rotate-12">
+                <Plane className="h-3.5 w-3.5 sm:h-4 sm:w-4" aria-hidden="true" />
               </span>
-              <span className="font-mono text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.18em] text-[#F5D794] bg-[#F5D794]/15 px-1.5 sm:px-2 py-0.5 rounded-full border border-[#C5A46A]/40">
-                RESERVE
-              </span>
-            </div>
-          </Link>
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <span className="font-serif text-lg sm:text-2xl tracking-[0.05em] text-white font-normal">
+                  TRIPORA
+                </span>
+                <span className="font-mono text-[8px] sm:text-[9px] font-bold uppercase tracking-[0.18em] text-[#F5D794] bg-[#F5D794]/15 px-1.5 sm:px-2 py-0.5 rounded-full border border-[#C5A46A]/40">
+                  RESERVE
+                </span>
+              </div>
+            </Link>
+          </div>
 
-          {/* Center: Primary Editorial Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-6 xl:gap-8" aria-label="Main Navigation">
-            {PRIMARY_LINKS.map((link) => {
-              const active =
-                pathname === link.href ||
-                (link.href !== '/' && pathname.startsWith(`${link.href}/`));
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  aria-current={active ? 'page' : undefined}
-                  className={cn(
-                    'whitespace-nowrap text-[11px] xl:text-[12px] font-semibold tracking-[0.18em] uppercase transition-all duration-200 relative py-1.5',
-                    active
-                      ? 'text-[#F5D794] font-bold after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-4 after:bg-[#F5D794] after:rounded-full'
-                      : 'text-white/80 hover:text-white hover:text-[#F5D794]'
-                  )}
-                >
-                  {link.label}
-                </Link>
-              );
-            })}
-          </nav>
+          {/* Center: Primary Editorial Navigation Links with Architectural Hairline Separators */}
+          <div className="hidden lg:flex items-center justify-center flex-1 mx-4 xl:mx-8">
+            {/* Left Hairline Divider: Guaranteed Spacing Between Brand (Reserve) & Sanctuaries */}
+            <div
+              className="h-4 w-px bg-gradient-to-b from-transparent via-[#C5A46A]/45 to-transparent mr-5 xl:mr-7 shrink-0"
+              aria-hidden="true"
+            />
+
+            <nav className="flex items-center gap-4 xl:gap-7 2xl:gap-8" aria-label="Main Navigation">
+              {PRIMARY_LINKS.map((link) => {
+                const active =
+                  pathname === link.href ||
+                  (link.href !== '/' && pathname.startsWith(`${link.href}/`));
+                return (
+                  <Link
+                    key={link.href}
+                    href={link.href}
+                    aria-current={active ? 'page' : undefined}
+                    className={cn(
+                      'whitespace-nowrap text-[11px] xl:text-[12px] font-semibold tracking-[0.14em] xl:tracking-[0.18em] uppercase transition-all duration-200 relative py-1.5',
+                      active
+                        ? 'text-[#F5D794] font-bold after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-4 after:bg-[#F5D794] after:rounded-full'
+                        : 'text-white/80 hover:text-white hover:text-[#F5D794]'
+                    )}
+                  >
+                    {link.label}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            {/* Right Hairline Divider: Guaranteed Spacing Between Privileges & Sign In / Actions */}
+            <div
+              className="h-4 w-px bg-gradient-to-b from-transparent via-[#C5A46A]/45 to-transparent ml-5 xl:ml-7 shrink-0"
+              aria-hidden="true"
+            />
+          </div>
 
           {/* Right Actions: Distinct Action Group */}
-          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-2.5 xl:gap-3 shrink-0">
             {/* Authenticated State */}
             {!loading && user ? (
               <div className="flex items-center gap-2">
                 <Link
                   href="/trips"
                   className={cn(
-                    'hidden md:inline-flex whitespace-nowrap text-[11px] font-semibold tracking-[0.14em] uppercase transition-colors px-3 py-1.5 rounded-full',
+                    'hidden xl:inline-flex whitespace-nowrap text-[11px] font-semibold tracking-[0.14em] uppercase transition-colors px-3 py-1.5 rounded-full border border-white/15 bg-white/5 hover:bg-white/10',
                     pathname.startsWith('/trips')
-                      ? 'bg-white/15 text-[#F5D794]'
-                      : 'text-white/75 hover:text-white hover:bg-white/10'
+                      ? 'border-[#F5D794]/50 text-[#F5D794] bg-[#C5A46A]/15'
+                      : 'text-white/80 hover:text-white'
                   )}
                 >
                   My Trips
@@ -310,10 +326,10 @@ export function SiteHeader() {
                 </div>
               </div>
             ) : (
-              /* Guest State - Distinct Pill Button */
+              /* Guest State - Distinct Isolated Pill Button */
               <Link
                 href="/auth"
-                className="hidden sm:inline-flex whitespace-nowrap text-[11px] font-semibold tracking-[0.14em] uppercase text-white/90 hover:text-white bg-white/5 hover:bg-white/15 border border-white/20 hover:border-[#F5D794]/60 px-3.5 py-2 rounded-full transition-all"
+                className="hidden sm:inline-flex whitespace-nowrap text-[11px] font-semibold tracking-[0.14em] uppercase text-white/90 hover:text-white bg-white/5 hover:bg-white/15 border border-white/20 hover:border-[#F5D794]/60 px-3.5 py-1.5 rounded-full transition-all shadow-xs"
               >
                 Sign In
               </Link>
@@ -322,7 +338,7 @@ export function SiteHeader() {
             {/* Primary Action Button (Gold Luxury Capsule) */}
             <Link
               href="/planner"
-              className="whitespace-nowrap inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-gradient-to-r from-[#F5D794] via-[#edd9a8] to-[#C5A46A] px-4 sm:px-5 py-2 sm:py-2.5 text-[11px] sm:text-xs font-bold text-brand-ink shadow-md shadow-[#C5A46A]/20 transition-all duration-300 hover:scale-105 hover:shadow-[#C5A46A]/40 shrink-0"
+              className="whitespace-nowrap inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-gradient-to-r from-[#F5D794] via-[#edd9a8] to-[#C5A46A] px-3.5 sm:px-4 xl:px-5 py-2 sm:py-2 text-[11px] sm:text-xs font-bold text-brand-ink shadow-md shadow-[#C5A46A]/20 transition-all duration-300 hover:scale-105 hover:shadow-[#C5A46A]/40 shrink-0"
             >
               <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-brand-ink shrink-0 animate-pulse" />
               <span className="hidden sm:inline">Plan Journey</span>
