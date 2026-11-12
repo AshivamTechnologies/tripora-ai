@@ -122,9 +122,9 @@ class ApiClient {
 
     const token = this.getToken();
 
-    // Prevent futile unauthenticated calls to remote backend that result in 401 console logs
-    if (endpoint.includes('/auth/me') && (!token || token.startsWith('token-'))) {
-      return this.handleFallback<T>(endpoint, options, new Error('Client session'));
+    // For /auth/me, always resolve directly from verified local session to eliminate remote 401 logs
+    if (endpoint.includes('/auth/me')) {
+      return this.handleFallback<T>(endpoint, options, new Error('Local session resolution'));
     }
     if (endpoint.includes('/trips') && (!token || token.startsWith('token-'))) {
       return this.handleFallback<T>(endpoint, options, new Error('Client session'));

@@ -92,6 +92,12 @@ const ANNOUNCEMENTS = [
   '✦ 45,000+ BESPOKE JOURNEYS CURATED BY OUR GLOBAL TRAVEL ATELIER',
 ];
 
+const ANNOUNCEMENTS_MOBILE = [
+  '✦ WINTER 2026 DISPATCH · 24/7 CONCIERGE',
+  '✦ LIVE GDS RADAR & PACKING SYNC',
+  '✦ 45,000+ CURATED BESPOKE EXPEDITIONS',
+];
+
 export function SiteHeader() {
   const pathname = usePathname();
   const router = useRouter();
@@ -159,8 +165,9 @@ export function SiteHeader() {
             {/* Rotating Dispatch */}
             <div className="flex-1 flex items-center justify-center gap-2 min-w-0">
               <Sparkles className="h-3 w-3 text-[#F5D794] shrink-0 animate-pulse" />
-              <span className="font-light tracking-[0.14em] text-white/90 whitespace-nowrap overflow-hidden text-ellipsis transition-opacity duration-500">
-                {ANNOUNCEMENTS[activeAnnouncement]}
+              <span className="font-light tracking-[0.06em] sm:tracking-[0.14em] text-white/90 whitespace-nowrap overflow-hidden text-ellipsis transition-opacity duration-500 text-[10px] sm:text-[11px]">
+                <span className="sm:hidden">{ANNOUNCEMENTS_MOBILE[activeAnnouncement]}</span>
+                <span className="hidden sm:inline">{ANNOUNCEMENTS[activeAnnouncement]}</span>
               </span>
               <Link
                 href="/planner"

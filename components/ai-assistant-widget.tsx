@@ -53,15 +53,16 @@ export function AiAssistantWidget() {
   return (
     <>
       {/* Floating Action Pill */}
-      <aside aria-label="Private Concierge Liaison" className="fixed bottom-20 right-4 sm:bottom-20 sm:right-6 lg:bottom-6 lg:right-6 z-40">
+      <aside aria-label="Private Concierge Liaison" className="fixed bottom-20 right-3 sm:bottom-20 sm:right-6 lg:bottom-6 lg:right-6 z-40">
         {!open && (
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className="flex items-center gap-2.5 rounded-full bg-brand-forest px-5 py-3 text-xs font-semibold text-white shadow-xl transition-all duration-300 hover:-translate-y-1 hover:bg-[#274a39] hover:shadow-2xl border border-white/20"
+            className="flex items-center justify-center gap-2 rounded-full bg-[#121c16]/95 text-[#F5D794] border border-[#C5A46A]/50 shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-md p-2.5 sm:px-4 sm:py-2.5 lg:px-5 lg:py-3 text-xs font-semibold transition-all duration-300 hover:scale-105 hover:bg-[#1a2920] hover:border-[#F5D794]"
+            aria-label="Open Private Concierge"
           >
-            <Sparkles className="h-4 w-4 text-brand-gold" />
-            <span>Private Concierge</span>
+            <Sparkles className="h-4 w-4 text-[#F5D794] shrink-0" />
+            <span className="hidden sm:inline text-white tracking-wide">Private Concierge</span>
           </button>
         )}
 

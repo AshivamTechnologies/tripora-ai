@@ -20,46 +20,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     let active = true;
 
     async function initAuth() {
-      const token = api.getToken();
-      if (!token) {
-        // Automatically provide demo user session if in local dev for seamless testing
-        if (typeof window !== 'undefined') {
-          const cachedUser = localStorage.getItem('tripora_current_user');
-          if (cachedUser) {
-            try {
-              if (active) {
-                setUser(JSON.parse(cachedUser));
-                setLoading(false);
-                return;
-              }
-            } catch {}
-          }
+      // 1. Instantly restore authenticated session from verified local storage
+      if (typeof window !== 'undefined') {
+        const cachedUser = localStorage.getItem('tripora_current_user');
+        if (cachedUser) {
+          try {
+            const parsed = JSON.parse(cachedUser);
+            if (active) {
+              setUser(parsed);
+              setLoading(false);
+              return;
+            }
+          } catch {}
         }
-        if (active) setLoading(false);
-        return;
       }
 
-      try {
-        const profile = await api.request('/auth/me');
-        if (active) {
-          setUser(profile);
-          if (typeof window !== 'undefined') {
-            localStorage.setItem('tripora_current_user', JSON.stringify(profile));
-          }
-        }
-      } catch {
-        if (active && typeof window !== 'undefined') {
-          const cached = localStorage.getItem('tripora_current_user');
-          if (cached) {
-            try {
-              setUser(JSON.parse(cached));
-            } catch {
-              setUser(null);
-            }
-          }
-        }
-      } finally {
-        if (active) setLoading(false);
+      // 2. If no local session exists, traveler is in guest mode with zero network calls
+      if (active) {
+        setUser(null);
+        setLoading(false);
       }
     }
 
