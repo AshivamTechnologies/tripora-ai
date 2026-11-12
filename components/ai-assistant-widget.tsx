@@ -68,7 +68,7 @@ export function AiAssistantWidget() {
 
         {/* Chat Drawer / Modal */}
         {open && (
-          <div className="flex flex-col h-[520px] w-[360px] sm:w-[400px] rounded-3xl border border-brand-line bg-white shadow-2xl overflow-hidden animate-in fade-in slide-in-from-bottom-5">
+          <div className="flex flex-col h-[520px] w-[calc(100vw-24px)] max-w-[380px] sm:w-[400px] rounded-3xl border border-brand-line bg-white shadow-2xl overflow-hidden animate-in fade-in slide-in-from-bottom-5">
             {/* Header */}
             <div className="flex items-center justify-between border-b border-brand-line bg-brand-forest px-5 py-4 text-white">
               <div className="flex items-center gap-2.5">

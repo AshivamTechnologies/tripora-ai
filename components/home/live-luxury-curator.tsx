@@ -151,7 +151,7 @@ export function LiveLuxuryCurator() {
   const current = VIBES.find((v) => v.id === activeVibeId) || VIBES[0];
 
   return (
-    <section className="mx-auto max-w-7xl px-5 sm:px-8 py-20 sm:py-28">
+    <section className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 lg:px-10 2xl:px-14 py-20 sm:py-28">
       {/* Header */}
       <div className="max-w-3xl mb-12">
         <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-brand-forest mb-3">

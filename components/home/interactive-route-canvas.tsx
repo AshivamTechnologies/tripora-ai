@@ -89,7 +89,7 @@ export function InteractiveRouteCanvas() {
   const [selectedJourney, setSelectedJourney] = useState<JourneyPreset>(JOURNEYS[0]);
 
   return (
-    <section className="mx-auto max-w-7xl px-5 sm:px-8 py-20 sm:py-28">
+    <section className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 lg:px-10 2xl:px-14 py-20 sm:py-28">
       {/* Title */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
         <div>

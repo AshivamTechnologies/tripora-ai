@@ -20,7 +20,7 @@ export function HeroSection() {
         <div className="absolute inset-0 bg-radial-[at_center_bottom] from-transparent via-transparent to-brand-ink/40" />
       </div>
 
-      <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 py-24 sm:py-32">
+      <div className="mx-auto w-full max-w-[1720px] px-4 sm:px-6 lg:px-10 2xl:px-14 py-24 sm:py-32">
         <div className="max-w-3xl">
           {/* Top Live Badge */}
           <motion.div

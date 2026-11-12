@@ -59,7 +59,7 @@ const TIERS = [
 
 export function LuxuryVipTiers() {
   return (
-    <section className="mx-auto max-w-7xl px-5 sm:px-8 py-20 sm:py-28">
+    <section className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 lg:px-10 2xl:px-14 py-20 sm:py-28">
       <div className="text-center max-w-3xl mx-auto mb-16">
         <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-brand-forest mb-3">
           <Crown className="h-3.5 w-3.5 text-brand-gold" />

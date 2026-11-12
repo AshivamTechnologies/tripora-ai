@@ -149,7 +149,7 @@ export function PlannerWizard({ initialDestination }: { initialDestination: stri
 
   if (restoring) {
     return (
-      <div className="mx-auto max-w-6xl px-5 py-10 sm:px-8" aria-busy="true" aria-label="Loading your plan">
+      <div className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 lg:px-10 2xl:px-14 py-10" aria-busy="true" aria-label="Loading your plan">
         <div className="h-[480px] animate-pulse rounded-3xl border border-brand-line bg-white" />
       </div>
     );
@@ -158,7 +158,7 @@ export function PlannerWizard({ initialDestination }: { initialDestination: stri
   const stepProps = { draft, errors, onChange: updateDraft };
 
   return (
-    <div className="mx-auto grid max-w-6xl gap-8 px-5 py-10 sm:px-8 lg:grid-cols-[1fr_300px] lg:py-14">
+    <div className="mx-auto grid max-w-[1720px] w-full gap-8 px-4 py-10 sm:px-6 lg:px-10 2xl:px-14 lg:grid-cols-[1fr_340px] lg:py-14">
       <section aria-label="Trip planner" className="min-w-0">
         <ol className="mb-8 grid grid-cols-7 gap-2" aria-label="Planner progress">
           {PLANNER_STEPS.map((item, index) => {

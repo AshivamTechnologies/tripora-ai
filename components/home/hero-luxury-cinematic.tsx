@@ -114,7 +114,7 @@ export function HeroLuxuryCinematic() {
       {/* Subtle Gold Shimmer Accent Line on Top */}
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#C5A46A]/60 to-transparent" />
 
-      <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-16 lg:py-20">
+      <div className="mx-auto w-full max-w-[1720px] px-4 sm:px-6 lg:px-10 2xl:px-14 py-10 sm:py-16 lg:py-20">
         <div className="grid lg:grid-cols-[1.25fr_0.75fr] gap-8 lg:gap-12 lg:items-center">
           {/* Left Column: Editorial Headline & Search */}
           <div className="max-w-2xl">

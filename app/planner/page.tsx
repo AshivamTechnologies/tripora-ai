@@ -14,7 +14,7 @@ export default function PlannerPage({ searchParams }: PlannerPageProps) {
 
   return (
     <div className="min-h-screen bg-brand-mist/30 pb-28 pt-10">
-      <div className="mx-auto max-w-6xl px-5 sm:px-8">
+      <div className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 lg:px-10 2xl:px-14">
         <div className="mb-8">
           <div className="inline-flex items-center gap-2 rounded-full border border-brand-forest/20 bg-brand-forest/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-brand-forest mb-2">
             <Sparkles className="h-3.5 w-3.5 text-brand-gold" />

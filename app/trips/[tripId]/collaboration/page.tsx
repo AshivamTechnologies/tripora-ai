@@ -173,7 +173,7 @@ export default function TripCollaborationPage({ params }: { params: { tripId: st
 
   return (
     <div className="min-h-screen bg-[#080E0A] text-white selection:bg-[#F5D794] selection:text-[#0A120D] pb-24 pt-8">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 lg:px-10 2xl:px-14">
         {/* Navigation Breadcrumb */}
         <Link
           href={`/trips/${params.tripId}`}

@@ -24,7 +24,7 @@ export function SiteFooter() {
       <div className="border-b border-white/10 py-12 sm:py-16 relative">
         <div className="absolute top-0 right-1/4 -z-10 h-72 w-72 rounded-full bg-brand-gold/10 blur-3xl pointer-events-none" />
 
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <div className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 lg:px-10 2xl:px-14">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 rounded-3xl bg-[#142018] p-8 sm:p-12 text-white border border-brand-gold/25 relative overflow-hidden shadow-2xl">
             {/* Ambient Lighting */}
             <div className="absolute top-0 right-0 -z-10 h-64 w-64 rounded-full bg-brand-gold/15 blur-3xl pointer-events-none" />
@@ -73,7 +73,7 @@ export function SiteFooter() {
       </div>
 
       {/* Main Multi-Column Links */}
-      <div className="mx-auto max-w-7xl px-5 sm:px-8 py-16">
+      <div className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 lg:px-10 2xl:px-14 py-16">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-5 pb-14 border-b border-white/10">
           {/* Brand Column */}
           <div className="lg:col-span-2">

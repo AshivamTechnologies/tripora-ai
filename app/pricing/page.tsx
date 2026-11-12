@@ -59,7 +59,7 @@ const TIERS = [
       'Aman, Belmond & Four Seasons Partner Perks',
       'Off-Market Private Villa Catalog Access',
       'Private Aviation & Charter Handoff Desk',
-      'Automatic Flight Disruption Rebooking Assistant',
+      'Automatic Flight Disruption Rebooking Concierge',
       'Dedicated Travel Producer Consultation',
     ],
     cta: 'Apply for Private Reserve',
@@ -83,7 +83,7 @@ export default function PricingPage() {
 
   return (
     <div className="min-h-screen bg-brand-mist/30 pb-28 pt-10">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+      <div className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 lg:px-10 2xl:px-14">
         {/* Luxury Hero Banner */}
         <div className="text-center max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 rounded-full border border-brand-forest/20 bg-brand-forest/10 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-brand-forest mb-4">

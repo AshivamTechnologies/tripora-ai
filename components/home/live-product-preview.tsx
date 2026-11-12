@@ -40,7 +40,7 @@ export function LiveProductPreview() {
   const [activeTab, setActiveTab] = useState<TabKey>('itinerary');
 
   return (
-    <div className="mx-auto max-w-7xl px-5 sm:px-8">
+    <div className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 lg:px-10 2xl:px-14">
       {/* Section Header */}
       <div className="mx-auto max-w-3xl text-center mb-12">
         <div className="inline-flex items-center gap-2 rounded-full border border-brand-forest/20 bg-brand-forest/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-brand-forest mb-4">

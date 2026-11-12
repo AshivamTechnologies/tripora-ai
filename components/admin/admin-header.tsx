@@ -31,7 +31,7 @@ export function AdminHeader({
   return (
     <header className="border-b border-white/10 bg-[#080E0A] pt-4 pb-6">
       {/* Top Telemetry Strip */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/5 pb-3 text-[11px] font-mono text-white/60">
           <div className="flex items-center gap-3">
             <span className="flex items-center gap-1.5 text-emerald-400 font-semibold">

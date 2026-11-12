@@ -130,7 +130,7 @@ export function TripsList() {
           No trips match this filter yet.
         </p>
       ) : (
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
           {visible.map(({ trip, status }) => (
             <div key={trip.id} className="animate-in fade-in slide-in-from-bottom-2 duration-500">
               <TripCard trip={trip} status={status} />

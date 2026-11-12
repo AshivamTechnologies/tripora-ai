@@ -94,7 +94,7 @@ export function DestinationSearch() {
 
         <button
           type="submit"
-          className="group inline-flex h-12 items-center justify-center gap-2 rounded-full bg-brand-forest px-7 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#254635] hover:shadow-lg hover:shadow-brand-forest/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold shrink-0"
+          className="group inline-flex h-12 w-full sm:w-auto items-center justify-center gap-2 rounded-full bg-brand-forest px-7 text-sm font-semibold text-white transition-all duration-300 hover:bg-[#254635] hover:shadow-lg hover:shadow-brand-forest/25 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold shrink-0"
         >
           <Sparkles className="h-4 w-4 text-brand-gold transition-transform duration-300 group-hover:rotate-12" />
           <span>Curate Itinerary</span>

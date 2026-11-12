@@ -58,7 +58,7 @@ export function WorldTimeTicker() {
       <div className="pointer-events-none absolute inset-y-0 left-0 w-12 sm:w-28 bg-gradient-to-r from-[#0A120D] via-[#0A120D]/90 to-transparent z-20" />
       <div className="pointer-events-none absolute inset-y-0 right-0 w-12 sm:w-28 bg-gradient-to-l from-[#0A120D] via-[#0A120D]/90 to-transparent z-20" />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-center gap-4 sm:gap-6">
+      <div className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 lg:px-10 2xl:px-14 flex items-center gap-4 sm:gap-6">
         {/* Left Stationary Telemetry Badge */}
         <div className="relative z-30 flex items-center gap-2 rounded-full bg-[#142219] px-3 sm:px-3.5 py-1.5 border border-[#C5A46A]/50 text-[#F5D794] font-bold uppercase tracking-[0.18em] text-[10px] sm:text-[11px] shrink-0 shadow-md">
           <span className="relative flex h-2 w-2">

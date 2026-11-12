@@ -406,7 +406,7 @@ export function SiteHeader() {
                     { label: 'Sanctuaries', href: '/destinations', num: '1' },
                     { label: 'Stays', href: '/hotels', num: '2' },
                     { label: 'Aviation', href: '/flights', num: '3' },
-                    { label: 'AI Plan', href: '/planner', num: '4' },
+                    { label: 'Atelier', href: '/planner', num: '4' },
                     { label: 'Trips', href: '/trips', num: '5' },
                   ].map((s) => (
                     <Link

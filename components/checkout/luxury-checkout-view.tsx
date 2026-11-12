@@ -269,7 +269,7 @@ export function LuxuryCheckoutView({ trip }: { trip?: CheckoutTripData }) {
   // Active Checkout Form View
   return (
     <div className="min-h-screen bg-[#080E0A] py-12 px-4 sm:px-6 lg:px-8 text-white selection:bg-[#F5D794] selection:text-[#0A120D]">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 lg:px-10 2xl:px-14">
         {/* Breadcrumb & Navigation */}
         <div className="flex items-center justify-between pb-8 border-b border-white/10">
           <Link

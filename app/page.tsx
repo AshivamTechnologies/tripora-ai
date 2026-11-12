@@ -53,7 +53,7 @@ export default function Home() {
 
       {/* 7. Editorial How It Works Section */}
       <section id="how-it-works" className="bg-white border-y border-brand-line/80 py-20 sm:py-28">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <div className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 lg:px-10 2xl:px-14">
           <div className="grid gap-12 lg:grid-cols-[1fr_1.3fr] lg:items-center lg:gap-16">
             <div>
               <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-brand-forest mb-3">
@@ -113,7 +113,7 @@ export default function Home() {
       <AiComparisonSection />
 
       {/* 10. Frequently Asked Questions */}
-      <section className="mx-auto max-w-7xl px-5 sm:px-8 py-20 sm:py-24 border-t border-brand-line/80">
+      <section className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 lg:px-10 2xl:px-14 py-20 sm:py-24 border-t border-brand-line/80">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.4fr] lg:gap-16">
           <div>
             <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-brand-forest mb-3">
@@ -132,8 +132,8 @@ export default function Home() {
       </section>
 
       {/* 11. Editorial Call to Action Banner */}
-      <section className="px-5 sm:px-8 pb-20 sm:pb-28">
-        <div className="relative isolate overflow-hidden mx-auto max-w-7xl rounded-3xl bg-brand-forest px-8 py-16 text-white sm:px-14 sm:py-20 shadow-2xl">
+      <section className="px-4 sm:px-6 lg:px-10 2xl:px-14 pb-20 sm:pb-28">
+        <div className="relative isolate overflow-hidden mx-auto max-w-[1720px] w-full rounded-3xl bg-brand-forest px-8 py-16 text-white sm:px-14 sm:py-20 shadow-2xl">
           {/* Subtle Ambient Gold Glow */}
           <div className="absolute top-0 right-0 -z-10 h-[300px] w-[300px] rounded-full bg-brand-gold/15 blur-3xl" />
           <div className="absolute bottom-0 left-0 -z-10 h-[250px] w-[250px] rounded-full bg-emerald-400/10 blur-3xl" />

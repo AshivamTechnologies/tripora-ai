@@ -242,7 +242,7 @@ export function TripDetailView({ tripId }: { tripId: string }) {
 
   if (!loaded) {
     return (
-      <div className="mx-auto flex max-w-5xl flex-col gap-6 px-5 py-16 sm:px-8" aria-busy="true" aria-label="Loading trip">
+      <div className="mx-auto flex max-w-[1720px] w-full flex-col gap-6 px-4 py-16 sm:px-6 lg:px-10 2xl:px-14" aria-busy="true" aria-label="Loading trip">
         <div className="h-64 animate-pulse rounded-3xl border border-brand-line bg-white" />
         <div className="h-96 animate-pulse rounded-3xl border border-brand-line bg-white" />
       </div>
@@ -283,7 +283,7 @@ export function TripDetailView({ tripId }: { tripId: string }) {
 
   return (
     <div className="min-h-[calc(100vh-4rem)] bg-brand-mist">
-      <div className="mx-auto max-w-5xl space-y-8 px-5 py-10 sm:px-8 sm:py-14">
+      <div className="mx-auto max-w-[1720px] w-full space-y-8 px-4 py-10 sm:px-6 lg:px-10 2xl:px-14 sm:py-14">
         <div className="flex items-center justify-between gap-4">
           <Link
             href="/trips"

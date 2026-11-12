@@ -65,7 +65,7 @@ const TESTIMONIALS = [
 
 export function AiComparisonSection() {
   return (
-    <div className="mx-auto max-w-7xl px-5 sm:px-8 py-20 sm:py-24">
+    <div className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 lg:px-10 2xl:px-14 py-20 sm:py-24">
       {/* Editorial Comparison Table */}
       <div className="rounded-3xl border border-brand-line/80 bg-white p-6 sm:p-12 shadow-xl mb-24">
         <div className="text-center max-w-2xl mx-auto mb-12">

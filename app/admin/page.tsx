@@ -311,7 +311,7 @@ export default function LuxuryAdminPortal() {
       />
 
       {/* Master Content Area */}
-      <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-6">
+      <main className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 lg:px-8 xl:px-12 pt-6">
         {/* Luxury Navigation Tabs with Smooth Horizontal Scroll & Nav Chevrons */}
         <div className="relative mb-2">
           {/* Left Scroll Button */}

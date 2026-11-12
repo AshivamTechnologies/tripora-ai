@@ -121,7 +121,7 @@ export function CuratedDestinations() {
   }
 
   return (
-    <section id="destinations" className="mx-auto max-w-7xl px-5 sm:px-8 py-24">
+    <section id="destinations" className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 lg:px-10 2xl:px-14 py-24">
       {/* Title & Category Filter */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
         <div>
@@ -160,7 +160,7 @@ export function CuratedDestinations() {
       </div>
 
       {/* Grid */}
-      <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
         <AnimatePresence mode="popLayout">
           {filtered.map((dest) => {
             const isSaved = savedIds.has(dest.id);

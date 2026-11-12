@@ -40,7 +40,7 @@ const PRINCIPLES = [
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-brand-mist/30 pb-28 pt-10">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+      <div className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 lg:px-10 2xl:px-14">
         {/* Luxury Hero Banner */}
         <div className="relative overflow-hidden rounded-3xl bg-brand-forest px-8 py-16 text-white sm:px-14 sm:py-24 shadow-2xl">
           <div className="absolute top-0 right-0 -z-10 h-96 w-96 rounded-full bg-brand-gold/15 blur-3xl pointer-events-none" />

@@ -51,7 +51,7 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-brand-mist/30 pb-28 pt-10">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+      <div className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 lg:px-10 2xl:px-14">
         {/* Luxury Cockpit Header */}
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>

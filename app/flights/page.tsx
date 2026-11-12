@@ -90,7 +90,7 @@ export default function FlightsPage() {
 
   return (
     <div className="min-h-screen bg-brand-mist/30 pb-28 pt-10">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+      <div className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 lg:px-10 2xl:px-14">
         {/* Luxury Hero Banner */}
         <div className="relative overflow-hidden rounded-3xl bg-brand-forest px-8 py-14 text-white sm:px-14 sm:py-18 shadow-2xl">
           <div className="absolute top-0 right-0 -z-10 h-80 w-80 rounded-full bg-brand-gold/15 blur-3xl pointer-events-none" />
@@ -282,7 +282,7 @@ export default function FlightsPage() {
                   {offer.airlineCode || 'AIR'}
                 </div>
                 <div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <h3 className="font-serif text-2xl text-brand-ink">{offer.airlineName}</h3>
                     <span className="rounded-full bg-brand-mist px-2.5 py-0.5 text-xs font-semibold text-brand-forest border border-brand-line">
                       {offer.flightNumber}

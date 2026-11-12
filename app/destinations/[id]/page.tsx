@@ -31,7 +31,7 @@ export default function DestinationDetailPage({ params }: { params: { id: string
   if (loading || !destination) {
     return (
       <div className="min-h-screen bg-brand-mist/30 py-20">
-        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <div className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 lg:px-10 2xl:px-14">
           <div className="h-96 animate-pulse rounded-3xl bg-white border border-brand-line" />
         </div>
       </div>
@@ -49,7 +49,7 @@ export default function DestinationDetailPage({ params }: { params: { id: string
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
-        <div className="relative mx-auto flex min-h-[520px] max-w-7xl flex-col justify-between px-5 pb-12 pt-8 sm:px-8">
+        <div className="relative mx-auto flex min-h-[520px] max-w-[1720px] w-full flex-col justify-between px-4 pb-12 pt-8 sm:px-6 lg:px-10 2xl:px-14">
           <Link
             href="/destinations"
             className="flex w-fit items-center gap-2 rounded-full bg-white/20 px-4 py-2 text-xs font-semibold text-white backdrop-blur-md transition-all hover:bg-white/30 border border-white/20"
@@ -75,7 +75,7 @@ export default function DestinationDetailPage({ params }: { params: { id: string
             <div className="shrink-0 flex flex-col sm:flex-row gap-3">
               <Link
                 href={`/planner?destination=${encodeURIComponent(`${destination.name}, ${destination.country}`)}`}
-                className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-gold px-8 py-4 text-sm font-semibold text-brand-ink shadow-xl transition-all hover:bg-[#d6b77e] hover:scale-105"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-gold px-8 py-4 text-sm font-semibold text-brand-ink shadow-xl transition-all hover:bg-[#d6b77e] hover:scale-105 w-full sm:w-auto"
               >
                 <Sparkles className="h-4 w-4" />
                 <span>Curate Itinerary for {destination.name}</span>
@@ -85,7 +85,7 @@ export default function DestinationDetailPage({ params }: { params: { id: string
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl px-5 pt-12 sm:px-8">
+      <div className="mx-auto max-w-[1720px] w-full px-4 pt-12 sm:px-6 lg:px-10 2xl:px-14">
         {/* 2. Key Intelligence Telemetry Bar */}
         <div className="grid grid-cols-2 gap-4 rounded-3xl border border-brand-line bg-white p-6 shadow-sm sm:grid-cols-4">
           <div className="p-2">
@@ -153,7 +153,7 @@ export default function DestinationDetailPage({ params }: { params: { id: string
             </div>
           </div>
 
-          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
             {(destination.attractions || []).map((attr: any) => (
               <div key={attr.id} className="group overflow-hidden rounded-3xl border border-brand-line bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:border-brand-sage">
                 <div className="relative aspect-[16/10] bg-brand-ink overflow-hidden">
@@ -191,10 +191,10 @@ export default function DestinationDetailPage({ params }: { params: { id: string
             <p className="mt-1 text-sm text-brand-muted">Private dining rooms, multi-course kaiseki, and authentic regional heritage selections.</p>
           </div>
 
-          <div className="mt-8 grid gap-6 sm:grid-cols-2">
+          <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {(destination.restaurants || []).map((rest: any) => (
-              <div key={rest.id} className="flex gap-5 rounded-3xl border border-brand-line bg-white p-5 shadow-sm transition-all hover:border-brand-sage hover:shadow-md">
-                <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-2xl bg-brand-ink">
+              <div key={rest.id} className="flex flex-col sm:flex-row gap-4 sm:gap-5 rounded-3xl border border-brand-line bg-white p-5 shadow-sm transition-all hover:border-brand-sage hover:shadow-md">
+                <div className="relative h-44 sm:h-28 w-full sm:w-28 shrink-0 overflow-hidden rounded-2xl bg-brand-ink">
                   <img src={rest.imageUrl} alt={rest.name} className="h-full w-full object-cover" />
                 </div>
                 <div className="flex flex-1 flex-col justify-between">

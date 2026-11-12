@@ -93,7 +93,7 @@ export default function TripPackingPage({ params }: { params: { tripId: string }
 
   return (
     <div className="min-h-screen bg-brand-mist pb-24 pt-8">
-      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+      <div className="mx-auto max-w-[1720px] w-full px-4 sm:px-6 lg:px-10 2xl:px-14">
         <Link
           href={`/trips/${params.tripId}`}
           className="inline-flex items-center gap-2 text-xs font-semibold text-brand-muted hover:text-brand-forest"
@@ -120,7 +120,7 @@ export default function TripPackingPage({ params }: { params: { tripId: string }
             className="flex items-center gap-2 rounded-full bg-brand-forest px-5 py-2.5 text-xs font-semibold text-white shadow-sm transition-all hover:bg-[#274a39]"
           >
             <Sparkles className="h-3.5 w-3.5 text-brand-gold" />
-            {generating ? 'Consulting Weather & AI...' : 'Auto-Generate with AI'}
+            {generating ? 'Consulting Weather Matrix...' : 'Curate Weather-Matched Packing'}
           </button>
         </div>
 
