@@ -160,9 +160,9 @@ export function AuthForm({ nextPath, reason }: AuthFormProps) {
         </h1>
         <p className="mt-1 text-xs text-white/60 font-light">
           {mode === 'admin'
-            ? 'Master Concierge and Operations Command Terminal.'
+            ? 'Master Concierge and Operations Command Center.'
             : mode === 'signup'
-            ? 'Join our private circle to unlock AI spatial routing and private sanctuaries.'
+            ? 'Join our private circle to unlock bespoke spatial routing and private sanctuaries.'
             : 'Access your saved expeditions, luxury suites, and flight passes.'}
         </p>
       </div>
@@ -176,7 +176,7 @@ export function AuthForm({ nextPath, reason }: AuthFormProps) {
               {reason === 'insufficient_clearance' ? '403 Forbidden: Insufficient Clearance' : 'Diplomatic Clearance Required'}
             </span>
             <p className="mt-0.5 text-[11px] leading-relaxed text-white/90">
-              The Administrative Command Matrix requires verified Master Concierge credentials. Sign in via the Executive Clearance tab below.
+              The Administrative Command Center requires verified Master Concierge credentials. Sign in via the Executive Clearance tab below.
             </p>
           </div>
         </div>

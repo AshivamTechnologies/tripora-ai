@@ -7,7 +7,7 @@ const COMPARISON_ROWS = [
   {
     feature: 'Itinerary Generation Speed',
     traditional: '12–16 hours across blogs & forums',
-    tripora: '30 seconds tailored to your budget & pace',
+    tripora: 'Instant tailored synthesis by our private atelier',
   },
   {
     feature: 'Day-by-Day Slot Balancing',
@@ -32,7 +32,7 @@ const COMPARISON_ROWS = [
   {
     feature: '24/7 Contextual Assistance',
     traditional: 'Endless forum searches for local queries',
-    tripora: 'Dedicated AI Concierge with full trip context',
+    tripora: 'Dedicated 24/7 Private Concierge with full trip context',
   },
 ];
 
@@ -84,7 +84,7 @@ export function AiComparisonSection() {
               <tr className="border-b border-brand-line">
                 <th className="pb-4 text-xs font-bold uppercase tracking-wider text-brand-muted w-1/3">Capability</th>
                 <th className="pb-4 text-xs font-bold uppercase tracking-wider text-red-800/80 w-1/3">The Old Manual Way</th>
-                <th className="pb-4 text-xs font-bold uppercase tracking-wider text-brand-forest w-1/3">TRIPORA AI Platform</th>
+                <th className="pb-4 text-xs font-bold uppercase tracking-wider text-brand-forest w-1/3">TRIPORA RESERVE Atelier</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-brand-line/60 text-sm">

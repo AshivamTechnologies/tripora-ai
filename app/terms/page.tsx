@@ -14,9 +14,9 @@ export default function TermsPage() {
           </div>
 
           <div>
-            <h2 className="font-serif text-xl text-brand-ink">2. AI-Generated Advice & Itineraries</h2>
+            <h2 className="font-serif text-xl text-brand-ink">2. Curated Recommendations &amp; Itineraries</h2>
             <p className="mt-2">
-              The platform utilizes advanced artificial intelligence models to synthesize travel itineraries, packing checklists, and budget allocations. While we optimize for maximum geographic and temporal accuracy, actual venue hours, ticket prices, visa requirements, and transit conditions are subject to change. Travelers are advised to confirm critical details with direct service operators.
+              The platform utilizes advanced spatial curation models to synthesize travel itineraries, packing checklists, and budget allocations. While we optimize for maximum geographic and temporal accuracy, actual venue hours, ticket prices, visa requirements, and transit conditions are subject to change. Travelers are advised to confirm critical details with direct service operators.
             </p>
           </div>
 

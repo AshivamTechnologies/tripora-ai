@@ -9,7 +9,7 @@ export function AiAssistantWidget() {
   const [messages, setMessages] = useState<Array<{ sender: 'USER' | 'ASSISTANT'; text: string }>>([
     {
       sender: 'ASSISTANT',
-      text: 'Hello! I am your TRIPORA AI Travel Concierge. How can I assist with your journey, packing, or local recommendations today?',
+      text: 'Greetings. I am your TRIPORA RESERVE Concierge. How may I assist with your private sanctuaries, flight corridors, or bespoke reservations today?',
     },
   ]);
   const [input, setInput] = useState('');
@@ -53,15 +53,15 @@ export function AiAssistantWidget() {
   return (
     <>
       {/* Floating Action Pill */}
-      <aside aria-label="AI Travel Assistant" className="fixed bottom-20 right-4 sm:bottom-20 sm:right-6 lg:bottom-6 lg:right-6 z-40">
+      <aside aria-label="Private Concierge Liaison" className="fixed bottom-20 right-4 sm:bottom-20 sm:right-6 lg:bottom-6 lg:right-6 z-40">
         {!open && (
           <button
             type="button"
             onClick={() => setOpen(true)}
             className="flex items-center gap-2.5 rounded-full bg-brand-forest px-5 py-3 text-xs font-semibold text-white shadow-xl transition-all duration-300 hover:-translate-y-1 hover:bg-[#274a39] hover:shadow-2xl border border-white/20"
           >
-            <Sparkles className="h-4 w-4 text-brand-gold animate-pulse" />
-            <span>AI Travel Assistant</span>
+            <Sparkles className="h-4 w-4 text-brand-gold" />
+            <span>Private Concierge</span>
           </button>
         )}
 
@@ -75,8 +75,8 @@ export function AiAssistantWidget() {
                   <Sparkles className="h-4 w-4" />
                 </span>
                 <div>
-                  <h3 className="font-serif text-sm font-semibold">TRIPORA AI Concierge</h3>
-                  <p className="text-[10px] text-white/75">Active Trip & Destination Context</p>
+                  <h3 className="font-serif text-sm font-semibold">TRIPORA RESERVE Concierge</h3>
+                  <p className="text-[10px] text-white/75">Active Trip &amp; Destination Liaison</p>
                 </div>
               </div>
               <button

@@ -29,7 +29,7 @@ const PRIMARY_LINKS = [
   { href: '/destinations', label: 'Sanctuaries' },
   { href: '/hotels', label: 'Stays' },
   { href: '/flights', label: 'Aviation' },
-  { href: '/planner', label: 'AI Studio' },
+  { href: '/planner', label: 'Atelier' },
   { href: '/guides', label: 'Field Notes' },
   { href: '/pricing', label: 'Privileges' },
 ];

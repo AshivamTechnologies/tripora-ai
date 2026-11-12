@@ -24,7 +24,7 @@ export default function PlannerPage({ searchParams }: PlannerPageProps) {
             Curate Your Next Expedition
           </h1>
           <p className="mt-2 text-sm text-brand-muted font-light max-w-2xl leading-relaxed">
-            Define your dates, travel tempo, budget, and cultural preferences. Our spatial neural engine will optimize morning, afternoon, and evening slots with realistic walking buffers.
+            Define your dates, travel tempo, budget, and cultural preferences. Our spatial atelier will optimize morning, afternoon, and evening slots with realistic walking buffers.
           </p>
         </div>
       </div>

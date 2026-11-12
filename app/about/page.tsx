@@ -25,7 +25,7 @@ const PRINCIPLES = [
   },
   {
     icon: Cpu,
-    title: 'Real-Time Neural Telemetry',
+    title: 'Real-Time Flight & Climate Radar',
     description:
       'Our spatial planning engine doesn’t rely on static scraped blogs. It queries live GDS flight corridors, atmospheric micro-forecasts, and verified local opening hours to guarantee reliable days.',
   },
@@ -114,7 +114,7 @@ export default function AboutPage() {
             <span className="text-xs font-bold uppercase tracking-widest text-brand-forest">The Pillars</span>
             <h2 className="mt-2 font-serif text-3xl sm:text-4xl text-brand-ink">Engineered with Architectural Precision</h2>
             <p className="mt-2 text-sm text-brand-muted font-light">
-              Every algorithmic decision in TRIPORA AI is designed to protect your peace of mind.
+              Every curation decision in TRIPORA RESERVE is designed to protect your peace of mind.
             </p>
           </div>
 
@@ -157,7 +157,7 @@ export default function AboutPage() {
             href="/planner"
             className="shrink-0 inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-xs font-bold text-brand-forest shadow-xl transition-all hover:bg-brand-mist hover:scale-105"
           >
-            <span>Launch AI Planner</span>
+            <span>Launch Travel Atelier</span>
             <ArrowRight className="h-4 w-4" />
           </Link>
         </div>

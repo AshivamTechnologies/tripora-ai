@@ -21,9 +21,9 @@ export default function PrivacyPage() {
           </div>
 
           <div>
-            <h2 className="font-serif text-xl text-brand-ink">3. AI Service Privacy</h2>
+            <h2 className="font-serif text-xl text-brand-ink">3. Concierge &amp; Atelier Privacy</h2>
             <p className="mt-2">
-              When querying AI providers (such as Google Gemini), we sanitize user prompts to exclude sensitive personally identifiable information. Your conversations are utilized solely for active trip planning responses.
+              When querying spatial routing and recommendation services, we sanitize user prompts to exclude sensitive personally identifiable information. Your conversations are utilized solely for active trip planning responses.
             </p>
           </div>
 

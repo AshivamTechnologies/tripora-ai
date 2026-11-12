@@ -82,12 +82,12 @@ export function SiteFooter() {
                 <Plane className="h-4 w-4" />
               </span>
               <span className="font-serif text-2xl tracking-tight text-white">
-                TRIPORA <span className="font-sans text-xs font-bold uppercase tracking-wider text-brand-gold bg-brand-gold/15 px-1.5 py-0.5 rounded-full border border-brand-gold/30">AI</span>
+                TRIPORA <span className="font-sans text-xs font-bold uppercase tracking-wider text-brand-gold bg-brand-gold/15 px-2 py-0.5 rounded-full border border-brand-gold/30">RESERVE</span>
               </span>
             </Link>
 
             <p className="mt-4 text-sm text-white/70 max-w-sm leading-relaxed font-light">
-              The premier AI-powered luxury travel planning and management platform. Handcrafted day-by-day itineraries, exact minor-unit currency splits, weather-synced packing, and verified booking handoffs.
+              The premier bespoke luxury travel atelier and expedition management platform. Handcrafted day-by-day itineraries, exact minor-unit currency splits, weather-synced packing, and verified booking handoffs.
             </p>
 
             {/* Luxury Accreditation & Trust Badges */}
@@ -106,7 +106,7 @@ export function SiteFooter() {
           <div>
             <div className="text-[11px] font-bold uppercase tracking-[0.16em] text-brand-gold mb-4">Studio</div>
             <ul className="space-y-3 text-sm text-white/70 font-light">
-              <li><Link href="/planner" className="hover:text-white transition-colors">AI Trip Studio</Link></li>
+              <li><Link href="/planner" className="hover:text-white transition-colors">Trip Atelier</Link></li>
               <li><Link href="/destinations" className="hover:text-white transition-colors">Curated Sanctuaries</Link></li>
               <li><Link href="/flights" className="hover:text-white transition-colors">Aviation & Lie-Flat Fares</Link></li>
               <li><Link href="/hotels" className="hover:text-white transition-colors">Luxury Stays & Villas</Link></li>

@@ -30,7 +30,7 @@ interface TabItem {
 }
 
 const TABS: TabItem[] = [
-  { key: 'itinerary', label: 'Day-Wise Itinerary', badge: 'AI Optimized', icon: Calendar },
+  { key: 'itinerary', label: 'Day-Wise Itinerary', badge: 'Bespoke Curated', icon: Calendar },
   { key: 'budget', label: 'Precision Split Engine', badge: 'Minor-Unit Accurate', icon: DollarSign },
   { key: 'flights', label: 'Live Flights & Stays', badge: 'Revalidated Fares', icon: Plane },
   { key: 'packing', label: 'Weather-Smart Packing', badge: 'Forecast Synced', icon: Luggage },
@@ -51,7 +51,7 @@ export function LiveProductPreview() {
           Experience travel planning at the highest standard.
         </h2>
         <p className="mt-4 text-base sm:text-lg text-brand-muted leading-relaxed">
-          Switch tabs below to test TRIPORA AI’s real-time modules — from day-by-day sequencing and budget splits to automated baggage checklists.
+          Switch tabs below to test TRIPORA RESERVE’s handcrafted modules — from day-by-day sequencing and budget splits to automated baggage checklists.
         </p>
 
         {/* Tab Switcher Pills */}
@@ -89,17 +89,25 @@ export function LiveProductPreview() {
 
       {/* Interactive Display Canvas */}
       <div className="relative rounded-3xl border border-brand-line/80 bg-white shadow-2xl overflow-hidden">
-        {/* Window Chrome Header */}
-        <div className="flex items-center justify-between border-b border-brand-line bg-brand-mist/60 px-6 py-4">
-          <div className="flex items-center gap-2">
-            <span className="h-3 w-3 rounded-full bg-red-400/80" />
-            <span className="h-3 w-3 rounded-full bg-amber-400/80" />
-            <span className="h-3 w-3 rounded-full bg-emerald-400/80" />
-            <span className="ml-3 text-xs font-mono text-brand-muted">tripora-ai // itinerary-studio: tokyo-kyoto-7d</span>
+        {/* Luxury Dossier Header */}
+        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-brand-line bg-[#0D1510] text-white px-6 py-4">
+          <div className="flex items-center gap-3">
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#1C2C22] text-[#F5D794] border border-[#C5A46A]/40 text-xs font-serif font-bold">
+              T
+            </span>
+            <div className="flex items-center gap-2">
+              <span className="font-serif text-sm tracking-wider text-white">TRIPORA RESERVE</span>
+              <span className="text-[9px] font-mono tracking-widest text-[#F5D794] bg-[#F5D794]/15 px-2 py-0.5 rounded-full border border-[#C5A46A]/30 uppercase">
+                Curated Dossier
+              </span>
+            </div>
+            <span className="hidden sm:inline text-xs text-white/60 border-l border-white/10 pl-3 font-light">
+              Kyoto &amp; Tokyo Imperial Journey &bull; 7-Day Itinerary
+            </span>
           </div>
-          <div className="flex items-center gap-2 text-xs font-medium text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200">
-            <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-            Active Session Synchronized
+          <div className="flex items-center gap-2 text-xs font-medium text-[#F5D794] bg-[#16241B] px-3.5 py-1 rounded-full border border-[#C5A46A]/40">
+            <span className="h-2 w-2 rounded-full bg-emerald-400" />
+            Verified Concierge Itinerary
           </div>
         </div>
 
@@ -230,7 +238,7 @@ export function LiveProductPreview() {
                     <div className="rounded-xl bg-white p-4 border border-brand-line shadow-sm">
                       <div className="flex items-center gap-2 text-xs font-semibold text-brand-ink">
                         <Sparkles className="h-3.5 w-3.5 text-brand-gold" />
-                        AI Concierge Suggestion
+                        Private Concierge Note
                       </div>
                       <p className="text-xs text-brand-muted mt-2 leading-relaxed">
                         Fushimi Inari gets crowded after 10:30 AM. We scheduled your arrival at 09:30 AM so you capture the upper trails in silence.
@@ -241,7 +249,7 @@ export function LiveProductPreview() {
                       href="/planner"
                       className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-brand-forest py-3 text-sm font-semibold text-white transition-all hover:bg-[#254635]"
                     >
-                      Generate Custom Plan
+                      Curate Bespoke Journey
                       <ChevronRight className="h-4 w-4" />
                     </Link>
                   </div>

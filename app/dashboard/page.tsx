@@ -135,7 +135,7 @@ export default function DashboardPage() {
               <Compass className="mx-auto h-12 w-12 text-brand-muted" />
               <h3 className="mt-4 font-serif text-2xl text-brand-ink">No Journeys Planned Yet</h3>
               <p className="mt-2 text-sm text-brand-muted max-w-md mx-auto font-light">
-                Launch the studio to build your first day-by-day itinerary with AI route optimization and budget tracking.
+                Launch the atelier to build your first day-by-day itinerary with spatial route pacing and budget tracking.
               </p>
               <Link
                 href="/planner"

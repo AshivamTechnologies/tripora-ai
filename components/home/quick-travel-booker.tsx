@@ -62,7 +62,7 @@ export function QuickTravelBooker() {
           }`}
         >
           <Sparkles className="h-3.5 w-3.5 text-brand-gold" />
-          <span>AI Itinerary</span>
+          <span>Bespoke Itinerary</span>
         </button>
 
         <button

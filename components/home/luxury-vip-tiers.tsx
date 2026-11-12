@@ -11,7 +11,7 @@ const TIERS = [
     tagline: 'Ideal for independent travelers seeking intelligent day-by-day organization.',
     badge: 'Popular',
     features: [
-      'Full AI Itinerary Studio (Morning / PM / Evening)',
+      'Full Itinerary Studio (Morning / PM / Evening)',
       'Minor-Unit Integer Expense Split Engine',
       '5-Day Weather-Synced Baggage Checklist',
       'Flight & Stay Discovery with Booking Handoff',
@@ -46,7 +46,7 @@ const TIERS = [
     badge: 'Ultra-Luxury VIP',
     features: [
       'Everything in Voyager Pass',
-      '24/7 Dedicated AI Travel Concierge with Full Trip Memory',
+      '24/7 Dedicated Private Concierge Liaison',
       'Off-Market Luxury Ryokan & Private Villa Access',
       'VIP Airport Lounge Access & Fast-Track Assistance',
       'Dedicated Travel Operations & Priority Support',

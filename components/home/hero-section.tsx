@@ -30,7 +30,7 @@ export function HeroSection() {
             className="mb-6 inline-flex flex-wrap items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-xs sm:text-sm font-medium text-white backdrop-blur-md shadow-lg shadow-black/20"
           >
             <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-semibold text-brand-gold">TRIPORA AI 2.0</span>
+            <span className="font-semibold text-brand-gold">TRIPORA RESERVE</span>
             <span className="text-white/40">·</span>
             <span>Explore More. Plan Smarter. Travel Better.</span>
           </motion.div>

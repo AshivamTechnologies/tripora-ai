@@ -27,7 +27,7 @@ const FLOW_TABS = [
   },
   {
     href: '/planner',
-    label: 'AI Studio',
+    label: 'Atelier',
     icon: Sparkles,
     step: '04',
     isPrimary: true,

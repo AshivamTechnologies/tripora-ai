@@ -156,13 +156,13 @@ export function LiveLuxuryCurator() {
       <div className="max-w-3xl mb-12">
         <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-brand-forest mb-3">
           <Sparkles className="h-3.5 w-3.5 text-brand-gold" />
-          Interactive Experience Generator
+          Bespoke Experience Atelier
         </div>
         <h2 className="text-4xl sm:text-5xl text-brand-ink font-serif tracking-tight">
           Curate by mood, atmosphere, and taste.
         </h2>
         <p className="mt-4 text-base sm:text-lg text-brand-muted leading-relaxed">
-          Select your travel aesthetic below to see how TRIPORA AI automatically arranges matching morning, afternoon, and evening experiences.
+          Select your travel aesthetic below to preview how our private atelier arranges matching morning, afternoon, and evening experiences.
         </p>
 
         {/* Vibe Chips Switcher */}
@@ -235,7 +235,7 @@ export function LiveLuxuryCurator() {
             <div>
               <div className="flex items-center justify-between mb-6 pb-4 border-b border-brand-line">
                 <span className="text-xs font-bold uppercase tracking-widest text-brand-forest">
-                  AI-Curated Day Schedule
+                  Bespoke Day Schedule
                 </span>
                 <span className="text-xs font-semibold text-brand-forest bg-brand-mist px-3 py-1 rounded-full border border-brand-line">
                   Daily Activities: {current.budgetPerDay}

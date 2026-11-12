@@ -13,7 +13,7 @@ export default function NotFound() {
         <p className="mt-6 text-xs font-bold uppercase tracking-[0.25em] text-brand-gold">Expedition Error 404</p>
         <h1 className="mt-2 font-serif text-3xl sm:text-4xl text-brand-ink tracking-tight">This Sanctuary is Uncharted</h1>
         <p className="mt-4 text-sm leading-relaxed text-brand-muted font-light">
-          The coordinates or dossier you requested have wandered beyond our active map. Allow our neural navigator to guide you back to curated ground.
+          The coordinates or dossier you requested have wandered beyond our active map. Allow our private concierge to guide you back to curated ground.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <Link

@@ -8,9 +8,9 @@ import { AuthProvider } from '@/components/auth/auth-provider';
 import { AiAssistantWidget } from '@/components/ai-assistant-widget';
 
 export const metadata: Metadata = {
-  title: 'TRIPORA AI | Explore More. Plan Smarter. Travel Better.',
+  title: 'TRIPORA RESERVE | Curated Sanctuaries & Bespoke Expeditions',
   description:
-    'Plan, organise and manage your trips with TRIPORA AI. Build day-wise itineraries, track budgets and keep every journey in one place.',
+    'Handcrafted itineraries, private aviation, and luxury sanctuaries curated across the globe by TRIPORA RESERVE.',
 };
 
 export default function RootLayout({

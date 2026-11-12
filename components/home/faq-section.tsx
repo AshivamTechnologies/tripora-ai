@@ -4,24 +4,24 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 
 const FAQS = [
   {
-    question: 'Is TRIPORA AI free to use?',
+    question: 'How do I curate and reserve an expedition?',
     answer:
-      'Yes. Creating trips, building day-by-day itineraries, and tracking estimated costs are free. Paid plans are not available yet.',
+      'Explore our curated sanctuaries and aviation routes, use the atelier to customize your daily pacing, and proceed to the checkout terminal to confirm your reservation via direct card, private banking wire (SWIFT), or co-traveler split settlement.',
   },
   {
-    question: 'How do I start a trip?',
+    question: 'How does the 24/7 Concierge Hotline operate?',
     answer:
-      'Use the planner to enter your destination, dates, travellers, travel styles, budget and preferences. Your trip is saved immediately and opens in the itinerary editor.',
+      'Upon reservation confirmation, you receive a direct WhatsApp hotline PIN to our Kyoto and Zurich concierge desks for restaurant bookings, bespoke transfers, and arrival amenities.',
   },
   {
-    question: 'Can I change the plan after it is created?',
+    question: 'Can I split trip expenses with co-travelers?',
     answer:
-      'Yes. Add, edit, reorder or remove activities for any day. Changes are saved as you make them.',
+      'Yes. Our collaborative split engine balances expenses down to the exact minor unit across multiple currencies and automatically dispatches individual settlement links to your co-travelers.',
   },
   {
-    question: 'Are prices and opening hours verified?',
+    question: 'What membership privileges are included in Voyager Club and Private Reserve?',
     answer:
-      'No. Costs and durations you enter are your own estimates. TRIPORA AI does not yet pull live fares, hotel rates or opening hours, so please confirm bookings with the provider.',
+      'Members enjoy priority concierge routing, complimentary Virtuoso hotel upgrades, daily breakfast credits, private aviation charter handoffs, and off-market villa catalog access.',
   },
 ];
 
