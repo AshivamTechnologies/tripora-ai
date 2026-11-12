@@ -377,6 +377,30 @@ class ApiClient {
       ] as any);
     }
 
+    if (endpoint.includes('/collaboration/invite')) {
+      const inviteToken = Date.now().toString(36);
+      return Promise.resolve({
+        success: true,
+        inviteLink: `https://news-main-five.vercel.app/trips/trip-bali-001?invite=${inviteToken}`,
+        emailSent: true,
+        recipient: 'ritik95061@gmail.com',
+        member: {
+          id: `mem-${inviteToken}`,
+          email: 'ritik95061@gmail.com',
+          fullName: 'Ritik Gupta',
+          role: 'EDITOR',
+          joinedAt: new Date().toISOString(),
+        },
+      } as any);
+    }
+
+    if (endpoint.includes('/collaboration')) {
+      return Promise.resolve([
+        { id: 'mem-001', fullName: 'Alex Vance', email: 'traveler@tripora.ai', role: 'OWNER' },
+        { id: 'mem-002', fullName: 'Ritik Gupta', email: 'ritik95061@gmail.com', role: 'EDITOR' },
+      ] as any);
+    }
+
     return Promise.resolve([] as any);
   }
 }
