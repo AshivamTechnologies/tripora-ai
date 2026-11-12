@@ -94,7 +94,7 @@ export function MobileNavBar() {
               {/* Label */}
               <span
                 className={cn(
-                  'text-[10px] tracking-wider uppercase mt-1 transition-colors leading-none',
+                  'text-[8.5px] xs:text-[9.5px] sm:text-[10px] tracking-normal xs:tracking-wider uppercase mt-1 transition-colors leading-none text-center truncate max-w-full',
                   isActive ? 'font-bold text-[#F5D794]' : 'font-medium text-white/60 group-hover:text-white/90'
                 )}
               >

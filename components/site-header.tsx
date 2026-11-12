@@ -202,14 +202,14 @@ export function SiteHeader() {
           </div>
 
           {/* Center: Primary Editorial Navigation Links with Architectural Hairline Separators */}
-          <div className="hidden lg:flex items-center justify-center flex-1 mx-4 xl:mx-8">
+          <div className="hidden lg:flex items-center justify-center flex-1 min-w-0 mx-2 xl:mx-6">
             {/* Left Hairline Divider: Guaranteed Spacing Between Brand (Reserve) & Sanctuaries */}
             <div
-              className="h-4 w-[1.5px] bg-gradient-to-b from-transparent via-[#C5A46A]/70 to-transparent mr-5 xl:mr-7 shrink-0"
+              className="h-4 w-[1.5px] bg-gradient-to-b from-transparent via-[#C5A46A]/70 to-transparent mr-3 xl:mr-5 shrink-0"
               aria-hidden="true"
             />
 
-            <nav className="flex items-center gap-4 xl:gap-7 2xl:gap-8" aria-label="Main Navigation">
+            <nav className="flex items-center gap-2.5 xl:gap-5 2xl:gap-7" aria-label="Main Navigation">
               {PRIMARY_LINKS.map((link) => {
                 const active =
                   pathname === link.href ||
@@ -220,7 +220,7 @@ export function SiteHeader() {
                     href={link.href}
                     aria-current={active ? 'page' : undefined}
                     className={cn(
-                      'whitespace-nowrap text-[11px] xl:text-[12px] font-semibold tracking-[0.14em] xl:tracking-[0.18em] uppercase transition-all duration-200 relative py-1.5',
+                      'whitespace-nowrap text-[10px] xl:text-[11px] 2xl:text-[12px] font-semibold tracking-[0.12em] xl:tracking-[0.16em] uppercase transition-all duration-200 relative py-1.5',
                       active
                         ? 'text-[#F5D794] font-bold after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-4 after:bg-[#F5D794] after:rounded-full'
                         : 'text-white/80 hover:text-white hover:text-[#F5D794]'
@@ -234,20 +234,20 @@ export function SiteHeader() {
 
             {/* Right Hairline Divider: Guaranteed Spacing Between Privileges & Sign In / Actions */}
             <div
-              className="h-4 w-[1.5px] bg-gradient-to-b from-transparent via-[#C5A46A]/70 to-transparent ml-5 xl:ml-7 shrink-0"
+              className="h-4 w-[1.5px] bg-gradient-to-b from-transparent via-[#C5A46A]/70 to-transparent ml-3 xl:ml-5 shrink-0"
               aria-hidden="true"
             />
           </div>
 
           {/* Right Actions: Distinct Action Group */}
-          <div className="flex items-center gap-2 sm:gap-2.5 xl:gap-3 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 xl:gap-2.5 shrink-0">
             {/* Authenticated State */}
             {!loading && user ? (
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 sm:gap-2">
                 <Link
                   href="/trips"
                   className={cn(
-                    'hidden xl:inline-flex whitespace-nowrap text-[11px] font-semibold tracking-[0.14em] uppercase transition-colors px-3 py-1.5 rounded-full border border-white/15 bg-white/5 hover:bg-white/10',
+                    'hidden 2xl:inline-flex whitespace-nowrap text-[10px] xl:text-[11px] font-semibold tracking-[0.12em] uppercase transition-colors px-2.5 py-1.5 rounded-full border border-white/15 bg-white/5 hover:bg-white/10',
                     pathname.startsWith('/trips')
                       ? 'border-[#F5D794]/50 text-[#F5D794] bg-[#C5A46A]/15'
                       : 'text-white/80 hover:text-white'
@@ -261,12 +261,12 @@ export function SiteHeader() {
                   <button
                     type="button"
                     onClick={() => setUserMenuOpen((prev) => !prev)}
-                    className="flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/20 bg-white/10 px-2.5 sm:px-3 py-1.5 text-xs font-semibold text-white transition-all hover:border-[#C5A46A]/60 hover:bg-white/15 shadow-2xs"
+                    className="flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-2 sm:px-2.5 py-1.5 text-xs font-semibold text-white transition-all hover:border-[#C5A46A]/60 hover:bg-white/15 shadow-2xs"
                   >
                     <div className="h-5 w-5 rounded-full bg-[#F5D794] text-brand-ink flex items-center justify-center text-[10px] font-bold">
                       {(user.profile?.fullName || user.email || 'U')[0].toUpperCase()}
                     </div>
-                    <span className="max-w-[70px] sm:max-w-[100px] truncate hidden md:inline text-[11px]">
+                    <span className="max-w-[65px] sm:max-w-[85px] xl:max-w-[105px] truncate hidden md:inline text-[11px]">
                       {user.profile?.fullName || user.email.split('@')[0]}
                     </span>
                     <ChevronDown className="h-3 w-3 text-white/60" />
@@ -340,11 +340,11 @@ export function SiteHeader() {
             {/* Primary Action Button (Gold Luxury Capsule) */}
             <Link
               href="/planner"
-              className="whitespace-nowrap inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-gradient-to-r from-[#F5D794] via-[#edd9a8] to-[#C5A46A] px-3.5 sm:px-4 xl:px-5 py-2 sm:py-2 text-[11px] sm:text-xs font-bold text-brand-ink shadow-md shadow-[#C5A46A]/20 transition-all duration-300 hover:scale-105 hover:shadow-[#C5A46A]/40 shrink-0"
+              className="whitespace-nowrap inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#F5D794] via-[#edd9a8] to-[#C5A46A] px-3 sm:px-3.5 xl:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold text-brand-ink shadow-md shadow-[#C5A46A]/20 transition-all duration-300 hover:scale-105 hover:shadow-[#C5A46A]/40 shrink-0"
             >
-              <Sparkles className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-brand-ink shrink-0 animate-pulse" />
-              <span className="hidden sm:inline">Plan Journey</span>
-              <span className="sm:hidden">Plan</span>
+              <Sparkles className="h-3 w-3 text-brand-ink shrink-0" />
+              <span className="hidden xl:inline">Plan Journey</span>
+              <span className="xl:hidden">Plan</span>
             </Link>
 
             {/* Luxury Editorial Drawer Toggle */}

@@ -111,17 +111,17 @@ export function OverviewTab({
           </p>
         </div>
 
-        {/* AI Neural Latency */}
+        {/* Concierge System Reliability */}
         <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-5 shadow-lg backdrop-blur-sm">
           <div className="flex items-center justify-between text-xs text-white/60">
-            <span className="font-mono uppercase tracking-wider text-[10px]">Gemini 1.5 Pro</span>
+            <span className="font-mono uppercase tracking-wider text-[10px]">Concierge SLA Reliability</span>
             <Sparkles className="h-4 w-4 text-emerald-400" />
           </div>
           <p className="mt-3 font-serif text-2xl sm:text-3xl text-white font-normal">
-            {metrics.neuralMatrixLatencyMs} ms
+            99.9%
           </p>
-          <p className="mt-1 text-[11px] text-white/50">
-            Spatial optimization &bull; 1.0M context
+          <p className="mt-1 text-[11px] text-emerald-400/90 font-medium">
+            Active Global Diplomatic Desks
           </p>
         </div>
       </div>

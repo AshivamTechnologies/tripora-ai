@@ -39,10 +39,10 @@ export function AdminHeader({
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
-              CORE MATRIX ONLINE
+              DISPATCH MATRIX ONLINE
             </span>
             <span className="hidden sm:inline text-white/30">|</span>
-            <span className="hidden sm:inline text-white/70">GEMINI 1.5 PRO &bull; 182ms AVG LATENCY</span>
+            <span className="hidden sm:inline text-white/70">KYOTO &amp; ZURICH DESKS CONNECTED</span>
           </div>
 
           <div className="flex items-center gap-4 text-[10px] uppercase tracking-wider text-white/50">
@@ -101,7 +101,7 @@ export function AdminHeader({
               className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 px-3.5 py-2 text-xs font-medium text-white transition-colors"
             >
               <Terminal className="h-3.5 w-3.5 text-[#F5D794]" />
-              <span>AI Neural Sandbox</span>
+              <span>Concierge Console</span>
             </button>
 
             <button

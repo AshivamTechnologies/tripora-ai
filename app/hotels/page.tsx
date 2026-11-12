@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { Compass, Search, Star, Bookmark, ExternalLink, ShieldCheck, Check, MapPin, Sparkles, Coffee, Waves, Wifi, UtensilsCrossed } from 'lucide-react';
 import { api } from '@/lib/api';
 import { listTrips, TripRecord } from '@/lib/trips';

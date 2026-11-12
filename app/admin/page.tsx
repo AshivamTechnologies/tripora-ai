@@ -330,9 +330,9 @@ export default function LuxuryAdminPortal() {
             },
             {
               id: 'ai-governance',
-              label: 'AI Matrix & Circuits',
+              label: 'Dispatch Protocols',
               icon: Sparkles,
-              badge: 'Gemini 1.5 Pro',
+              badge: 'Active',
               badgeColor: 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30',
             },
             {
