@@ -208,15 +208,15 @@ export function SiteHeader() {
             </Link>
           </div>
 
-          {/* Center: Primary Editorial Navigation Links with Architectural Hairline Separators (Desktop 1280px+) */}
-          <div className="hidden xl:flex items-center gap-2 xl:gap-3 2xl:gap-6 shrink-0 mx-auto">
+          {/* Center: Primary Editorial Navigation Links with Architectural Hairline Separators (Laptops & Desktop 1024px+) */}
+          <div className="hidden lg:flex items-center gap-1.5 lg:gap-2.5 xl:gap-3.5 2xl:gap-6 shrink-0 mx-auto">
             {/* Left Hairline Divider */}
             <div
-              className="h-4 w-[1.5px] bg-gradient-to-b from-transparent via-[#C5A46A]/70 to-transparent mr-2 2xl:mr-4 shrink-0"
+              className="h-4 w-[1.5px] bg-gradient-to-b from-transparent via-[#C5A46A]/70 to-transparent mr-1.5 lg:mr-2 2xl:mr-4 shrink-0"
               aria-hidden="true"
             />
 
-            <nav className="flex items-center gap-2.5 xl:gap-3.5 2xl:gap-6 shrink-0" aria-label="Main Navigation">
+            <nav className="flex items-center gap-1.5 lg:gap-2.5 xl:gap-3.5 2xl:gap-6 shrink-0" aria-label="Main Navigation">
               {PRIMARY_LINKS.map((link) => {
                 const active =
                   pathname === link.href ||
@@ -227,7 +227,7 @@ export function SiteHeader() {
                     href={link.href}
                     aria-current={active ? 'page' : undefined}
                     className={cn(
-                      'whitespace-nowrap text-[10.5px] xl:text-[11px] 2xl:text-[12px] font-semibold tracking-[0.1em] xl:tracking-[0.14em] 2xl:tracking-[0.18em] uppercase transition-all duration-200 relative py-1.5',
+                      'whitespace-nowrap text-[10px] lg:text-[11px] xl:text-[11.5px] 2xl:text-[12px] font-semibold tracking-[0.08em] lg:tracking-[0.12em] xl:tracking-[0.16em] uppercase transition-all duration-200 relative py-1.5',
                       active
                         ? 'text-[#F5D794] font-bold after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-4 after:bg-[#F5D794] after:rounded-full'
                         : 'text-white/80 hover:text-[#F5D794]'
@@ -241,7 +241,7 @@ export function SiteHeader() {
 
             {/* Right Hairline Divider */}
             <div
-              className="h-4 w-[1.5px] bg-gradient-to-b from-transparent via-[#C5A46A]/70 to-transparent ml-2 2xl:mr-4 shrink-0"
+              className="h-4 w-[1.5px] bg-gradient-to-b from-transparent via-[#C5A46A]/70 to-transparent ml-1.5 lg:ml-2 2xl:mr-4 shrink-0"
               aria-hidden="true"
             />
           </div>
@@ -362,6 +362,32 @@ export function SiteHeader() {
               )}
             </button>
           </div>
+        </div>
+
+        {/* 3. Sub-Navigation Ribbon (Down Below Header for Tablets & Medium Screens < 1024px) */}
+        <div className="lg:hidden w-full border-t border-[#C5A46A]/20 bg-[#060B08]/95 backdrop-blur-md px-3 py-2 overflow-x-auto select-none">
+          <nav className="mx-auto flex max-w-[1720px] items-center justify-start sm:justify-center gap-1.5 sm:gap-2.5 px-2 overflow-x-auto scrollbar-none" aria-label="Secondary Mobile Navigation">
+            {PRIMARY_LINKS.map((link) => {
+              const active =
+                pathname === link.href ||
+                (link.href !== '/' && pathname.startsWith(`${link.href}/`));
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  aria-current={active ? 'page' : undefined}
+                  className={cn(
+                    'whitespace-nowrap px-3 py-1 rounded-full text-[10.5px] font-semibold tracking-wider uppercase transition-all duration-200 shrink-0',
+                    active
+                      ? 'bg-[#F5D794]/20 text-[#F5D794] border border-[#C5A46A]/50 font-bold shadow-xs'
+                      : 'text-white/70 hover:text-white hover:bg-white/10'
+                  )}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
+          </nav>
         </div>
 
       </header>
