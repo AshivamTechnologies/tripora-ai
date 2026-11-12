@@ -144,7 +144,7 @@ export function SiteHeader() {
       <header className="sticky top-0 z-50 select-none bg-[#080E0A]/95 backdrop-blur-2xl border-b border-[#C5A46A]/25 shadow-[0_12px_40px_rgba(0,0,0,0.7)] transition-all duration-300">
         {/* 1. Ultra-Refined Announcement & Telemetry Ribbon */}
         <div className="bg-[#050906] text-white py-1.5 px-4 sm:px-6 text-center text-[11px] font-semibold tracking-[0.16em] uppercase border-b border-[#C5A46A]/20">
-          <div className="mx-auto max-w-7xl flex items-center justify-between gap-4">
+          <div className="mx-auto max-w-[1720px] w-full flex items-center justify-between gap-4">
             {/* Live Telemetry Pill */}
             <div className="hidden md:flex items-center gap-2 text-[#F5D794] shrink-0">
               <span className="relative flex h-2 w-2">
@@ -179,7 +179,7 @@ export function SiteHeader() {
         </div>
 
         {/* 2. Haute Horlogerie / Editorial Navigation Bar */}
-        <div className="mx-auto flex h-16 sm:h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto flex h-16 sm:h-18 max-w-[1720px] w-full items-center justify-between px-4 sm:px-6 lg:px-8 xl:px-12 gap-3 xl:gap-6 2xl:gap-8">
           {/* Brand Mark (Obsidian Crest + Serif Logo + Reserve Badge) */}
           <div className="flex items-center shrink-0">
             <Link
@@ -202,14 +202,14 @@ export function SiteHeader() {
           </div>
 
           {/* Center: Primary Editorial Navigation Links with Architectural Hairline Separators (Desktop 1280px+) */}
-          <div className="hidden xl:flex items-center justify-center flex-1 min-w-0 mx-4 2xl:mx-8">
+          <div className="hidden xl:flex items-center gap-2 xl:gap-3 2xl:gap-6 shrink-0 mx-auto">
             {/* Left Hairline Divider */}
             <div
-              className="h-4 w-[1.5px] bg-gradient-to-b from-transparent via-[#C5A46A]/70 to-transparent mr-4 2xl:mr-6 shrink-0"
+              className="h-4 w-[1.5px] bg-gradient-to-b from-transparent via-[#C5A46A]/70 to-transparent mr-2 2xl:mr-4 shrink-0"
               aria-hidden="true"
             />
 
-            <nav className="flex items-center gap-4 2xl:gap-7 shrink-0" aria-label="Main Navigation">
+            <nav className="flex items-center gap-2.5 xl:gap-3.5 2xl:gap-6 shrink-0" aria-label="Main Navigation">
               {PRIMARY_LINKS.map((link) => {
                 const active =
                   pathname === link.href ||
@@ -220,7 +220,7 @@ export function SiteHeader() {
                     href={link.href}
                     aria-current={active ? 'page' : undefined}
                     className={cn(
-                      'whitespace-nowrap text-[11px] 2xl:text-[12px] font-semibold tracking-[0.14em] 2xl:tracking-[0.18em] uppercase transition-all duration-200 relative py-1.5',
+                      'whitespace-nowrap text-[10.5px] xl:text-[11px] 2xl:text-[12px] font-semibold tracking-[0.1em] xl:tracking-[0.14em] 2xl:tracking-[0.18em] uppercase transition-all duration-200 relative py-1.5',
                       active
                         ? 'text-[#F5D794] font-bold after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:h-0.5 after:w-4 after:bg-[#F5D794] after:rounded-full'
                         : 'text-white/80 hover:text-[#F5D794]'
@@ -234,13 +234,13 @@ export function SiteHeader() {
 
             {/* Right Hairline Divider */}
             <div
-              className="h-4 w-[1.5px] bg-gradient-to-b from-transparent via-[#C5A46A]/70 to-transparent ml-4 2xl:mr-6 shrink-0"
+              className="h-4 w-[1.5px] bg-gradient-to-b from-transparent via-[#C5A46A]/70 to-transparent ml-2 2xl:mr-4 shrink-0"
               aria-hidden="true"
             />
           </div>
 
           {/* Right Actions: Distinct Action Group */}
-          <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2 xl:gap-2.5 shrink-0">
             {/* Authenticated State */}
             {!loading && user ? (
               <div className="flex items-center gap-2">
@@ -254,7 +254,7 @@ export function SiteHeader() {
                     <div className="h-5 w-5 rounded-full bg-[#F5D794] text-brand-ink flex items-center justify-center text-[10px] font-bold">
                       {(user.profile?.fullName || user.email || 'U')[0].toUpperCase()}
                     </div>
-                    <span className="max-w-[65px] sm:max-w-[85px] xl:max-w-[105px] truncate hidden md:inline text-[11px]">
+                    <span className="max-w-[65px] sm:max-w-[80px] xl:max-w-[90px] 2xl:max-w-[120px] truncate hidden md:inline text-[11px]">
                       {user.profile?.fullName || user.email.split('@')[0]}
                     </span>
                     <ChevronDown className="h-3 w-3 text-white/60" />
@@ -328,18 +328,18 @@ export function SiteHeader() {
             {/* Primary Action Button (Gold Luxury Capsule) */}
             <Link
               href="/planner"
-              className="whitespace-nowrap inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#F5D794] via-[#edd9a8] to-[#C5A46A] px-3 sm:px-3.5 xl:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold text-brand-ink shadow-md shadow-[#C5A46A]/20 transition-all duration-300 hover:scale-105 hover:shadow-[#C5A46A]/40 shrink-0"
+              className="whitespace-nowrap inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-[#F5D794] via-[#edd9a8] to-[#C5A46A] px-2.5 sm:px-3.5 2xl:px-4 py-1.5 sm:py-2 text-[11px] sm:text-xs font-bold text-brand-ink shadow-md shadow-[#C5A46A]/20 transition-all duration-300 hover:scale-105 hover:shadow-[#C5A46A]/40 shrink-0"
             >
               <Sparkles className="h-3 w-3 text-brand-ink shrink-0" />
-              <span className="hidden xl:inline">Plan Journey</span>
-              <span className="xl:hidden">Plan</span>
+              <span className="hidden 2xl:inline">Plan Journey</span>
+              <span className="2xl:hidden">Plan</span>
             </Link>
 
             {/* Luxury Editorial Drawer Toggle */}
             <button
               type="button"
               onClick={() => setDrawerOpen((prev) => !prev)}
-              className="flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/20 bg-white/10 px-3 sm:px-3.5 py-1.5 sm:py-2 text-xs font-semibold uppercase tracking-wider text-white transition-all hover:bg-white/20 hover:border-[#C5A46A]/40 shrink-0"
+              className="flex items-center gap-1.5 sm:gap-2 rounded-full border border-white/20 bg-white/10 px-2.5 sm:px-3 py-1.5 sm:py-2 text-xs font-semibold uppercase tracking-wider text-white transition-all hover:bg-white/20 hover:border-[#C5A46A]/40 shrink-0"
               aria-label={drawerOpen ? 'Close Menu' : 'Open Editorial Directory'}
             >
               <span className="text-[11px] font-bold tracking-[0.16em] text-white">
